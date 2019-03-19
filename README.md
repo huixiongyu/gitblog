@@ -1,6 +1,31 @@
 # gitblog
 Github like blog, hexo theme from https://github.com/sabrinaluo
 
+## 数据库字段
+* User
+    * username 用户名
+    * email 邮箱
+    * _password 加密处理的用户密码
+    * usertype 用户类型，Number，０是博主，１是游客（默认），２预留
+    * banned 禁止登录，默认是false
+    * date 注册时间
+* UserInfo
+    * gavatar 头像
+    * location 定位信息：省和市
+* Post
+    * title  文章标题
+    * content 正文
+    * date 发布时间
+    * categories    分类
+    * Tags  标签
+    * star 喜欢的数量
+    * coment 评论列表
+
+
+## API设计
+
+
+
 
 
 
