@@ -1,14 +1,17 @@
 <template>
   <div id="app">
-   <router-view></router-view>
+    <blog-header></blog-header>
+   <!-- <router-view></router-view> -->
   </div>
 </template>
 
 <script>
 // import login from './views/Login'
 // import reset from './views/Reset'
+import BlogHeader from './components/BlogHeader'
 export default {
-  // components: {
-  // }
+  components: {
+    BlogHeader
+  }
 }
 </script>

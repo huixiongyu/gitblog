@@ -88,7 +88,9 @@ export default {
     font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol;
     word-wrap:break-word;
 }
-
+.login-button{
+    width: 274px;
+}
 
 .footer{
     width: 308px;

@@ -23,7 +23,9 @@ Github like blog, hexo theme from https://github.com/sabrinaluo
 
 
 ## API设计
-
+* User
+  * POST ""
+  * POST ""
 
 
 
