@@ -14,11 +14,11 @@
 
             <div class="form-table">
                 <Card style="width:308px;height:246px">
-                    <Form  :model="formTop" label-position="top">
-                        <FormItem label="Username or email address" class="form-word">
+                    <Form  :model="loginInfo" label-position="top" ref="formValidate" :rules="ruleValidate">
+                        <FormItem label="Username or email address" class="form-word" ｐrop="username">
                             <Input  v-model="loginInfo.username" />
                         </FormItem>
-                        <FormItem label="Password" class="form-word">
+                        <FormItem label="Password" class="form-word" prop="password">
                             <div slot="label" class="login-slot">
                                 <span>Password</span>
                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -31,7 +31,10 @@
                             <Input type="password"  v-model="loginInfo.password" />
                         </FormItem>
                         <FormItem>
-                            <Button class="login-button" type="success">Sign in</Button>
+                            <Button class="login-button" 
+                                    type="success" 
+                                    style="fontSize:14px;fontWeight:600"
+                                    @click="handleReset('formValidate')">Sign in</Button>
                         </FormItem>
                     </Form>
                 </Card>    
@@ -59,15 +62,38 @@
 
 <script>
 export default {
+    name: "login",
     data() {
         return {
             loginInfo: {
                 username: '',
                 password: ''
+            },
+            ruleValidate: {
+                username: [
+                        { required: true, message: 'The username or email address cannot be empty', trigger: 'blur' }
+                    ],
+                password: [
+                    { required: true, message: 'Password cannot be empty', trigger: 'blur' },
+                    { type: 'string', min: 6, message: 'Password no less than 6 words', trigger: 'blur' }
+                ]
             }
+
         }
+    },
+    methods: {
+        handleSubmit (name) {
+            this.$refs[name].validate((valid) => {
+                if (valid) {
+                    this.$Message.success('Success!');
+                } else {
+                    this.$Message.error('Fail!');
+                }
+        })
     }
 }
+}
+
 </script>
 
 <style lang="less">

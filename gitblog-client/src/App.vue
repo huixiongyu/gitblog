@@ -1,14 +1,14 @@
 <template>
   <div id="app">
-    <login></login>
+   <router-view></router-view>
   </div>
 </template>
 
 <script>
-import login from './views/Login'
+// import login from './views/Login'
+// import reset from './views/Reset'
 export default {
-  components: {
-    login
-  }
+  // components: {
+  // }
 }
 </script>
