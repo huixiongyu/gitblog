@@ -55,6 +55,8 @@ export default {
     height: 50px;
     padding-top: 13px;
     margin-left: 20px;
+    position: inherit;
+    z-index: 100px;
 }
 .header-input{
     float: left;

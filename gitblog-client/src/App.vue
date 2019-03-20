@@ -2,11 +2,7 @@
   <div id="app">
     <blog-header></blog-header>
     <Row class="mainpage">
-        <Col span="6" offset="4" class="left-side">
-          <left-side></left-side>
-        </Col>
-        <Col span="10">col-12</Col>
-        <Col span="4"></Col>
+        <left-side></left-side>
     </Row>
    <!-- <router-view></router-view> -->
   </div>
@@ -26,8 +22,4 @@ export default {
 </script>
 
 <style lang="less">
-.left-side{
-  width: 100%;
-  background-color: greean;
-}
 </style>
