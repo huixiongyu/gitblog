@@ -7,9 +7,7 @@
         <div class="search-container">
             <input type="text" 
                     class="header-input" 
-                    placeholder="Search or jump to ..."
-                    @focus="handlefocus()"
-                    @blur="handleblur()" >   
+                    placeholder="Search or jump to ..." >   
         </div>
         
         <div class="nav-link">
@@ -19,6 +17,18 @@
             <router-link to="/" tag="div" class="header-link">Issues</router-link>
         </div>
 
+        <div class="avatar">
+                <Badge  dot type="primary" :offset="[5,5]">
+                    <Icon type="ios-notifications" size="24" />
+                </Badge>
+                <Icon type="md-add" class="add-icon" size="20" />
+                <Icon type="md-arrow-dropdown" size="20" />
+                <div class="portriat">
+                    
+                </div>            
+            
+        </div>
+
 
     </nav>
 </template>
@@ -26,21 +36,16 @@
 export default {
     data(){
         return {
-            flag: true
+            
         }
     },
     methods: {
-        handlefocus(){
-            flag = false;
-        },
-        handleblur(){
-            flag = true;
-        }
     }
 }
 </script>
 <style lang="less">
 .header{
+    position: relative;
     width: 100%;
     height: 60px;
     background-color: #24292E;
@@ -83,6 +88,22 @@ export default {
 }
 .header-link{
     cursor: pointer;
+}
+
+.avatar{
+    float:right;
+    margin-top: 15px;
+}
+.add-icon{
+    margin-left: 15px;
+}
+.portriat{
+    float:right;
+    margin-right: 20px;
+    width: 26px;
+    height: 26px;
+    border-radius: 5px;
+    background-color: yellow;
 }
 
 </style>
