@@ -37,6 +37,7 @@ Github like blog, hexo theme from https://github.com/sabrinaluo
     * weibo  微博
 * Post
     * title  文章标题
+    * path 文章地址
     * content 正文
     * date 发布时间
     * categories    分类
@@ -49,6 +50,17 @@ Github like blog, hexo theme from https://github.com/sabrinaluo
 * User
   * POST ""
   * POST ""
+
+
+
+## 功能特性
+
+* 自定义指令v-rainbow，添加彩色标题
+* 自定义过滤器snipate，博客列表展示额定词数裁剪
+* 自定义博客地址，或者让它自己生产
+* 博客分类可以通过判断该分类是否有子类输出次级标题，v-for遍历li出圆点，子类修改li的属性出空心点
+
+
 
 
 
@@ -67,7 +79,7 @@ Github like blog, hexo theme from https://github.com/sabrinaluo
 * 支持留言微信通知
 * 支持音乐播放（云解析）
 * 关于我
-* 支持打赏
+* 支持打赏（微信和支付宝）
 * 支持博客挂件
 
 
