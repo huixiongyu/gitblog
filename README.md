@@ -59,6 +59,7 @@ Github like blog, hexo theme from https://github.com/sabrinaluo
 * 自定义过滤器snipate，博客列表展示额定词数裁剪
 * 自定义博客地址，或者让它自己生产
 * 博客分类可以通过判断该分类是否有子类输出次级标题，v-for遍历li出圆点，子类修改li的属性出空心点
+* redis存储session字段
 
 
 
@@ -69,13 +70,14 @@ Github like blog, hexo theme from https://github.com/sabrinaluo
 
 ## 功能畅想(都是等待实现的功能)
 
+* 鼠标滚动到一定位置，Menu吸附到顶端，左侧会自动补充头像形成完整的导航栏
 * 支持响应式布局，在手机端有比较好的浏览体验
 * 时间轴
 * 分类支持二级，点进分类可以进入该类别发布的时间轴
 * 支持Github授权登录
 * 支持文章目录
 * 支持友链
-* 支持发说说（发图片＋文字）
+* 支持发说说（发图片＋文字），在首页导航栏
 * 支持留言微信通知
 * 支持音乐播放（云解析）
 * 关于我

@@ -30,31 +30,6 @@
                 <a class="email-link word-span" href="http://www.hackslog.com">http://www.hackslog.com</a>
             </p>
          </div>
-
-        <!-- <Form ref="formInline" :model="userInfo" :label-position="left" >
-            <FormItem prop="proShow">
-                <Radio v-model="userInfo.proShow">Radio</Radio>
-            </FormItem>
-            <FormItem prop="motto">
-                <Input v-model="userInfo.motto" type="textarea" :autosize="{minRows: 2,maxRows: 5}" />
-            </FormItem>
-            <FormItem prop="company">
-                <Icon type="ios-people" slot="label" />
-                <Input style="width:216px;" v-model="userInfo.company" />
-            </FormItem>
-            <FormItem prop="location">
-                <i class="iconfont location" slot="label">&#xe630;</i>
-                <Input style="width:216px;float:left;" v-model="userInfo.location" />
-            </FormItem>
-            <FormItem prop="email">
-                 <Icon type="ios-mail-outline" slot="label" size="20" />
-                <Input style="width:216px;" v-model="userInfo.email" />
-            </FormItem>         
-            <FormItem prop="website">
-                <Icon type="ios-link" slot="label" size="20" />
-                <Input style="width:216px;" v-model="userInfo.website" />
-            </FormItem>                            
-        </Form> -->
     </div>
 </template>
 
@@ -62,14 +37,7 @@
 export default {
     data(){
         return {
-            // userInfo: {
-            //     proShow: true,
-            //     motto: 'Keep calm and do epic shit!',
-            //     company: '',
-            //     location: "China,Guangdong",
-            //     email: "huixiongyu@gmail.com",
-            //     website: "http://www.hackslog.com"
-            // }
+
         }
     }
 }
@@ -79,10 +47,9 @@ export default {
 <style lang="less">
 .left-container{
     width: 240px;
-    height: 800px;
 }
 .cover{
-    margin-top: 20px;
+    margin-top: 10px;
     width: 240px;
     height: 240px;
     border-radius: 5px;
