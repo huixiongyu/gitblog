@@ -2,10 +2,10 @@
   <div id="app">
     <blog-header></blog-header>
     <Row class="mainpage">
-       <i-col span="3" offset="4">
+       <i-col span="3" offset="3">
          <left-side></left-side>
        </i-col>
-       <i-col span="15" offset="2">   
+       <i-col span="16" offset="2">   
            <main-page></main-page>     
       </i-col> 
     </Row>
