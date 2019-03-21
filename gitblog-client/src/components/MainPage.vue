@@ -20,7 +20,6 @@ export default {
 <style lang="less">
 .main-content{
     width: 852px;
-    height: 1000px;
     margin-left: -35px;
 }
 
