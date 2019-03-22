@@ -1,7 +1,7 @@
 # gitblog
 Github like blog, hexo theme from https://github.com/sabrinaluo
 
-本项目从2018年3月18日开始写
+本项目从2019年3月18日开始写
 
 ## 实现过程
 
