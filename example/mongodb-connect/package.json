@@ -1,0 +1,16 @@
+{
+  "name": "mongodb-connect",
+  "version": "1.0.0",
+  "description": "use mongodb",
+  "main": "index.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "author": "huixiong",
+  "license": "ISC",
+  "dependencies": {
+    "koa": "^2.7.0",
+    "koa-router": "^7.4.0",
+    "mongoose": "^5.4.19"
+  }
+}
