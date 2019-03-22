@@ -1,6 +1,8 @@
 # gitblog
 Github like blog, hexo theme from https://github.com/sabrinaluo
 
+本项目从2018年3月18日开始写
+
 ## 实现过程
 
 * Header
@@ -57,7 +59,7 @@ Github like blog, hexo theme from https://github.com/sabrinaluo
 
 * 自定义指令v-rainbow，添加彩色标题
 * 自定义过滤器snipate，博客列表展示额定词数裁剪
-* 自定义博客地址，或者让它自己生产
+* 自定义博客地址，或者让它自己生成
 * 博客分类可以通过判断该分类是否有子类输出次级标题，v-for遍历li出圆点，子类修改li的属性出空心点
 * redis存储session字段
 
@@ -72,12 +74,14 @@ Github like blog, hexo theme from https://github.com/sabrinaluo
 
 * 鼠标滚动到一定位置，Menu吸附到顶端，左侧会自动补充头像形成完整的导航栏
 * 支持响应式布局，在手机端有比较好的浏览体验
-* 时间轴
+* 时间轴（打卡时间轴）
 * 分类支持二级，点进分类可以进入该类别发布的时间轴
 * 支持Github授权登录
 * 支持文章目录
 * 支持友链
 * 支持发说说（发图片＋文字），在首页导航栏
+* 图片的弹出层
+* 相册功能（maybe）
 * 支持留言微信通知
 * 支持音乐播放（云解析）
 * 关于我
