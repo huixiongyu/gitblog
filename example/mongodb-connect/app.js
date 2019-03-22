@@ -18,8 +18,8 @@ mongoose.connect(dbURI,  { useNewUrlParser: true })
         });
 
 const admin = new User({
-    name: 'huixiong',
-    email: 'huixiongyu@gmail.com',
+    name: 'huixiongss',
+    email: 'huixiong@gmail.com',
     password: '1234567'
 });
 

@@ -19,12 +19,18 @@ server是使用koa-generator生成的
 ## 开发说明
 * koa-bodyparser对于POST请求，它可以把koa上下文中的表单数据解析到ctx.request.body中,变成json数据.可以到example中体验   
 * koa-json 用来美化json格式, 键值对会变成双引号的键值对
+* bcryptjs.hashSync  用户密码不应该直接存储到数据库的，因为数据库脱裤之后别人拿到密码会撞库用户的密码，bcryptjs通过算法生成复杂的密码串
+* bcryptjs.compareSync   加密了还需要解密，才能确认登录的用户是数据库存储的那个
+* gravatar 生产用户登录的头像，比如Github新注册用户没有头像的时候用的是gravatar
+* jsonwebtoken 简写叫jwt,用来生成用户登录的token，需要用户的信息、加密字符串和过期时间作为参数
+* koa-passport 锁和钥匙是一对的，既然生成了Token（锁），那么需要一个工具解开这个token，那就是passport（钥匙）
+* passport-jwt 验证Token
 
 ## 参考链接
 * [用Koa2搭建服务器](https://mobilesite.github.io/2017/04/29/develop-backend-service-with-koa2/) 
 
-## 实现过程
-* mock.js和跨域
+## 正在开发的功能
+* 前后端联调，配置跨域
 * 后台管理Profile Setting，包括地理定位
 * 上传图片
 * 后台：管理分类
@@ -32,6 +38,8 @@ server是使用koa-generator生成的
 * 主页： Followers
 * 主页：标签
 * 主页：分类 
+* 分情况获取全球公认头像(gravatar)地址和自己的头像图片
+* 
 
 ## 数据库字段
 * User
@@ -95,7 +103,8 @@ server是使用koa-generator生成的
 * 支持打赏（微信和支付宝）
 * 支持博客挂件
 
-
+## 收货
+* 一个神奇的bug!在postman一直测试提交数据，数据库就是没接收到，后来含泪发现请求地址忘记了api前缀！！！
 
 
 
