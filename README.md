@@ -2,15 +2,29 @@
 Github like blog, hexo theme from https://github.com/sabrinaluo
 
 本项目从2019年3月18日开始写
+## 文件和使用
+* bin server根目录，www.js是入口文件
+* example  用来测试各种功能的，比如koa-bodyparser的用法、mongodb连接
+* gitblog-client  前端页面
+* models  数据库字段
+* node_modules/  库
+* public 静态文件
+* routes 路由
+* views 页面，没有用的
+* app.js 程序主要逻辑在这里，路由交给routes,校验会交给validator, 数据库插入交给models
+* key.js 配置开发环境和生产环境的字段，如数据库地址、端口、加密字符串
+* package.json  npm依赖文件
+server是使用koa-generator生成的
+
+## 开发说明
+* koa-bodyparser对于POST请求，它可以把koa上下文中的表单数据解析到ctx.request.body中,变成json数据.可以到example中体验   
+* koa-json 用来美化json格式, 键值对会变成双引号的键值对
+
+## 参考链接
+* [用Koa2搭建服务器](https://mobilesite.github.io/2017/04/29/develop-backend-service-with-koa2/) 
 
 ## 实现过程
-
-* Header
 * mock.js和跨域
-* Footer
-* 侧边栏、信息栏
-* 正文字段：Overview、Post、Categories、Tags、Followers
-* Github项目、
 * 后台管理Profile Setting，包括地理定位
 * 上传图片
 * 后台：管理分类
@@ -49,9 +63,7 @@ Github like blog, hexo theme from https://github.com/sabrinaluo
 
 
 ## API设计
-* User
-  * POST ""
-  * POST ""
+
 
 
 
@@ -62,11 +74,6 @@ Github like blog, hexo theme from https://github.com/sabrinaluo
 * 自定义博客地址，或者让它自己生成
 * 博客分类可以通过判断该分类是否有子类输出次级标题，v-for遍历li出圆点，子类修改li的属性出空心点
 * redis存储session字段
-
-
-
-
-
 
 
 
