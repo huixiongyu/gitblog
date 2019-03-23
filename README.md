@@ -25,6 +25,8 @@ server是使用koa-generator生成的
 * jsonwebtoken 简写叫jwt,用来生成用户登录的token，需要用户的信息、加密字符串和过期时间作为参数
 * koa-passport 锁和钥匙是一对的，既然生成了Token（锁），那么需要一个工具解开这个token，那就是passport（钥匙）
 * passport-jwt 验证Token
+* validator 表单字段验证前端需要，后端更加需要！
+  * koa-session																																																																													
 
 ## 参考链接
 * [用Koa2搭建服务器](https://mobilesite.github.io/2017/04/29/develop-backend-service-with-koa2/) 
@@ -105,6 +107,8 @@ server是使用koa-generator生成的
 
 ## 收货
 * 一个神奇的bug!在postman一直测试提交数据，数据库就是没接收到，后来含泪发现请求地址忘记了api前缀！！！
+* 多页路由，刚开始把主页写在app.js上面了，等我想登录和注册页面独立显示的时候一时不知道如何显示。后来醒悟到：app.js是入口文件啊，所有要显示的页面都要挂载到那个文件下，所以修改后app.js只剩下\<view-router></view-router>
+* 默认子路由，可以在父路由中添加redirect子路由路径
 
 
 

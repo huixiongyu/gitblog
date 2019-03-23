@@ -2,7 +2,7 @@
     <div class="follower-page">
         <div class="follower-item">
             <div class="follower-cover">
-                <img src="../assets/221.jpg" alt="cover">
+                <img src="../../assets/221.jpg" alt="cover">
             </div>
             <div class="follower-name right-offset">
                 <span class="github-nickname">Yige</span>	

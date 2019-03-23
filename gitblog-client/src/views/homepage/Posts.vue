@@ -38,7 +38,7 @@
                     <span>3</span>
                 </div>
                  <div class="post-mark">
-                     <Icon type="md-calendar"　size="20" />
+                     <Icon type="md-calendar" size="20" />
                     <span>Publised at </span>
                 </div>   
                 <div class="post-mark">

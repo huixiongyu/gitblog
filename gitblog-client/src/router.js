@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Overview from './views/Overview.vue'
+import Home from './views/Home'
 Vue.use(Router)
 
 export default new Router({
@@ -9,8 +9,41 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'overview',
-      component: Overview
+      name: 'home',
+      component: Home,
+      redirect: '/home/overview',
+      children: [
+        {
+          path: '/overview',
+          name: 'overview',
+          component: () => import('./views/homepage/Overview.vue')
+        },
+        {
+          path: '/posts',
+          name: 'posts',
+          component: () => import('./views/homepage/Posts.vue')
+        },
+        {
+          path: '/categories',
+          name: 'categories',
+          component: () => import('./views/homepage/Categories.vue')
+        },
+        {
+          path: '/tags',
+          name: 'tags',
+          component: () => import('./views/homepage/Tags.vue')
+        },
+        {
+          path: '/followers',
+          name: 'followers',
+          component: () => import('./views/homepage/Followers.vue')
+        },
+        {
+          path: '/aboutme',
+          name: 'aboutme',
+          component: () => import('./views/homepage/AboutMe.vue')
+        }
+      ]
     },
     {
       path: '/login',
@@ -20,7 +53,7 @@ export default new Router({
     {
       path: '/reset',
       name: 'reset',
-      component: () => import('./views/Reset.vue')
+      component: () => import('./views/ForgetPassword.vue')
     },
     {
       path: '/register',
@@ -28,29 +61,7 @@ export default new Router({
       component: () => import('./views/Register.vue')
     },
     {
-      path: '/posts',
-      name: 'posts',
-      component: () => import('./views/Posts.vue')      
-    },
-    {
-      path: '/categories',
-      name: 'categories',
-      component: () => import('./views/Categories.vue')      
-    },    
-    {
-      path: '/tags',
-      name: 'tags',
-      component: () => import('./views/Tags.vue')      
-    },
-    {
-      path: '/followers',
-      name: 'followers',
-      component: () => import('./views/Followers.vue')      
-    },
-    {
-      path: '/aboutme',
-      name: 'aboutme',
-      component: () => import('./views/AboutMe.vue')      
-    }           
+      path:'*',redirect:'/overview'
+    }
   ]
 })
