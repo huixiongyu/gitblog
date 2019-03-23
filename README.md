@@ -109,6 +109,20 @@ server是使用koa-generator生成的
 * 一个神奇的bug!在postman一直测试提交数据，数据库就是没接收到，后来含泪发现请求地址忘记了api前缀！！！
 * 多页路由，刚开始把主页写在app.js上面了，等我想登录和注册页面独立显示的时候一时不知道如何显示。后来醒悟到：app.js是入口文件啊，所有要显示的页面都要挂载到那个文件下，所以修改后app.js只剩下\<view-router></view-router>
 * 默认子路由，可以在父路由中添加redirect子路由路径
+* 背景平铺全屏(自适应)
+```
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    margin: 0;
+    background-image: url("../assets/images/register-bg4.jpeg");
+    background-size: 100%;
+    background-repeat:no-repeat;
+    z-index: 0;
+    overflow: hidden;
+```
 
 
 
