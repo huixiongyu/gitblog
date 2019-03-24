@@ -21,17 +21,35 @@ server是使用koa-generator生成的
 * koa-json 用来美化json格式, 键值对会变成双引号的键值对
 * bcryptjs.hashSync  用户密码不应该直接存储到数据库的，因为数据库脱裤之后别人拿到密码会撞库用户的密码，bcryptjs通过算法生成复杂的密码串
 * bcryptjs.compareSync   加密了还需要解密，才能确认登录的用户是数据库存储的那个
-* gravatar 生产用户登录的头像，比如Github新注册用户没有头像的时候用的是gravatar
-* jsonwebtoken 简写叫jwt,用来生成用户登录的token，需要用户的信息、加密字符串和过期时间作为参数
+* [gravatar](https://www.npmjs.com/package/gravatar) 生产用户登录的头像，比如Github新注册用户没有头像的时候用的是gravatar
+* [jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken) 简写叫jwt,用来生成用户登录的token，需要用户的信息（headers，不是秘密信息）、加密字符串和过期时间作为参数.客户端会使用sessionStorage或者localStorage存储
 * koa-passport 锁和钥匙是一对的，既然生成了Token（锁），那么需要一个工具解开这个token，那就是passport（钥匙）
 * passport-jwt 验证Token
-* validator 表单字段验证前端需要，后端更加需要！
-* koa-session																																																																													
+* [mongoose](https://www.npmjs.com/package/mongoose)  连接mongoose，创建数据库，查询等。
+   * [Quries](https://mongoosejs.com/docs/queries.html)  数据查询
+   * [Mongoose之Population使用（数据表的关联）](https://segmentfault.com/a/1190000002727265#articleHeader3)  跨表查询的时候对某个模型的字段查找
+   * [findOneAndUpdate doesn't return updated document](https://stackoverflow.com/questions/32811510/mongoose-findoneandupdate-doesnt-return-updated-document)
+* [validator](https://www.npmjs.com/package/validator) 表单字段验证前端需要，后端更加需要！
+* koa-session								
+* [cross-env](https://www.npmjs.com/package/cross-env)   package.json运行不同的配置项NODE_ENV
+* [concurrently](https://www.npmjs.com/package/concurrently)  开发的时候用来前后端连载，注意写上客户端的--prefix																																																																		
 
 ## 参考链接
 * [用Koa2搭建服务器](https://mobilesite.github.io/2017/04/29/develop-backend-service-with-koa2/) 
 * [如何设计邮箱重设密码功能](https://segmentfault.com/q/1010000000705053/a-1020000000705125) 
 * [使用nodejs发送电子邮件](https://juejin.im/entry/5968d5376fb9a06bc06a6f65) 
+* [HTTP常用状态码](https://xdwangiflytek.iteye.com/blog/1343395) 
+  * 200-服务器成功返回网页	
+  * 201-已创建
+  * 202-已接受，但未处理
+  * 301-永久移动
+  * 302-临时移动
+  * 400-错误请求
+  * 401-未授权
+  * 403-禁止
+  * 404-请求的网页不存在
+  * 500-服务器内部错误
+  * 503-服务不可用
 
 ## 正在开发的功能
 * 前后端联调，配置跨域
@@ -100,6 +118,7 @@ server是使用koa-generator生成的
     * 找回密码时向缓存中写入一个随机的字符串作为 Token, 有效期为一天，向用户的邮箱发送包含 Token 的链接
     * 用户从链接点回来先验证 Token 的有效性，然后提示填写新密码，然后将新密码和 Token 一起提交给后端完成修改密码的操作
     * 删除掉 Token 的缓存
+* Token过期之后的refresh
 * 鼠标滚动到一定位置，Menu吸附到顶端，左侧会自动补充头像形成完整的导航栏
 * 支持响应式布局，在手机端有比较好的浏览体验
 * 时间轴（打卡时间轴）
@@ -135,5 +154,6 @@ server是使用koa-generator生成的
     overflow: hidden;
 ```
 
-
-
+* 防止xss攻击，服务端传回Token的时候在首部字段中添加http-Only
+* 前端表单提交后，后端接收到的数组其实是字符串，比如“html, css, js, vue”这样，后端需要用split拆成数组
+* 后端设计API的时候，对于私密接口（需要验证的），因为验证已代表用户存在，对跨表（关联表）的数据可以先检查能否找到该表，存在则更新，不存在则创建。也就是说更新和创建共用一个post的API
