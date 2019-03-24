@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="my-container">
         <div class="panel">
             <div class="logo">
                 <svg height="48" class="octicon octicon-mark-github" viewBox="0 0 16 16" version="1.1" width="48" aria-hidden="true">
@@ -14,30 +14,28 @@
 
             <div class="form-table">
                 <Card style="width:308px;height:246px">
-                    <Form  :model="loginInfo" label-position="top" ref="formValidate" :rules="ruleValidate">
-                        <FormItem label="Username or email address" class="form-word" ｐrop="username">
-                            <Input  v-model="loginInfo.username" />
+                    <Form :model="loginInfo" label-position="top" ref="formValidate" :rules="ruleValidate">
+                        <FormItem class="form-word" label="Username or email address">
+                            <Input v-model="loginInfo.username"  />
                         </FormItem>
-                        <FormItem label="Password" class="form-word" prop="password">
-                            <div slot="label" class="login-slot">
+                        <FormItem  class="form-word">
+                            <div class="login-slot" slot="label">
                                 <span>Password</span>
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                &nbsp;&nbsp;&nbsp;
-                                <router-link to="/reset" class="reset-word">Forgot password?</router-link>
+                                <router-link slot="label" to="/reset" class="reset-word">Forgot password?</router-link>
                             </div>
-                            <Input type="password"  v-model="loginInfo.password" />
+                            <Input type="password" v-model="loginInfo.password" />
                         </FormItem>
                         <FormItem>
                             <Button class="login-button"
                                     type="success"
                                     style="fontSize:14px;fontWeight:600"
-                                    @click="handleReset('formValidate')">Sign in</Button>
+                                    >
+                                Sign in
+                            </Button>
                         </FormItem>
                     </Form>
                 </Card>
+
             </div>
 
             <div class="new-account">
@@ -56,7 +54,6 @@
                 <span class="inline-flex">Contact GitBlog</span>
             </div>
         </div>
-
     </div>
 </template>
 
@@ -80,24 +77,12 @@
                 }
 
             }
-        },
-        methods: {
-            handleSubmit (name) {
-                this.$refs[name].validate((valid) => {
-                    if (valid) {
-                        this.$Message.success('Success!');
-                    } else {
-                        this.$Message.error('Fail!');
-                    }
-                })
-            }
         }
     }
-
 </script>
 
 <style lang="less" scoped>
-    .container{
+    .my-container{
         width: 100%;
         height: 100%;
 
@@ -128,16 +113,6 @@
     .form-table{
         margin-top: 20px;
     }
-    .form-word{
-        position: relative;
-        color:#000;
-        font-family: Helvetica,Arial,sans-serif;
-        font-size:16px;
-        font-weight:600;
-    }
-    .login-button{
-        width: 274px;
-    }
     .new-account{
         margin-top: 20px;
         font-weight: 600;
@@ -148,6 +123,21 @@
         margin-top: 90px;
         display: inline-flex;
         justify-content: space-evenly;
+    }
+    .login-button{
+        width: 274px;
+    }
+    .login-slot{
+        width: 275px;
+        display: inline-flex;
+        justify-content: space-between;
+    }
+    .form-word{
+        position: relative;
+        color:#000;
+        font-family: Helvetica,Arial,sans-serif;
+        font-size:16px;
+        font-weight:600;
     }
 </style>
 

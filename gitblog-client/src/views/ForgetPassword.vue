@@ -14,7 +14,7 @@
 
             <div class="form-table">
                 <Card style="width:308px;height:178px">
-                    <Form  :model="formTop" label-position="top">
+                    <Form  label-position="top">
                         <FormItem class="reset-info" label="Enter your email address to get reset link">
                             <Input v-model="resetEmail" />
                         </FormItem>

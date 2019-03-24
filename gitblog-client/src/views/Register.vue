@@ -15,7 +15,7 @@
                 </i-col>
                 <i-col class="register-search" span="8" offset="1">
                     <Input  icon="md-create" placeholder="Search Github" style="width: 240px" />
-                    <a href="/login" class="register-link sign-in">Sign in</a>
+                    <a href="/signin" class="register-link sign-in">Sign in</a>
                     <Button type="default" ghost class="register-link sign-up" to="/register">Sign up</Button>
                 </i-col>
                 <i-col span="2"></i-col>
