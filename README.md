@@ -14,6 +14,7 @@ Github like blog, hexo theme from https://github.com/sabrinaluo
 * app.js 程序主要逻辑在这里，路由交给routes,校验会交给validator, 数据库插入交给models
 * key.js 配置开发环境和生产环境的字段，如数据库地址、端口、加密字符串
 * package.json  npm依赖文件
+* jwt-decode 前端解析Token数据，也就是后端生成Token的时候用的payload。在登录的时候使用
 server是使用koa-generator生成的
 
 ## 开发说明
@@ -38,7 +39,8 @@ server是使用koa-generator生成的
 * [用Koa2搭建服务器](https://mobilesite.github.io/2017/04/29/develop-backend-service-with-koa2/) 
 * [如何设计邮箱重设密码功能](https://segmentfault.com/q/1010000000705053/a-1020000000705125) 
 * [使用nodejs发送电子邮件](https://juejin.im/entry/5968d5376fb9a06bc06a6f65) 
-* [HTTP常用状态码](https://xdwangiflytek.iteye.com/blog/1343395) 
+* [HTTP常用状态码](https://xdwangiflytek.iteye.com/blog/1343395) \
+* [Vue.config.js](https://cli.vuejs.org/zh/config/#devserver-proxy) 
   * 200-服务器成功返回网页	
   * 201-已创建
   * 202-已接受，但未处理
@@ -120,11 +122,11 @@ server是使用koa-generator生成的
     * 删除掉 Token 的缓存
 * Token过期之后的refresh
 * 鼠标滚动到一定位置，Menu吸附到顶端，左侧会自动补充头像形成完整的导航栏
-* 支持响应式布局，在手机端有比较好的浏览体验
+* 支持响应式布局，在手机端、平板等各种设备有比较好的浏览体验
 * 时间轴（打卡时间轴）
 * 分类支持二级，点进分类可以进入该类别发布的时间轴
 * 支持Github授权登录
-* 支持文章目录
+* 支持文章目录（并且设置锚点）
 * 支持友链
 * 支持发说说（发图片＋文字），在首页导航栏
 * 图片的弹出层
@@ -134,11 +136,19 @@ server是使用koa-generator生成的
 * 关于我
 * 支持打赏（微信和支付宝）
 * 支持博客挂件
+* 分享到微信
+* Github式评论
+* SEO
+* 方便快捷的部署和配置
+* 支持文章置顶
+* 支持文章内容加密(输入密码后可见)
+* 优化前端API请求接口
+* 性能优化,每ms
 
 ## 收获
 * 一个神奇的bug!在postman一直测试提交数据，数据库就是没接收到，后来含泪发现请求地址忘记了api前缀！！！
 * 多页路由，刚开始把主页写在app.js上面了，等我想登录和注册页面独立显示的时候一时不知道如何显示。后来醒悟到：app.js是入口文件啊，所有要显示的页面都要挂载到那个文件下，所以修改后app.js只剩下\<view-router></view-router>
-* 默认子路由，可以在父路由中添加redirect子路由路径
+* 默认子路由，可以在父路由中添加redirect子路由路径,还可以在第一个子路由的路径设置为空字符串，然后组件是默认显示的子组件
 * 背景平铺全屏(自适应)
 ```
     width: 100%;
@@ -157,3 +167,5 @@ server是使用koa-generator生成的
 * 防止xss攻击，服务端传回Token的时候在首部字段中添加http-Only
 * 前端表单提交后，后端接收到的数组其实是字符串，比如“html, css, js, vue”这样，后端需要用split拆成数组
 * 后端设计API的时候，对于私密接口（需要验证的），因为验证已代表用户存在，对跨表（关联表）的数据可以先检查能否找到该表，存在则更新，不存在则创建。也就是说更新和创建共用一个post的API
+* 关于设计用户组，刚开始我觉得这个东西能够在npm找到，但是谷歌和npm都没有给到我满意的答案。后来问了慕课网讲课的双越老师，得到的答复，再后来发现自己没有理解Token的结构，因为前端用jwt-decode能够
+获得加密的字段信息。于是在设计用户的时候添加了字段identity

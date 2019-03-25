@@ -11,8 +11,12 @@ export default new Router({
       path: '/',
       name: 'home',
       component: Home,
-      redirect: '/home/overview',
+      // redirect: '/home/overview',
       children: [
+        {
+          path: '',
+          component: () => import('./views/homepage/Overview.vue')
+        },
         {
           path: '/overview',
           name: 'overview',
