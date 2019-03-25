@@ -28,11 +28,11 @@ server是使用koa-generator生成的
 * [mongoose](https://www.npmjs.com/package/mongoose)  连接mongoose，创建数据库，查询等。
    * [Quries](https://mongoosejs.com/docs/queries.html)  数据查询
    * [Mongoose之Population使用（数据表的关联）](https://segmentfault.com/a/1190000002727265#articleHeader3)  跨表查询的时候对某个模型的字段查找
-   * [findOneAndUpdate doesn't return updated document](https://stackoverflow.com/questions/32811510/mongoose-findoneandupdate-doesnt-return-updated-document)
+   * [findOneAndUpdate doesn't return updated document](https://stackoverflow.com/questions/32811510/mongoose-findoneandupdate-doesnt-return-updated-document)  findOneAnUpdate是更新(覆盖)，updated可以插入到数组
 * [validator](https://www.npmjs.com/package/validator) 表单字段验证前端需要，后端更加需要！
-* koa-session								
+	 koa-session								
 * [cross-env](https://www.npmjs.com/package/cross-env)   package.json运行不同的配置项NODE_ENV
-* [concurrently](https://www.npmjs.com/package/concurrently)  开发的时候用来前后端连载，注意写上客户端的--prefix																																																																		
+	 [concurrently](https://www.npmjs.com/package/concurrently)  开发的时候用来前后端连载，注意写上客户端的--prefix																																																																		
 
 ## 参考链接
 * [用Koa2搭建服务器](https://mobilesite.github.io/2017/04/29/develop-backend-service-with-koa2/) 
