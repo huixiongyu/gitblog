@@ -113,6 +113,9 @@ server是使用koa-generator生成的
   * username
   * email    邮箱是唯一的，姓名可以重复
   * password
+* POST  /api/users/signin  登录
+  * email
+  * password
 
 
 
@@ -223,4 +226,4 @@ ruleValidate:{
 
 ## 问题目录
 
-* 注册页面，根据不同的状态码返回提示信息
+* 注册页面，根据不同的状态码返回提示信息。产生的错误没有报回来

@@ -11,6 +11,7 @@
   "dependencies": {
     "axios": "^0.18.0",
     "iview": "^3.3.2",
+    "jwt-decode": "^2.2.0",
     "validator": "^10.11.0",
     "vue": "^2.6.6",
     "vue-router": "^3.0.1",

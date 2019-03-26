@@ -15,10 +15,10 @@
             <div class="form-table">
                 <Card style="width:308px;height:246px">
                     <Form :model="loginInfo" label-position="top" ref="formValidate" :rules="ruleValidate">
-                        <FormItem class="form-word" label="Username or email address">
-                            <Input v-model="loginInfo.username"  />
+                        <FormItem class="form-word" label="Email address" prop="email">
+                            <Input v-model="loginInfo.email"  />
                         </FormItem>
-                        <FormItem  class="form-word">
+                        <FormItem  class="form-word" prop="password">
                             <div class="login-slot" slot="label">
                                 <span>Password</span>
                                 <router-link slot="label" to="/reset" class="reset-word">Forgot password?</router-link>
@@ -29,6 +29,7 @@
                             <Button class="login-button"
                                     type="success"
                                     style="fontSize:14px;fontWeight:600"
+                                    @click=" handleLogin('formValidate')"
                                     >
                                 Sign in
                             </Button>
@@ -58,24 +59,54 @@
 </template>
 
 <script>
+    import jwt_decode from "jwt-decode";
     export default {
         name: "SignIn",
         data() {
             return {
                 loginInfo: {
-                    username: '',
+                    email: '',
                     password: ''
                 },
                 ruleValidate: {
-                    username: [
-                        { required: true, message: 'The username or email address cannot be empty', trigger: 'blur' }
+                    email: [
+                        { required: true, message: 'The  email address cannot be empty', trigger: 'blur' },
+                        { type: 'email', message: 'Incorrect email format', trigger: 'blur' }
                     ],
                     password: [
                         { required: true, message: 'Password cannot be empty', trigger: 'blur' },
-                        { type: 'string', min: 6, message: 'Password no less than 6 words', trigger: 'blur' }
+                        { type: 'string', min: 8, message: 'Password no less than 8 words', trigger: 'blur' }
                     ]
                 }
 
+            }
+        },
+        methods: {
+            handleLogin(name){
+                this.$refs[name].validate((valid) => {
+                    if(valid){
+                        this.$axios.post('/api/users/signin', this.loginInfo)
+                            .then(res => {
+                                const { token } = res.data;
+                                localStorage.setItem("blogToken", token);
+                                // console.log('前端Token设置成功！');
+                                // 解析token
+                                const decode = jwt_decode(token);
+
+                                // 存储数据
+                                this.$store.commit("setIsAuthenticated", decode);
+                                this.$store.commit("setUser", decode);
+                                this.$store.commit("judgeIdentity", decode);
+                                // console.log('store设置成功')
+                                // 页面跳转
+                                this.$Message.success("登录成功！")
+                                this.$router.push("/");
+                            })
+                    }else{
+                        this.$Message.error('Fail!')
+                        return false
+                    }
+                })
             }
         }
     }
