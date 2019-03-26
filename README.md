@@ -69,8 +69,8 @@ server是使用koa-generator生成的
 * User
     * username 用户名
     * email 邮箱
-    * _password 加密处理的用户密码
-    * usertype 用户类型，Number，０是博主，１是游客（默认），２预留
+    * password 加密处理的用户密码
+    * identity 用户类型，Number，０是博主，１是游客（默认），２预留
     * banned 禁止登录，默认是false
     * date 注册时间
 * UserInfo
@@ -92,8 +92,6 @@ server是使用koa-generator生成的
     * Tags  标签
     * star 喜欢的数量
     * coment 评论列表
-
-
 ## API设计
 
 
@@ -144,6 +142,8 @@ server是使用koa-generator生成的
 * 支持文章内容加密(输入密码后可见)
 * 优化前端API请求接口
 * 性能优化,每ms
+* 分页：手机端上拉自动加载
+* 评论需要登录，手机端是弹框登录，电脑端需要携带评论页面的位置，登录后跳转
 
 ## 收获
 * 一个神奇的bug!在postman一直测试提交数据，数据库就是没接收到，后来含泪发现请求地址忘记了api前缀！！！

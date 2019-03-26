@@ -10,15 +10,16 @@ const UserSchema = new Schema({
         type: String,
         required: true
     },
-    _password: {
+    password: {
         type: String,
         required: true
     },
-    usertype: {
-        type: Number,
-        min: 0,
-        max: 2,
-        default: 1  // ０表示管理员，１表示游客，　２是备用位
+    identity: {
+        type: String,
+        default: "member"  // member，admin
+    },
+    avatar: {
+      type: String
     },
     banned: {
         type: Boolean,
