@@ -1,13 +1,16 @@
 const Koa = require('koa')
-const app = new Koa()
+const Router = require('koa-router')
 const views = require('koa-views')
 const json = require('koa-json')
 const onerror = require('koa-onerror')
 const bodyparser = require('koa-bodyparser')
 const logger = require('koa-logger')
 
-const index = require('./routes/index')
-const users = require('./routes/users')
+const app = new Koa()
+const router = new Router()
+
+// 引入路由
+const users = require('./routes/api/users')
 
 // error handler
 onerror(app)
@@ -32,10 +35,11 @@ app.use(async (ctx, next) => {
   console.log(`${ctx.method} ${ctx.url} - ${ms}ms`)
 })
 
-// routes
-app.use(index.routes(), index.allowedMethods())
-app.use(users.routes(), users.allowedMethods())
+// 配置路由接口
+router.use('/api/users', users)
 
+
+app.use(router.routes()).use(router.allowedMethods());
 // error-handling
 app.on('error', (err, ctx) => {
   console.error('server error', err, ctx)

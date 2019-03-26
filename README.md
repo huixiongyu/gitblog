@@ -2,6 +2,22 @@
 Github like blog, hexo theme from https://github.com/sabrinaluo
 
 本项目从2019年3月18日开始写
+
+## 运行
+
+```
+cd gitblog/
+npm install
+npm run client-install
+npm run dev
+```
+
+启动后会前后端连载， 前端端口8080，后端端口3000
+
+浏览器直接打开` http://localhost:8080`
+
+
+
 ## 文件和使用
 * bin server根目录，www.js是入口文件
 * example  用来测试各种功能的，比如koa-bodyparser的用法、mongodb连接
@@ -54,7 +70,6 @@ server是使用koa-generator生成的
   * 503-服务不可用
 
 ## 正在开发的功能
-* 前后端联调，配置跨域
 * 后台管理Profile Setting，包括地理定位
 * 上传图片
 * 后台：管理分类
@@ -167,5 +182,13 @@ server是使用koa-generator生成的
 * 防止xss攻击，服务端传回Token的时候在首部字段中添加http-Only
 * 前端表单提交后，后端接收到的数组其实是字符串，比如“html, css, js, vue”这样，后端需要用split拆成数组
 * 后端设计API的时候，对于私密接口（需要验证的），因为验证已代表用户存在，对跨表（关联表）的数据可以先检查能否找到该表，存在则更新，不存在则创建。也就是说更新和创建共用一个post的API
-* 关于设计用户组，刚开始我觉得这个东西能够在npm找到，但是谷歌和npm都没有给到我满意的答案。后来问了慕课网讲课的双越老师，得到的答复，再后来发现自己没有理解Token的结构，因为前端用jwt-decode能够
-获得加密的字段信息。于是在设计用户的时候添加了字段identity
+* 关于设计用户组，刚开始我觉得这个东西能够在npm找到，但是谷歌和npm都没有给到我满意的答案。后来问了慕课网讲课的双越老师得到答复，再后来发现自己没有理解Token的结构，因为前端用jwt-decode能够获得加密的字段信息。于是在设计用户的时候添加了字段identity
+* ` npm run dev` 的时候莫名奇妙的报错`This is probably not a problem with npm. There is likely additional logging output above.`  下面是一个貌似可行的办法：
+
+```
+rm -rf node_modules
+rm package-lock.json
+npm cache clear --force
+npm install
+```
+
