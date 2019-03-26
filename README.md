@@ -85,7 +85,7 @@ server是使用koa-generator生成的
     * username 用户名
     * email 邮箱
     * password 加密处理的用户密码
-    * identity 用户类型，Number，０是博主，１是游客（默认），２预留
+    * identity 用户类型，默认是"member" , 博主的是"admin"
     * banned 禁止登录，默认是false
     * date 注册时间
 * UserInfo
@@ -108,6 +108,13 @@ server是使用koa-generator生成的
     * star 喜欢的数量
     * coment 评论列表
 ## API设计
+
+* POST    /api/users/register  注册
+  * username
+  * email    邮箱是唯一的，姓名可以重复
+  * password
+
+
 
 
 
@@ -192,3 +199,28 @@ npm cache clear --force
 npm install
 ```
 
+* 前端表单自定义验证规则： 在Form里面需要写属性rules，比如`:rules="ruleValidate"` ，并且在FormItem指定ruleValidate中校验的字段名 ` prop ="password"`
+
+```
+const validatePassword = (rule, value, callback) => {
+    if (!value) {
+        return callback(new Error('密码不能为空'));
+    } else if (!/^[~!@#$%^&*\-+=_.0-9a-zA-Z]{8,30}$/.test(value)) {
+        callback('密码不符合要求，');
+    } else {
+        callback();
+    }   
+};
+
+//在表单验证规则里使用
+ruleValidate:{
+    password:[{validator:validatePassword,trigger:'blur'}]
+}
+
+```
+
+
+
+## 问题目录
+
+* 注册页面，根据不同的状态码返回提示信息

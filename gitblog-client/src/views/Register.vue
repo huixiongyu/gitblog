@@ -31,19 +31,24 @@
             </i-col>
             <i-col span="10" offset="1">
                 <Card class="signup-box" style="width:430px;height: 432px;">
-                    <Form :model="signInfo" label-position="top">
-                        <FormItem label="Username">
+                    <Form ref="signInfo" :model="signInfo" :rules="ruleValidate" label-position="top">
+                        <FormItem label="Username" prop="username">
                             <Input size="large" v-model="signInfo.username" placeholder="Pick a username"  />
                         </FormItem>
-                        <FormItem label="Email">
+                        <FormItem label="Email" prop="email">
                             <Input size="large" v-model="signInfo.email" type="email" placeholder="you@example.com"  />
                         </FormItem>
-                        <FormItem label="Password">
+                        <FormItem label="Password" prop="password">
                             <Input size="large" v-model="signInfo.password" type="password" placeholder="Create a password" />
                         </FormItem>
                         <div class="signup-tips">Make sure it's <span class="input-limit">more than 15 characters</span> OR <span class="input-limit">at least 8 characters including a number and a lowercase letter</span>.<a class="input-tips"> Learn more</a>.</div>
                         <FormItem>
-                            <Button class="signup-button" type="success" style="height: 66px;" long>Sign up for Github</Button>
+                            <Button class="signup-button"
+                                    type="success"
+                                    style="height: 66px;"
+                                    @click="handleSubmit('signInfo')"
+                                    long>Sign up for Github
+                            </Button>
                         </FormItem>
                         <div class="signup-clause">By clicking “Sign up for GitHub”, you agree to our <a class="input-tips">terms of service</a> and <a class="input-tips">privacy statement</a>. We’ll occasionally send you account related emails.</div>
                     </Form>
@@ -59,12 +64,50 @@
     export default {
         name: 'register',
         data(){
+            const validatePassword = (rule, value, callback) => {
+                if (!value) {
+                    return callback(new Error('The password cannot be empty'));
+                } else if (!/^[~!@#$%^&*\-+=_.0-9a-zA-Z]{8,30}$/.test(value)) {
+                    callback('Not satisfied password requirement');
+                } else {
+                    callback();
+                }
+            };
             return {
                 signInfo: {
                     username: '',
                     email: '',
                     password: ''
+                },
+                ruleValidate: {
+                    username: [
+                        { required: true, message: 'The username cannot be empty', trigger: 'blur' }
+                    ],
+                    mail: [
+                        { required: true, message: 'Mailbox cannot be empty', trigger: 'blur' },
+                        { type: 'email', message: 'Incorrect email format', trigger: 'blur' }
+                    ],
+                    password: [
+                        { required: true, message: 'Password cannot be empty', trigger: 'blur' },
+                        { validator: validatePassword  }
+                    ]
                 }
+            }
+        },
+        methods: {
+            handleSubmit(name){
+                this.$refs[name].validate((valid) => {
+                    if(valid){
+                        this.$axios.post('/api/users/register', this.signInfo)
+                            .then(() => {
+                                this.$Message.success('Success!!Turn to Sign In')
+                                this.$router.push("/signin")
+                            })
+                    }else{
+                        this.$Message.error('Fail!')
+                        return false
+                    }
+                })
             }
         }
     }
