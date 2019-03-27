@@ -3,11 +3,11 @@
         <blog-header></blog-header>
         <div class="useradmin-nav">
             <Menu mode="horizontal" :theme="light" active-name="1">
-                <MenuItem name="1" to="/useradmin/userprofile">
+                <MenuItem name="1" to="/useradmin/profile">
                     <Icon type="md-settings" />
                     Profile
                 </MenuItem>
-                <MenuItem name="2" to="/useradmin/usercomment">
+                <MenuItem name="2" to="/useradmin/comment">
                     <Icon type="md-chatboxes" />
                     Comment
                 </MenuItem>

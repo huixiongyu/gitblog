@@ -47,15 +47,16 @@ server是使用koa-generator生成的
    * [Mongoose之Population使用（数据表的关联）](https://segmentfault.com/a/1190000002727265#articleHeader3)  跨表查询的时候对某个模型的字段查找
    * [findOneAndUpdate doesn't return updated document](https://stackoverflow.com/questions/32811510/mongoose-findoneandupdate-doesnt-return-updated-document)  findOneAnUpdate是更新(覆盖)，updated可以插入到数组
 * [validator](https://www.npmjs.com/package/validator) 表单字段验证前端需要，后端更加需要！
-	 koa-session								
+   koa-session
+* [async-validator](https://github.com/yiminghe/async-validator) element-ui和iview表单校验的时候基于这个库的实现								
 * [cross-env](https://www.npmjs.com/package/cross-env)   package.json运行不同的配置项NODE_ENV
-	 [concurrently](https://www.npmjs.com/package/concurrently)  开发的时候用来前后端连载，注意写上客户端的--prefix																																																																		
+   [concurrently](https://www.npmjs.com/package/concurrently)  开发的时候用来前后端连载，注意写上客户端的--prefix																																																																		
 
 ## 参考链接
 * [用Koa2搭建服务器](https://mobilesite.github.io/2017/04/29/develop-backend-service-with-koa2/) 
 * [如何设计邮箱重设密码功能](https://segmentfault.com/q/1010000000705053/a-1020000000705125) 
 * [使用nodejs发送电子邮件](https://juejin.im/entry/5968d5376fb9a06bc06a6f65) 
-* [HTTP常用状态码](https://xdwangiflytek.iteye.com/blog/1343395) \
+* [HTTP常用状态码](https://xdwangiflytek.iteye.com/blog/1343395) 
 * [Vue.config.js](https://cli.vuejs.org/zh/config/#devserver-proxy) 
   * 200-服务器成功返回网页	
   * 201-已创建
@@ -101,6 +102,7 @@ server是使用koa-generator生成的
 * Post
     * title  文章标题
     * path 文章地址
+    * visited 访问数量
     * content 正文
     * date 发布时间
     * categories    分类
@@ -222,7 +224,7 @@ ruleValidate:{
 
 ```
 
-
+* 覆盖UI库的样式可以审查元素找到类名，对样式进行修改，但是此时\<style> 需要不能设置scoped属性，这表示修改的样式会影响全局。避免影响全局的做法是在需要修改的类上一级元素加一个类，用less或者Sass嵌套的写法，屏蔽对全局的影响。
 
 ## 问题目录
 
