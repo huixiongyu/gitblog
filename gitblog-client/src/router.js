@@ -69,7 +69,45 @@ export default new Router({
     {
       path: '/settings',
       name: 'settings',
-      component: Settings
+      component: Settings,
+      children: [
+        {
+          path: '',
+          component: () => import('./views/adminpage/Profile.vue')
+        },
+        {
+          path: 'profile',
+          name: 'profile',
+          component: () => import('./views/adminpage/Profile.vue')
+        },
+        {
+          path: 'account',
+          name: 'account',
+          component: () => import('./views/adminpage/Account.vue')
+        },
+        {
+          path: 'comment',
+          name: 'comment',
+          component: () => import('./views/adminpage/Comment.vue')
+        },        {
+          path: 'data',
+          name: 'data',
+          component: () => import('./views/adminpage/Data.vue')
+        },        {
+          path: 'tag',
+          name: 'tag',
+          component: () => import('./views/adminpage/Tag.vue')
+        },        {
+          path: 'categories',
+          name: 'admin-categories',
+          component: () => import('./views/adminpage/Categories.vue')
+        },
+        {
+          path: 'user',
+          name: 'user',
+          component: () => import('./views/adminpage/User.vue')
+        }
+      ]
     },
     {
       path: '/useradmin',
@@ -91,11 +129,6 @@ export default new Router({
           component: () => import('./views/useradmin/Comment.vue')
         }
       ]
-    },
-    {
-      path: 'zindex',
-      name: 'zindex',
-      component: () => import('./views/ZindexTest.vue')
     },
     {
       path:'*',redirect:'/overview'

@@ -48,7 +48,7 @@ server是使用koa-generator生成的
    * [findOneAndUpdate doesn't return updated document](https://stackoverflow.com/questions/32811510/mongoose-findoneandupdate-doesnt-return-updated-document)  findOneAnUpdate是更新(可以选择覆盖)，updated可以插入到数组
 * [validator](https://www.npmjs.com/package/validator) 表单字段验证前端需要，后端更加需要！
    koa-session
-* [async-validator](https://github.com/yiminghe/async-validator) element-ui和iview表单校验的时候基于这个库的实现								
+	 [async-validator](https://github.com/yiminghe/async-validator) element-ui和iview表单校验的时候基于这个库的实现								
 * [cross-env](https://www.npmjs.com/package/cross-env)   package.json运行不同的配置项NODE_ENV
 * [concurrently](https://www.npmjs.com/package/concurrently)  开发的时候用来前后端连载，注意写上客户端的--prefix
 
@@ -76,6 +76,8 @@ server是使用koa-generator生成的
   * 404-请求的网页不存在
   * 500-服务器内部错误
   * 503-服务不可用
+* [使用$refs访问Vue中的DOM](https://www.w3cplus.com/vue/accessing-dom-refs.html) 
+* [可能比文档还详细--VueRouter完全指北](https://juejin.im/post/5b82bcfcf265da4345153343#heading-11)
 
 ## 正在开发的功能
 * 后台管理Profile Setting，包括地理定位
@@ -116,16 +118,29 @@ server是使用koa-generator生成的
     * star 喜欢的数量
     * coment 评论列表
 * Comment
-    * 
+    * user
+    * content
+    * read  已读
+    * toRead 未读
 ## API设计
 
 * POST    /api/users/register  注册
-  * username
+  * username 必须
   * email    邮箱是唯一的，姓名可以重复
-  * password
+  * password 必须
 * POST  /api/users/signin  登录
-  * email
-  * password
+  * email 必须
+  * password 必须
+* POST /api/profile  添加或更新个人信息
+  * nick 必填
+  * github 必填，字段符合URL
+  * email 自动关联登录账户的email
+  * bio 可选
+  * website 可选
+  * company 可选
+  * zhihu 可选
+  * yuncun 可选
+  * weibo 可选
 
 
 
@@ -273,6 +288,12 @@ ruleValidate:{
 
 因此我进入了profile设置添加和更新个人信息的时候，赋值profile.email用的是ctx.state.user[0].email 。在使用findOndAndUpdate的时候，先判断，但是在对特定条目修改的时候记得第一个参数对象必须是正确的，否则状态码变为204，意思是接受处理了，但是没有返回数据。因为await的时候在等待数据，然而mongodb没有找到那一条数据，当然是没有数据返回的。
 
+* ref使用有两种情况
+  * 如果在普通DOM元素上使用，引用指向的是DOM 元素
+  * 如果在子组件上使用，引用指向组件实例
+* active-class用来设置路由激活的样式比如设置active-class="rainbow" 就可以通过.rainbox来设置路由激活后的样式
+
 ## 问题目录
 
 * 注册页面，根据不同的状态码返回提示信息。产生的错误没有报回来
+* setting页面，当前激活的路由前边有一道小红线
