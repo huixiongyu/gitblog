@@ -4,7 +4,7 @@ const bcrypt = require('bcryptjs')
 const gravatar = require('gravatar')
 const jwt = require('jsonwebtoken')
 // const passport = require('koa-passport')
-const secretKey = require('../../config/keys').secretKey
+const secretOrKey = require('../../config/keys').secretOrKey
 const tools = require('../../config/tools')
 
 // 引入User模型
@@ -99,7 +99,7 @@ router.post('/signin', async ctx => {
                 email: user.email,
                 identity: user.identity
             };
-            const token = jwt.sign(payload, secretKey, { expiresIn: 3600 });
+            const token = jwt.sign(payload, secretOrKey, { expiresIn: 3600 });
             // console.log('Token设置成功')
             ctx.status = 200;
             ctx.body = { success: true, token: 'Bearer ' + token };

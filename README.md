@@ -45,14 +45,21 @@ server是使用koa-generator生成的
 * [mongoose](https://www.npmjs.com/package/mongoose)  连接mongoose，创建数据库，查询等。
    * [Quries](https://mongoosejs.com/docs/queries.html)  数据查询
    * [Mongoose之Population使用（数据表的关联）](https://segmentfault.com/a/1190000002727265#articleHeader3)  跨表查询的时候对某个模型的字段查找
-   * [findOneAndUpdate doesn't return updated document](https://stackoverflow.com/questions/32811510/mongoose-findoneandupdate-doesnt-return-updated-document)  findOneAnUpdate是更新(覆盖)，updated可以插入到数组
+   * [findOneAndUpdate doesn't return updated document](https://stackoverflow.com/questions/32811510/mongoose-findoneandupdate-doesnt-return-updated-document)  findOneAnUpdate是更新(可以选择覆盖)，updated可以插入到数组
 * [validator](https://www.npmjs.com/package/validator) 表单字段验证前端需要，后端更加需要！
    koa-session
 * [async-validator](https://github.com/yiminghe/async-validator) element-ui和iview表单校验的时候基于这个库的实现								
 * [cross-env](https://www.npmjs.com/package/cross-env)   package.json运行不同的配置项NODE_ENV
-   [concurrently](https://www.npmjs.com/package/concurrently)  开发的时候用来前后端连载，注意写上客户端的--prefix																																																																		
+* [concurrently](https://www.npmjs.com/package/concurrently)  开发的时候用来前后端连载，注意写上客户端的--prefix
+
+**开发工具： WebStorm、Postman、MongoDB Atlas**
+
+
+
+
 
 ## 参考链接
+
 * [用Koa2搭建服务器](https://mobilesite.github.io/2017/04/29/develop-backend-service-with-koa2/) 
 * [如何设计邮箱重设密码功能](https://segmentfault.com/q/1010000000705053/a-1020000000705125) 
 * [使用nodejs发送电子邮件](https://juejin.im/entry/5968d5376fb9a06bc06a6f65) 
@@ -79,21 +86,20 @@ server是使用koa-generator生成的
 * 主页：标签
 * 主页：分类 
 * 分情况获取全球公认头像(gravatar)地址和自己的头像图片
-* 
 
 ## 数据库字段
 * User
     * username 用户名
     * email 邮箱
+    * gavatar 头像
     * password 加密处理的用户密码
     * identity 用户类型，默认是"member" , 博主的是"admin"
     * banned 禁止登录，默认是false
     * date 注册时间
 * UserInfo
     * nick  中文名，昵称
-    * gavatar 头像
     * location 定位信息：省和市
-    * say_something  个性签名
+    * bio 个性签名
     * website  个人网站
     * github 　开源仓库
     * zhihu　知乎
@@ -109,6 +115,8 @@ server是使用koa-generator生成的
     * Tags  标签
     * star 喜欢的数量
     * coment 评论列表
+* Comment
+    * 
 ## API设计
 
 * POST    /api/users/register  注册
@@ -224,7 +232,46 @@ ruleValidate:{
 
 ```
 
-* 覆盖UI库的样式可以审查元素找到类名，对样式进行修改，但是此时\<style> 需要不能设置scoped属性，这表示修改的样式会影响全局。避免影响全局的做法是在需要修改的类上一级元素加一个类，用less或者Sass嵌套的写法，屏蔽对全局的影响。
+* 覆盖UI库的样式可以审查元素找到类名，对样式进行修改，但是此时\<style> 不能设置scoped属性，这表示修改的样式会影响全局。避免影响全局的做法是在需要修改的类上一级元素加一个类，用less或者Sass嵌套的写法，屏蔽对全局的影响。
+* 报错, 没有module.exports.
+
+```
+ `/api/profile`: `middleware` must be a function, not `object`
+```
+
+* koa-passport验证返回的用户字段很有意思，注意model是找findById还是用find，返回值是不同的，我用的是find， 原因我认定jwt加密的payload里email是唯一的(确实有些不安全)，返回的是下面的内容： 
+
+```
+{ _passport: 
+   { instance: 
+      Authenticator {
+        _key: 'passport',
+        _strategies: [Object],
+        _serializers: [],
+        _deserializers: [],
+        _infoTransformers: [],
+        _framework: [Object],
+        _userProperty: 'user',
+        _sm: [Object],
+        Authenticator: [Function: Authenticator],
+        Passport: [Function: Authenticator],
+        Strategy: [Object],
+        strategies: [Object],
+        KoaPassport: [Function: KoaPassport] } },
+  user: 
+   [ { identity: 'admin',
+       banned: false,
+       _id: 5c99ea249fde2808f6d674c7,
+       username: 'huixiongyu',
+       email: 'huixiongyu@gmail.com',
+       password: 'xxxxxxxIDFne1s7M4l9gmvmLkKh3KmJbkp9PEqEYrvu',  //这里我处理了下
+       avatar: '//www.gravatar.com/avatar/2406675c2344e025854ea9ec69e2ded41d?s=200&r=pg&d=mm',
+       date: 2019-03-26T09:00:20.313Z,
+       __v: 0 } ],
+  authInfo: {} }
+```
+
+因此我进入了profile设置添加和更新个人信息的时候，赋值profile.email用的是ctx.state.user[0].email 。在使用findOndAndUpdate的时候，先判断，但是在对特定条目修改的时候记得第一个参数对象必须是正确的，否则状态码变为204，意思是接受处理了，但是没有返回数据。因为await的时候在等待数据，然而mongodb没有找到那一条数据，当然是没有数据返回的。
 
 ## 问题目录
 

@@ -6,6 +6,7 @@ const onerror = require('koa-onerror')
 const bodyparser = require('koa-bodyparser')
 const logger = require('koa-logger')
 const mongoose = require('mongoose')
+const passport = require('koa-passport')
 
 const app = new Koa()
 const router = new Router()
@@ -15,7 +16,7 @@ const router = new Router()
 const db = require('./config/keys').mongoURI
 // 引入路由
 const users = require('./routes/api/users')
-
+const profile = require('./routes/api/profile')
 // error handler
 onerror(app)
 
@@ -53,9 +54,14 @@ mongoose
       console.log(err)
     })
 
+app.use(passport.initialize())
+app.use(passport.session())
+
+require('./config/passport')(passport)
 
 // 配置路由接口
 router.use('/api/users', users)
+router.use('/api/profile', profile)
 
 
 app.use(router.routes()).use(router.allowedMethods());
