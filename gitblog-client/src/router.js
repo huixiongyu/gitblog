@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home'
+import Settings from './views/Settings'
+import UserAdmin from "./views/UserAdmin"
 Vue.use(Router)
 
 export default new Router({
@@ -63,6 +65,37 @@ export default new Router({
       path: '/register',
       name: 'register',
       component: () => import('./views/Register.vue')
+    },
+    {
+      path: '/settings',
+      name: 'settings',
+      component: Settings
+    },
+    {
+      path: '/useradmin',
+      name: 'useradmin',
+      component: UserAdmin,
+      children: [
+        {
+          path: '',
+          component: () => import('./views/useradmin/Profile.vue')
+        },
+        {
+          path: '/profile',
+          name: 'userprofile',
+          component: () => import('./views/useradmin/Profile.vue')
+        },
+        {
+          path: '/comment',
+          name: 'usercomment',
+          component: () => import('./views/useradmin/Comment.vue')
+        }
+      ]
+    },
+    {
+      path: 'zindex',
+      name: 'zindex',
+      component: () => import('./views/ZindexTest.vue')
     },
     {
       path:'*',redirect:'/overview'

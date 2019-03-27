@@ -18,17 +18,19 @@
         </div>
 
         <div class="avatar">
-                <Badge  dot type="primary" :offset="[5,5]">
-                    <Icon type="ios-notifications" size="24" />
-                </Badge>
-                <Icon type="md-add" class="add-icon" size="20" />
-                <Icon type="md-arrow-dropdown" size="20" />
-                <div class="portriat">
-                    
-                </div>            
-            
+            <Badge  dot type="primary" :offset="[5,5]">
+                <Icon type="ios-notifications" size="24" />
+            </Badge>
+            <Icon type="md-add" class="add-icon" size="20" />
+            <Icon type="md-arrow-dropdown" size="20" />
+                <div class="portriat" v-if="! $store.state.isAuthenticated">
+                    <img src="../assets/images/gitcat.jpeg" alt="logo">
+                </div>
         </div>
 
+        <div class="admin-select" v-show="adminPanelshow">
+
+        </div>
 
     </nav>
 </template>
@@ -36,7 +38,7 @@
 export default {
     data(){
         return {
-            
+            adminPanelshow: false
         }
     },
     methods: {
@@ -44,68 +46,82 @@ export default {
 }
 </script>
 <style lang="less">
-.header{
-    position: relative;
-    width: 100%;
-    height: 60px;
-    background-color: #24292E;
-}
-.header-logo{
-    float: left;
-    height: 50px;
-    padding-top: 13px;
-    margin-left: 20px;
-    position: inherit;
-    z-index: 100px;
-}
-.header-input{
-    float: left;
-    margin-left: 15px;
-    margin-top: 13px;
-    width: 315px;
-    height: 30px;
-    border-radius: 3px;
-    background-color: #404448;
-    text-indent: 10px;
-    border:0.5px solid #404448;
-    transition: width 1s ease, background-color 1s ease;
-}
-.header-input:focus{
-    width: 490px;
-    background-color: #FAFBFC;
-}
-.nav-link{
-    float: left;
-    margin-left: 35px;
-    margin-top: 15px;
-    height: 100%;
-    width: 300px;
-    font-size: 16px;
-    font-weight: 600;
-    color: #fff;
-    display: flex;
-    justify-content: space-between;
-    align-content: center;
+    .header{
+        position: relative;
+        width: 100%;
+        height: 60px;
+        background-color: #24292E;
+    }
+    .header-logo{
+        float: left;
+        height: 50px;
+        padding-top: 13px;
+        margin-left: 20px;
+        position: inherit;
+        z-index: 100px;
+    }
+    .header-input{
+        float: left;
+        margin-left: 15px;
+        margin-top: 13px;
+        width: 315px;
+        height: 30px;
+        border-radius: 3px;
+        background-color: #404448;
+        text-indent: 10px;
+        border:0.5px solid #404448;
+        transition: width 1s ease, background-color 1s ease;
+    }
+    .header-input:focus{
+        width: 490px;
+        background-color: #FAFBFC;
+    }
+    .nav-link{
+        float: left;
+        margin-left: 35px;
+        margin-top: 15px;
+        height: 100%;
+        width: 300px;
+        font-size: 16px;
+        font-weight: 600;
+        color: #fff;
+        display: flex;
+        justify-content: space-between;
+        align-content: center;
 
-}
-.header-link{
-    cursor: pointer;
-}
+    }
+    .header-link{
+        cursor: pointer;
+    }
 
-.avatar{
-    float:right;
-    margin-top: 15px;
-}
-.add-icon{
-    margin-left: 15px;
-}
-.portriat{
-    float:right;
-    margin-right: 20px;
-    width: 26px;
-    height: 26px;
-    border-radius: 5px;
-    background-color: yellow;
-}
+    .avatar{
+        float:right;
+        margin-top: 18px;
+    }
+    .add-icon{
+        margin-left: 15px;
+    }
+    .portriat{
+        float: right;
+        margin-right: 20px;
+        width: 26px;
+        height: 26px;
+        img{
+            width: 100%;
+            height: 100%;
+            border-radius: 5px;
+        }
+    }
+    .admin-select{
+        position: absolute;
+        top: 50px;
+        right: 18px;
+        width: 180px;
+        height: 220px;
+        border: 1px solid #DCDEE2;
+        border-radius: 3px;
+        z-index: 900;
+    }
+
 
 </style>
