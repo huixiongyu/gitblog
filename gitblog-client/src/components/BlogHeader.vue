@@ -23,7 +23,7 @@
             </Badge>
             <Icon type="md-add" class="add-icon" size="20" />
             <Icon type="md-arrow-dropdown" size="20" />
-                <div class="portriat" v-if="! $store.state.isAuthenticated">
+                <div class="portriat" >
                     <img src="../assets/images/gitcat.jpeg" alt="logo">
                 </div>
         </div>

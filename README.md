@@ -80,6 +80,7 @@ server是使用koa-generator生成的
   * 503-服务不可用
 * [使用$refs访问Vue中的DOM](https://www.w3cplus.com/vue/accessing-dom-refs.html) 
 * [可能比文档还详细--VueRouter完全指北](https://juejin.im/post/5b82bcfcf265da4345153343#heading-11)
+* [vue项目用户登录状态管理，vuex+locaStorage实现](https://blog.csdn.net/weixin_38115427/article/details/79443468) 
 
 ## 正在开发的功能
 * 后台管理Profile Setting，包括地理定位
@@ -301,16 +302,46 @@ ruleValidate:{
 * 页面刷新的时候，保存在vuex的数据消失，登录状态不能维持。原因是vuex保存的数据是在内存中的，它存在的目的是组件中传值。为了保持数据状态可以把它们放在localStorage中，但是localStorage（或者sessionStorage）是不能代替vuex的，因为相同字段容易导致数据冲突，放在vuex能够及时更新。
 
 ```
-localStorage.setItem()
+// 基本用法
+localStorage.setItem(“key”, value); //存储在localStorage的变量名，value是值
+localStorage.getItem("key"); //取回字段
+localStorage.removeItem("key")  //清除字段，比如退出登录，删除用户信息
 
 
 //存储JSON对象
-const user = {
+let user = {
     name: 'xiaoming',
     age: '20'
 }
 
-user = JSON.stringify()
+user = JSON.stringify(user);
+localStorage.setItem("user", user);
+
+//从localStorage中取回JSON对象
+let user = localStorage.getItem("user");
+user = JSON.parse(user); //字符串转成JSON
+
+```
+
+* iview表单提交
+  *  每个FormItem都要写prop属性指定数据字段
+  * 写个函数handleSubmit，Button要绑定这个函数
+  * this.formData作为axios post的参数
+* 格式化日期： moment
+* 再次前端拦截！！为每个请求添加token
+
+```
+axios.interceptors.request.use(
+    config => {
+      if (localStorage.blogToken) { //判断token是否存在
+        config.headers.Authorization = localStorage.blogToken;  //将token设置成请求头
+      }
+      return config;
+    },
+    err => {
+      return Promise.reject(err);
+    }
+);
 ```
 
 
@@ -320,3 +351,4 @@ user = JSON.stringify()
 * 注册页面，根据不同的状态码返回提示信息。产生的错误没有报回来
 * setting页面，当前激活的路由前边有一道小红线。并且为点击导航的时候,对应路由没有高亮
 * 面板：点击显示，移入维持，移出消失
+* 用户登录状态管理
