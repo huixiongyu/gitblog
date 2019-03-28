@@ -92,11 +92,12 @@
                                 // console.log('前端Token设置成功！');
                                 // 解析token
                                 const decode = jwt_decode(token);
-
+                                console.log(`我获得的token信息是${decode}`);
                                 // 存储数据
-                                this.$store.commit("setIsAuthenticated", decode);
-                                this.$store.commit("setUser", decode);
-                                this.$store.commit("judgeIdentity", decode);
+                                localStorage.setItem('user', JSON.stringify(decode));
+                                // this.$store.commit("setLogin", decode);
+                                // this.$store.commit("setUser", decode);
+                                // this.$store.commit("judgeIdentity", decode);
                                 // console.log('store设置成功')
                                 // 页面跳转
                                 this.$Message.success("登录成功！")

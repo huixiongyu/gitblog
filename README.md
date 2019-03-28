@@ -46,9 +46,11 @@ server是使用koa-generator生成的
    * [Quries](https://mongoosejs.com/docs/queries.html)  数据查询
    * [Mongoose之Population使用（数据表的关联）](https://segmentfault.com/a/1190000002727265#articleHeader3)  跨表查询的时候对某个模型的字段查找
    * [findOneAndUpdate doesn't return updated document](https://stackoverflow.com/questions/32811510/mongoose-findoneandupdate-doesnt-return-updated-document)  findOneAnUpdate是更新(可以选择覆盖)，updated可以插入到数组
+   * [populate](https://mongoosejs.com/docs/populate.html) 
+   * [$lookup-Aggregation](https://docs.mongodb.com/manual/reference/operator/aggregation/lookup/) 合并数据表
 * [validator](https://www.npmjs.com/package/validator) 表单字段验证前端需要，后端更加需要！
    koa-session
-	 [async-validator](https://github.com/yiminghe/async-validator) element-ui和iview表单校验的时候基于这个库的实现								
+    [async-validator](https://github.com/yiminghe/async-validator) element-ui和iview表单校验的时候基于这个库的实现								
 * [cross-env](https://www.npmjs.com/package/cross-env)   package.json运行不同的配置项NODE_ENV
 * [concurrently](https://www.npmjs.com/package/concurrently)  开发的时候用来前后端连载，注意写上客户端的--prefix
 
@@ -91,8 +93,8 @@ server是使用koa-generator生成的
 
 ## 数据库字段
 * User
-    * username 用户名
-    * email 邮箱
+    * username 用户名   **唯一，不可更改**
+    * email 邮箱   **唯一，不可更改**
     * gavatar 头像
     * password 加密处理的用户密码
     * identity 用户类型，默认是"member" , 博主的是"admin"
@@ -133,6 +135,7 @@ server是使用koa-generator生成的
   * password 必须
 * POST /api/profile  添加或更新个人信息
   * nick 必填
+  * username 自动关联登录账户的username(为了方便用户信息查询接口)
   * github 必填，字段符合URL
   * email 自动关联登录账户的email
   * bio 可选
@@ -141,6 +144,8 @@ server是使用koa-generator生成的
   * zhihu 可选
   * yuncun 可选
   * weibo 可选
+* GET  /api/profile/user?username=xxx
+  * 
 
 
 
@@ -292,6 +297,23 @@ ruleValidate:{
   * 如果在普通DOM元素上使用，引用指向的是DOM 元素
   * 如果在子组件上使用，引用指向组件实例
 * active-class用来设置路由激活的样式比如设置active-class="rainbow" 就可以通过.rainbox来设置路由激活后的样式
+* 用户全局守卫befoeEach之后，命令行没有报错，但是首页却是白屏。**忘了next()**!!!  内层判断用了next()，外层的却忘记了
+* 页面刷新的时候，保存在vuex的数据消失，登录状态不能维持。原因是vuex保存的数据是在内存中的，它存在的目的是组件中传值。为了保持数据状态可以把它们放在localStorage中，但是localStorage（或者sessionStorage）是不能代替vuex的，因为相同字段容易导致数据冲突，放在vuex能够及时更新。
+
+```
+localStorage.setItem()
+
+
+//存储JSON对象
+const user = {
+    name: 'xiaoming',
+    age: '20'
+}
+
+user = JSON.stringify()
+```
+
+
 
 ## 问题目录
 

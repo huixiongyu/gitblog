@@ -4,6 +4,7 @@ const passport = require('koa-passport');
 
 //引入模板
 const Profile = require('../../models/Profile');
+const User = require('../../models/User');
 
 //字段验证
 const validateProfileInput = require('../../validation/profile');
@@ -17,10 +18,6 @@ router.get('/test', async ctx => {
     ctx.body = { msg: 'profile works...' };
 });
 
-
-router.get('/', passport.authenticate('jwt', { session: false }), async ctx => {
-    console.log(ctx.state.user);
-});
 
 /*
 @route POST /api/profile
@@ -40,6 +37,7 @@ router.post('/', passport.authenticate('jwt', { session: false }),
         const profileFields = {};
         console.log(ctx.state);
         profileFields.email = ctx.state.user[0].email;
+        profileFields.username = ctx.state.user[0].username;
         console.log(profileFields);
         profileFields.nick = ctx.request.body.nick;
         profileFields.github = ctx.request.body.github;
@@ -74,5 +72,40 @@ router.post('/', passport.authenticate('jwt', { session: false }),
         }
     }
 );
+
+/*
+@route GET /api/profile/user?username=xxx
+@desc 获取用户信息
+ */
+router.get('/user', async ctx => {
+    const errors = {};
+    const username = ctx.query.username;
+    console.log(`我进来了！！要找的用户信息是：${username}`);
+    const profile = await Profile.find({ username: username });
+    const user = await User.find({username: username });
+    console.log(`我找到的用户是${profile}`);
+    console.log(`我找到的用户是${user}`);
+    if (profile.length < 1) {
+        errors.noprofile = '未找到该用户信息';
+        ctx.status = 404;
+        ctx.body = errors;
+    } else {
+        const newResponse = {};
+        newResponse.username = user[0].username;
+        newResponse.email = user[0].email;
+        newResponse.avatar = user[0].avatar;
+        newResponse.nick = profile[0].nick;
+        newResponse.location = profile[0].location;
+        newResponse.bio = profile[0].bio;
+        newResponse.company = profile[0].company;
+        newResponse.website = profile[0].website;
+        newResponse.github = profile[0].github;
+        newResponse.zhihu = profile[0].zhihu;
+        newResponse.yuncun = profile[0].yuncun;
+        newResponse.weibo = profile[0].weibo;
+        ctx.body = newResponse;
+    }
+});
+
 
 module.exports = router.routes();

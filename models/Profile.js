@@ -8,34 +8,47 @@ const ProfileSchema = new Schema({
         ref: 'users',
         required: true
     },
+    username: {
+        type: String,
+        ref: 'users',
+        required: true
+    },
     nick: {
         type: String,
         required: true
     },
     bio: {
-        type: String
+        type: String,
+        default: ''
     },
     website: {
-        type: String
+        type: String,
+        default: ''
     },
     company: {
-        type: String
+        type: String,
+        default: ''
     },
     location: {
-        type: String
+        type: String,
+        default: ''
     },
     github: {
         type: String,
-        required: true
+        required: true,
+        default: ''
     },
     zhihu: {
-        type: String
+        type: String,
+        default: ''
     },
     yuncun: {
-        type: String
+        type: String,
+        default: ''
     },
     weibo: {
-        type: String
+        type: String,
+        default: ''
     },
     date: {
         type: Date,

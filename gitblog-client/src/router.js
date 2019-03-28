@@ -5,7 +5,7 @@ import Settings from './views/Settings'
 import UserAdmin from "./views/UserAdmin"
 Vue.use(Router)
 
-export default new Router({
+const router =new Router({
   mode: 'history',
   base: process.env.BASE_URL,
   routes: [
@@ -70,7 +70,6 @@ export default new Router({
       path: '/settings',
       name: 'settings',
       component: Settings,
-      redirect: '/settings/profile',
       children: [
         {
           path: '',
@@ -135,4 +134,27 @@ export default new Router({
       path:'*',redirect:'/overview'
     }
   ]
-})
+});
+
+function isEmpty(value){
+  return (
+      value === undefined ||
+      value === null ||
+      (typeof value === "object" && Object.keys(value).length === 0) ||
+      (typeof value === "string" && value.trim().length === 0)
+  );
+}
+
+router.beforeEach((to, from, next) => {
+  const user = JSON.parse(localStorage.getItem('user')) || {};
+  if(to.name === 'settings'){
+    if ( !isEmpty(user) && user.identity === "admin"  ){
+      next();
+    }else{
+      router.push({name: 'home'});
+    }
+  }
+  next();
+});
+
+export default router;
