@@ -107,15 +107,16 @@
                             .catch((error) =>{
                                 console.log(error)
                             });
+                        //这里用不着，在follower那里用到，没有的话要重新请求
                         localStorage.setItem('profile', JSON.stringify(this.formTop));
                     }
                 })
 
             },
             fetchData(){
-                if(localStorage.profile){
-                    const profile = JSON.parse(localStorage.getItem('profile'))
-                    this.$axios.get(`/api/profile/user?username=${profile.username}`)
+                if(localStorage.user){
+                    const user = JSON.parse(localStorage.getItem('user'))
+                    this.$axios.get(`/api/profile/user?username=${user.username}`)
                         .then(data => {
                             // console.log(data.data);
                             this.formTop = data.data;

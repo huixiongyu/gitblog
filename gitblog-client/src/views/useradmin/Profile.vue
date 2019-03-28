@@ -92,9 +92,9 @@
 
             },
             fetchData(){
-                if(localStorage.profile){
-                    const profile = JSON.parse(localStorage.getItem('profile'))
-                    this.$axios.get(`/api/profile/user?username=${profile.username}`)
+                if(localStorage.user){
+                    const user = JSON.parse(localStorage.getItem('user'))
+                    this.$axios.get(`/api/profile/user?username=${user.username}`)
                         .then(data => {
                             // console.log(data.data);
                             this.formTop = data.data;
