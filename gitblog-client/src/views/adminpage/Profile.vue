@@ -6,7 +6,7 @@
         <Row>
             <i-col span="16">
                 <div class="profile-panel">
-                    <Form :model="formTop" ref="formValidate" label-position="top" >
+                    <Form :model="formTop" ref="formValidate" :rules="ruleValidate" label-position="top" >
                         <FormItem label="Name" prop="nick">
                             <Input v-model="formTop.nick" placeholder="Nickname show in comment"></Input>
                         </FormItem>
@@ -50,7 +50,7 @@
                         Profile picture
                     </div>
                     <div class="avatar-img">
-                        <img src="../../assets/221.jpg" alt="">
+                        <img :src="formTop.avatar" alt="">
                     </div>
                     <div class="avatar-button">
                         <Upload action="//jsonplaceholder.typicode.com/posts/">
@@ -81,7 +81,16 @@
                     github: '',
                     zhihu: '',
                     yuncun: '',
-                    weibo: ''
+                    weibo: '',
+                    avatar: ''
+                },
+                ruleValidate: {
+                    nick: [
+                        { required: true, message: 'The nick cannot be empty', trigger: 'blur' }
+                    ],
+                    github: [
+                        { required: true, message: 'Github Address cannot be empty', trigger: 'blur' }
+                    ]
                 }
             }
         },
@@ -90,25 +99,31 @@
                 this.$refs[name].validate( (valid) =>{
                     if(valid){
                         this.$axios.post('/api/profile', this.formTop)
-                            .then(this.$Message.success('更改成功！'))
+                            .then(data => {
+                                // console.log(data.data);
+                                this.formTop = data.data;
+                                this.$Message.success('更改成功！')
+                            })
                             .catch((error) =>{
                                 console.log(error)
                             });
-
+                        localStorage.setItem('profile', JSON.stringify(this.formTop));
                     }
                 })
 
             },
             fetchData(){
-                const user = JSON.parse(localStorage.getItem('user'))
-                this.$axios.get(`/api/profile/user?username=${user.username}`)
-                    .then(data => {
-                        console.log(data.data);
-                        this.formTop = data.data;
-                    })
-                    .catch((error) =>{
+                if(localStorage.profile){
+                    const profile = JSON.parse(localStorage.getItem('profile'))
+                    this.$axios.get(`/api/profile/user?username=${profile.username}`)
+                        .then(data => {
+                            // console.log(data.data);
+                            this.formTop = data.data;
+                        })
+                        .catch((error) =>{
                             console.log(error)
-                    });
+                        });
+                }
             }
         },
         mounted() {

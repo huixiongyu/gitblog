@@ -16,6 +16,22 @@ npm run dev
 
 浏览器直接打开` http://localhost:8080`
 
+**测试账号:**
+
+```
+//admin
+email: huixiongyu@gmail.com
+password: mimashiyiersansiwu
+
+//member
+email: xiaoming@163.com
+password: 12345678
+```
+
+如果自己部署必须运行运行init文件夹下的admin.js和profile.js用来初始化博主，否则首页无法正常显示
+
+
+
 
 
 ## 文件和使用
@@ -342,6 +358,23 @@ axios.interceptors.request.use(
       return Promise.reject(err);
     }
 );
+```
+
+* 输入框回车进行登录获注册,  @keyup.enter.native
+
+```
+<Input type="password" 
+	v-model="loginInfo.password" 		@keyup.enter.native="handleLogin('formValidate')" />
+</FormItem>
+<FormItem>
+<Button class="login-button"
+type="success"
+style="fontSize:14px;fontWeight:600"
+@click=" handleLogin('formValidate')"
+>
+Sign in
+</Button>
+</FormItem>
 ```
 
 

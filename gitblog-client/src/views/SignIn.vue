@@ -23,7 +23,7 @@
                                 <span>Password</span>
                                 <router-link slot="label" to="/reset" class="reset-word">Forgot password?</router-link>
                             </div>
-                            <Input type="password" v-model="loginInfo.password" />
+                            <Input type="password" v-model="loginInfo.password" @keyup.enter.native="handleLogin('formValidate')" />
                         </FormItem>
                         <FormItem>
                             <Button class="login-button"
@@ -36,7 +36,6 @@
                         </FormItem>
                     </Form>
                 </Card>
-
             </div>
 
             <div class="new-account">
@@ -59,7 +58,6 @@
 </template>
 
 <script>
-    import jwt_decode from "jwt-decode";
     export default {
         name: "SignIn",
         data() {
@@ -90,15 +88,6 @@
                                 const { token } = res.data;
                                 localStorage.setItem("blogToken", token);
                                 // console.log('前端Token设置成功！');
-                                // 解析token
-                                const decode = jwt_decode(token);
-                                console.log(`我获得的token信息是${decode}`);
-                                // 存储数据
-                                localStorage.setItem('user', JSON.stringify(decode));
-                                // this.$store.commit("setLogin", decode);
-                                // this.$store.commit("setUser", decode);
-                                // this.$store.commit("judgeIdentity", decode);
-                                // console.log('store设置成功')
                                 // 页面跳转
                                 this.$Message.success("登录成功！")
                                 this.$router.push("/");
@@ -108,6 +97,12 @@
                         return false
                     }
                 })
+            }
+        },
+        mounted() {
+            if(localStorage.blogToken){
+                this.$Message.success('您已经登录♪(^∇^*)')
+                this.$router.push('/');
             }
         }
     }

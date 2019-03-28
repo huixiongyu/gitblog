@@ -20,7 +20,7 @@
 
          <div class="any-info">
              <p class="motto word-span">Keep calm and do epic shit!</p>
-             <p class="location-place"><i class="iconfont location">&#xe630;</i><span class="word-span"> China,Guangdong</span></p>
+             <p class="location-place" ><i class="iconfont location">&#xe630;</i><span class="word-span"> China,Guangdong</span></p>
             <p>
                 <Icon type="ios-mail-outline" size="20" />
                 <a class="email-link word-span" href="https://www.google.com">huixiongyu@gmail.com</a>
@@ -35,11 +35,35 @@
 
 <script>
 export default {
-    data(){
-        return {
-
-        }
-    }
+    // data(){
+    //     return {
+    //         homeData:{
+    //             nick: '',
+    //             username: '',
+    //             bio: '',
+    //             location: '',
+    //             email: '',
+    //             website: '',
+    //             avatar: ''
+    //         }
+    //     }
+    // }
+    // ,
+    // methods:{
+    //     fetchData(){
+    //         this.$axios.get("/api/profile/user?username=huixiongyu")
+    //             .then(data => {
+    //                 console.log(data.data);
+    //                 this.homeData = data.data;
+    //             })
+    //             .catch((error) =>{
+    //                 console.log(error);
+    //             });
+    //     }
+    // },
+    // mounted() {
+    //     this.fetchData();
+    // }
 }
 </script>
 

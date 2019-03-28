@@ -15,8 +15,8 @@ function isEmpty(value){
 
 export default new Vuex.Store({
   state: {
-    isLogin: null,
-    isAdmin: null,
+    isLogin: false,
+    isAdmin: false,
     user: null
   },
   getters:{
@@ -30,21 +30,14 @@ export default new Vuex.Store({
   mutations: {
     setLogin(state, payload){
         if(! isEmpty(payload)){
-          state.isLogin = "true";
-          localStorage.setItem('isLogin', "true");
+          state.isLogin = true;
         }
     },
     setUser(state, payload){
       state.user = payload;
-      localStorage.setItem('user', JSON.stringify(payload));
     },
     judgeIdentity(state, payload){
       state.isAdmin = payload.identity === "admin";
-      if(payload.identity === "admin"){
-        localStorage.setItem('isAdmin', "true");
-      }else{
-        localStorage.setItem('isAdmin', "false");
-      }
     }
   },
   actions: {

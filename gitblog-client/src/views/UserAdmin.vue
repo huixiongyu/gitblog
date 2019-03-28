@@ -2,7 +2,7 @@
     <div class="settings">
         <blog-header></blog-header>
         <div class="useradmin-nav">
-            <Menu mode="horizontal" :theme="light" active-name="1">
+            <Menu mode="horizontal"  active-name="1">
                 <MenuItem name="1" to="/useradmin/profile">
                     <Icon type="md-settings" />
                     Profile

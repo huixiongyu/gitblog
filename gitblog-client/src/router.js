@@ -154,6 +154,13 @@ router.beforeEach((to, from, next) => {
       router.push({name: 'home'});
     }
   }
+  if(to.name === 'useradmin'){
+    if ( !isEmpty(user) && user.identity === "member"  ){
+      next();
+    }else{
+      router.push({name: 'home'});
+    }
+  }
   next();
 });
 

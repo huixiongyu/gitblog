@@ -4,36 +4,36 @@
             <i-col span="7" class="comment-point">.</i-col>
             <i-col span="10">
                 <Card style="width:100%" class="profile-card">
-                    <Form :model="formTop" ref="formValidate" label-position="left" :label-width="80">
-                        <FormItem label="Name">
-                            <Input v-model="formTop.input1" placeholder="Nickname show in comment"></Input>
+                    <Form :model="formTop" ref="formValidate" :rules="ruleValidate" label-position="left" :label-width="80">
+                        <FormItem label="Name" prop="nick">
+                            <Input v-model="formTop.nick" placeholder="Nickname show in comment"></Input>
                         </FormItem>
-                        <FormItem label="Bio">
+                        <FormItem label="Bio" prop="bio">
                             <Input type="textarea"
-                                   v-model="formTop.input2"
+                                   v-model="formTop.bio"
                                    :autosize="{minRows: 3,maxRows: 5}"
                                    placeholder="Say something..."></Input>
                         </FormItem>
-                        <FormItem label="URL">
-                            <Input v-model="formTop.input3" placeholder="your website"></Input>
+                        <FormItem label="URL" prop="website">
+                            <Input v-model="formTop.website" placeholder="your website"></Input>
                         </FormItem>
-                        <FormItem label="Company">
-                            <Input v-model="formTop.input3"></Input>
+                        <FormItem label="Company" prop="company">
+                            <Input v-model="formTop.company"></Input>
                         </FormItem>
-                        <FormItem label="Location">
-                            <Input v-model="formTop.input3" placeholder="Such as: Guangdong,Guangzhou"></Input>
+                        <FormItem label="Location" prop="location">
+                            <Input v-model="formTop.location" placeholder="Such as: Guangdong,Guangzhou"></Input>
                         </FormItem>
-                        <FormItem label="Github">
-                            <Input v-model="formTop.input3" placeholder="your Github home page,begin with https://"></Input>
+                        <FormItem label="Github" prop="github">
+                            <Input v-model="formTop.github" placeholder="your Github home page,begin with https://"></Input>
                         </FormItem>
-                        <FormItem label="zhihu">
-                            <Input v-model="formTop.input3" placeholder="https://www.zhihu.com/people/xxx"></Input>
+                        <FormItem label="zhihu" prop="zhihu">
+                            <Input v-model="formTop.zhihu" placeholder="https://www.zhihu.com/people/xxx"></Input>
                         </FormItem>
-                        <FormItem label="yuncun">
-                            <Input v-model="formTop.input3" placeholder="share musicCloud to enjoy music together"></Input>
+                        <FormItem label="yuncun" prop="yuncun">
+                            <Input v-model="formTop.yuncun" placeholder="share musicCloud to enjoy music together"></Input>
                         </FormItem>
-                        <FormItem label="weibo">
-                            <Input v-model="formTop.input3" placeholder="sina weibo."></Input>
+                        <FormItem label="weibo" prop="weibo">
+                            <Input v-model="formTop.weibo" placeholder="sina weibo."></Input>
                         </FormItem>
                         <FormItem>
                             <Button type="success" @click="handleSubmit('formValidate')">Update profile</Button>
@@ -52,16 +52,69 @@
         data(){
             return {
                 formTop: {
-                    input1: '',
-                    input2: '',
-                    input3: ''
+                    nick: '',
+                    bio: '',
+                    website: '',
+                    company: '',
+                    location: '',
+                    github: '',
+                    zhihu: '',
+                    yuncun: '',
+                    weibo: '',
+                    avatar: ''
+                },
+                ruleValidate: {
+                    nick: [
+                        { required: true, message: 'The nick cannot be empty', trigger: 'blur' }
+                    ],
+                    github: [
+                        { required: true, message: 'Github Address cannot be empty', trigger: 'blur' }
+                    ]
                 }
             }
         },
         methods: {
             handleSubmit(name){
-                console.log(name)
+                this.$refs[name].validate( (valid) =>{
+                    if(valid){
+                        this.$axios.post('/api/profile', this.formTop)
+                            .then(data => {
+                                // console.log(data.data);
+                                this.formTop = data.data;
+                                this.$Message.success('更改成功！')
+                            })
+                            .catch((error) =>{
+                                console.log(error)
+                            });
+                        localStorage.setItem('profile', JSON.stringify(this.formTop));
+                    }
+                })
+
+            },
+            fetchData(){
+                if(localStorage.profile){
+                    const profile = JSON.parse(localStorage.getItem('profile'))
+                    this.$axios.get(`/api/profile/user?username=${profile.username}`)
+                        .then(data => {
+                            // console.log(data.data);
+                            this.formTop = data.data;
+                        })
+                        .catch((error) =>{
+                            console.log(error);
+                        });
+                }
+            },
+            printInfo(){
+                if(this.$store.state.isAdmin){
+                    console.log('我是管理员');
+                }else{
+                    console.log('我不是管理员');
+                }
             }
+        },
+        mounted() {
+            this.fetchData();
+            this.printInfo();
         }
     }
 </script>
