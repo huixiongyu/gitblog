@@ -1,10 +1,18 @@
 <template>
-    <div>cate</div>
+    <div>
+        <settings-title>
+            Categories of Post
+        </settings-title>
+    </div>
 </template>
 
 <script>
+    import SettingsTitle from '../../components/SettingsTitle'
     export default {
-        name: "Categories"
+        name: "Categories",
+        components:{
+            SettingsTitle
+        }
     }
 </script>
 

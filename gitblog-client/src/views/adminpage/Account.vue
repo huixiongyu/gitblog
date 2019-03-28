@@ -1,10 +1,18 @@
 <template>
-    <div>account</div>
+    <div>
+        <settings-title>
+            Change password
+        </settings-title>
+    </div>
 </template>
 
 <script>
+    import SettingsTitle from '../../components/SettingsTitle'
     export default {
-        name: "Account"
+        name: "Account",
+        components:{
+            SettingsTitle
+        }
     }
 </script>
 

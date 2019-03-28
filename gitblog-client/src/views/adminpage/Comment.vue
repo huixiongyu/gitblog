@@ -1,10 +1,18 @@
 <template>
-    <div>comment</div>
+    <div>
+        <settings-title>
+            Comment Manage
+        </settings-title>
+    </div>
 </template>
 
 <script>
+    import SettingsTitle from '../../components/SettingsTitle'
     export default {
-        name: "Comment"
+        name: "Comment",
+        components:{
+            SettingsTitle
+        }
     }
 </script>
 

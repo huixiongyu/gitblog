@@ -3,7 +3,7 @@
         <blog-header></blog-header>
         <div class="settings-content">
             <Row>
-                <i-col span="3">.</i-col>
+                <i-col span="3" class="point-hide">.</i-col>
                 <i-col span="5">
                     <div class="setting-route">
                         <div class="settings-title">
@@ -21,7 +21,7 @@
                 <i-col span="13">
                     <router-view></router-view>
                 </i-col>
-                <i-col span="3">.</i-col>
+                <i-col span="3" class="point-hide">.</i-col>
             </Row>
         </div>
         <blog-footer></blog-footer>
@@ -43,15 +43,10 @@
             }
         },
         methods: {
-            handleClick(){
-                this.$router.push({name: 'account'});
-            },
-            printRoute(){
-                console.log(this.$route.name);
-            }
+
         },
         mounted(){
-            this.printRoute();
+
         }
     }
 </script>
@@ -61,9 +56,12 @@
         width: 100%;
         clear: both;
     }
+    .point-hide{
+        color: white;
+    }
     .setting-route{
         width: 225px;
-        height: 800px;
+        /*height: 800px;*/
         border: 1px solid #E1E4E8;
         border-radius: 3px;
         div{
@@ -76,8 +74,11 @@
             font-size: 14px;
             color: rgb(3, 102, 214);
             &:hover{
-                background-color: #FAFBFC;
+                background-color: #F0F3EF;
                 cursor: pointer;
+            }
+            &:last-child{
+                border-bottom: 1px solid transparent;
             }
         }
         .settings-title{
@@ -85,12 +86,18 @@
             font-size: 16px;
             font-weight: 600;
             background-color: #FAFBFC;
+            &:hover{
+                background-color: #FAFBFC;
+                cursor: default;
+            }
         }
     }
 
     .active-route{
         color: rgb(36, 41, 46) !important;
-        cursor: default;
         font-weight: 600;
+        &:hover{
+            cursor: default;
+        }
     }
 </style>
