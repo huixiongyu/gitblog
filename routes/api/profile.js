@@ -107,5 +107,41 @@ router.get('/user', async ctx => {
     }
 });
 
+/*
+@route GET /api/profile/followers
+@desc 获取所有用户信息，在follower页面显示
+@detial 用户名、昵称、bio、头像
+ */
+
+router.get('/followers', async ctx => {
+    const user = await User.find();
+    // console.log(user);
+    let len = user.length;
+    for(var item = 0; item < len ; item++){
+        if(user[item].identity === 'admin'){
+            user.splice(item, 1);
+            break;
+        }
+    }
+    // console.log(`这是去除admin之后的用户列表${user}`);
+    len = user.length;
+    let responseList = [];
+    for(var i=0;i < len; i++ ){
+        const newProfile ={
+            username: user[i].username,
+            avatar: user[i].avatar
+        };
+        const profile = await Profile.find({ username: user[i].username });
+        // console.log(profile);
+        newProfile.nick = profile[0].nick;
+        newProfile.bio = profile[0].bio;
+        newProfile.company = profile[0].company;
+        newProfile.location = profile[0].location;
+        newProfile.github = profile[0].github;
+        responseList.push(newProfile);
+        // console.log(user[i]);
+    }
+    ctx.body = responseList;
+});
 
 module.exports = router.routes();

@@ -147,31 +147,39 @@ server是使用koa-generator生成的
     * id 
 ## API设计
 
-* POST    /api/users/register  注册
-  * username 必须
-  * email    邮箱是唯一的，姓名可以重复
-  * password 必须
-* POST  /api/users/signin  登录
-  * email 必须
-  * password 必须
-* POST /api/users/changepassword  修改密码
-  * username 必须
-  * old 旧密码
-  * newPass 新密码
-  * repeatNew 重复的密码
-* POST /api/profile  添加或更新个人信息
-  * nick 必填
-  * username 自动关联登录账户的username(为了方便用户信息查询接口)
-  * github 必填，字段符合URL
-  * email 自动关联登录账户的email
-  * bio 可选
-  * website 可选
-  * company 可选
-  * zhihu 可选
-  * yuncun 可选
-  * weibo 可选
-* GET  /api/profile/user?username=xxx
-* 
+* User
+
+  *  注册  POST    /api/users/register 
+    * username 必须
+    * email    邮箱是唯一的，姓名可以重复
+    * password 必须
+  * 登录  POST  /api/users/signin  
+    * email 必须
+    * password 必须
+  * 修改密码 POST  /api/users/changepassword  
+    * username 必须
+    * old 旧密码
+    * newPass 新密码
+    * repeatNew 重复的密码
+
+* Profile
+
+  * 添加或更新个人信息  POST /api/profile  
+    * nick 必填
+    * username 自动关联登录账户的username(为了方便用户信息查询接口)
+    * github 必填，字段符合URL
+    * email 自动关联登录账户的email
+    * bio 可选
+    * website 可选
+    * company 可选
+    * zhihu 可选
+    * yuncun 可选
+    * weibo 可选
+  * 获取某个人的信息 GET  /api/profile/user?username=xxx
+    * xxx代表用户名，可以在blogToken中解析
+  * 获取所有用户 GET  /api/users/followers
+
+  
 
 
 
@@ -200,6 +208,7 @@ server是使用koa-generator生成的
     * 用户从链接点回来先验证 Token 的有效性，然后提示填写新密码，然后将新密码和 Token 一起提交给后端完成修改密码的操作
     * 删除掉 Token 的缓存
 * Token过期之后的refresh
+* 气泡提示框，显示个人信息（在follower那个页面）
 * 鼠标滚动到一定位置，Menu吸附到顶端，左侧会自动补充头像形成完整的导航栏
 * 支持响应式布局，在手机端、平板等各种设备有比较好的浏览体验
 * 时间轴（打卡时间轴）
@@ -523,3 +532,4 @@ handleClick(name) {
 * 面板：点击显示，移入维持，移出消失。Menu会遮住自定义的面板
 * 用户登录状态管理
 * 首页数据初始化（其实是leftside）,需要管理好部署的配置，以便最小化配置实现部署
+* 没有初始化用户的话可能导致followers页出现问题

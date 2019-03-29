@@ -1,64 +1,118 @@
 <template>
     <div class="follower-page">
-        <div class="follower-item">
+        <div class="follower-item" v-for="item in followesList" :key="item.username">
             <div class="follower-cover">
-                <img src="../../assets/221.jpg" alt="cover">
+                <img :src="item.avatar" alt="cover">
             </div>
-            <div class="follower-name right-offset">
-                <span class="github-nickname">Yige</span>	
-                <span class="github-name">yi-ge</span>
+            <div class="follower-name">
+                <span class="github-nickname">{{item.nick}}</span>
+                <span class="github-name">{{item.username}}</span>
             </div>
-            <div class="motto-desc right-offset">
-                Full stack Developer!
+            <div class="motto-desc">
+                {{item.bio}}
             </div>
-            <div class="follower-location right-offset">
-                Beijing, China
+            <div class="detail-info">
+                <div class="follower-company" v-if="item.company">
+                    <Icon type="ios-people" style="font-size: 20px"/> {{item.company}}
+                </div>
+                <div class="follower-location">
+                    <i class="iconfont " style="font-size: 20px">&#xe630;</i>{{item.location}}
+                </div>
+            </div>
+            <div class="follow-button">
+                Unfollow
             </div>
         </div>
     </div>
 </template>
 <script>
 export default {
-    name: 'followers'
+    name: 'followers',
+    data(){
+        return{
+            followesList : [ ]
+        }
+    },
+    methods:{
+        fetchFollowers(){
+            this.$axios.get('/api/profile/followers')
+                .then(data => {
+                    this.followesList = data.data;
+                    // console.log(this.followesList);
+                })
+                .catch((error) =>{
+                    console.log(error);
+                });
+        }
+    },
+    created() {
+        this.fetchFollowers();
+    }
 }
 </script>
 
 <style lang="less">
-.follower-page{
-    width: 730px;
-}
-.follower-item{
-    position: relative;
-    width: 100%;
-    height: 140px;
-    border-bottom: 1px solid #586069;
-}
-.right-offset{
-    margin-left: 70px;
-}
-.follower-cover{
-    position: absolute;
-    left: 2px;
-    top: 30px;
-    width: 60px;
-    height: 60px;
-    img{
-        border-radius: 5px;
+    .follower-page{
+        width: 730px;
+    }
+    .follower-item{
+        position: relative;
+        padding-left: 70px;
         width: 100%;
-        height: 100%;
-        object-fit: fill;
+        height: 130px;
+        border-bottom: 1px solid #EAEEF3;
     }
-}
-.follower-name{
-    padding-top: 32px;
-    .github-nickname{
-        color: #24292e;
-        font-size: 18px;
-        margin-right: 10px;
+    .follower-cover{
+        position: absolute;
+        left: 2px;
+        top: 30px;
+        width: 60px;
+        height: 60px;
+        img{
+            border-radius: 5px;
+            width: 100%;
+            height: 100%;
+            object-fit: fill;
+        }
     }
-    .github-name{
-        color: #586069;
-        font-size: 16px;
+    .follower-name{
+        padding-top: 32px;
+        .github-nickname{
+            color: #24292e;
+            font-size: 18px;
+            margin-right: 10px;
+            cursor: pointer;
+        }
+        .github-name{
+            color: #586069;
+            font-size: 16px;
+        }
     }
-}
+    .detail-info{
+        div{
+            display: inline-block;
+        }
+    }
+    .follower-company{
+        margin-right: 20px;
+    }
+    .follow-button{
+        position: absolute;
+        top: 26px;
+        right: 0px;
+        width: 74px;
+        height: 30px;
+        border-radius: 3px;
+        border: 1px solid   #9FA3A9;
+        background-color: #F5F5F5;
+        color: black;
+        font-size: 14px;
+        font-weight: 600;
+        line-height: 30px;
+        vertical-align: center;
+        text-align: center;
+        &:hover{
+            background-color: #E7EBF1;
+        }
+    }
 </style>
