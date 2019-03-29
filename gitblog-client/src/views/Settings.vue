@@ -47,6 +47,15 @@
         },
         mounted(){
 
+        },
+        beforeRouteEnter(to, from, next){
+            if(!this.$store.state.isAdmin){
+                next(vm => {
+                    vm.$router.push({name: from.name})
+                })
+            }else{
+                next();
+            }
         }
     }
 </script>

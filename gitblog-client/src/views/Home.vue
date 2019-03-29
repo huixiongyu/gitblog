@@ -24,6 +24,17 @@ export default {
         LeftSide,
         MainPage,
         BlogFooter
+    },
+    beforeRouteEnter(to, from, next) {
+        if(from.name === 'signin'){
+            next(vm => {
+                location.reload();
+                vm.$router.go(0);
+            })
+        }else{
+            next();
+        }
+
     }
 }
 </script>

@@ -97,6 +97,7 @@ server是使用koa-generator生成的
 * [使用$refs访问Vue中的DOM](https://www.w3cplus.com/vue/accessing-dom-refs.html) 
 * [可能比文档还详细--VueRouter完全指北](https://juejin.im/post/5b82bcfcf265da4345153343#heading-11)
 * [vue项目用户登录状态管理，vuex+locaStorage实现](https://blog.csdn.net/weixin_38115427/article/details/79443468) 
+* [vue：从一个下拉框组件理解vue中的父子通讯](https://juejin.im/post/5a37327df265da4325296431)
 
 ## 正在开发的功能
 * 后台管理Profile Setting，包括地理定位
@@ -216,6 +217,7 @@ server是使用koa-generator生成的
 * 性能优化,每ms
 * 分页：手机端上拉自动加载
 * 评论需要登录，手机端是弹框登录，电脑端需要携带评论页面的位置，登录后跳转
+* 评论框带表情选择
 
 ## 收获
 * 一个神奇的bug!在postman一直测试提交数据，数据库就是没接收到，后来含泪发现请求地址忘记了api前缀！！！
@@ -377,12 +379,48 @@ Sign in
 </FormItem>
 ```
 
+* 设置禁止缩放页面
 
+```
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+```
+
+* 生成个性化(随机)avatar: [Image Requests](https://en.gravatar.com/site/implement/images/) 
+  * 404
+  * mp 灰白人头像
+  * identicon 随机的花纹
+  * monsterid 怪物
+  * wavatar 人脸特征
+  * retro 人脸像素块
+  * rebohash 机器人哈希
+  * black 空白 
+* iview下拉菜单点击事件
+
+```
+<Dropdown @on-click="handleClick">
+    <a href="javascript:void(0)">
+    hover 触发
+    <Icon type="ios-arrow-down"></Icon>
+    </a>
+  <DropdownMenu slot="list">
+    <DropdownItem name="edit">编辑</DropdownItem>
+    <DropdownItem name="delete">删除</DropdownItem>
+  </DropdownMenu>
+</Dropdown>
+
+
+//script
+handleClick(name) {
+  console.log(name);
+}
+```
+
+* vuex数据更新的时候头像的登录状态还没有变化，使用了beforeRouteEnter调用location.reload()进行页面刷新，provide/inject可能是更好的解决方法：[vue项目如何刷新当前页面](https://blog.csdn.net/qq_16772725/article/details/80467492) 
 
 ## 问题目录
 
 * 注册页面，根据不同的状态码返回提示信息。产生的错误没有报回来
 * setting页面，当前激活的路由前边有一道小红线。并且为点击导航的时候,对应路由没有高亮
-* 面板：点击显示，移入维持，移出消失
+* 面板：点击显示，移入维持，移出消失。Menu会遮住自定义的面板
 * 用户登录状态管理
 * 首页数据初始化（其实是leftside）,需要管理好部署的配置，以便最小化配置实现部署

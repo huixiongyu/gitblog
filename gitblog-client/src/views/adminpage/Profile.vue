@@ -114,9 +114,7 @@
 
             },
             fetchData(){
-                if(localStorage.user){
-                    const user = JSON.parse(localStorage.getItem('user'))
-                    this.$axios.get(`/api/profile/user?username=${user.username}`)
+                    this.$axios.get("/api/profile/user?username=huixiongyu")
                         .then(data => {
                             // console.log(data.data);
                             this.formTop = data.data;
@@ -124,7 +122,6 @@
                         .catch((error) =>{
                             console.log(error)
                         });
-                }
             }
         },
         mounted() {

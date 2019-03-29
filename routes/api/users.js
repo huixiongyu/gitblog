@@ -41,7 +41,7 @@ router.post('/register', async ctx => {
         const avatar = gravatar.url(ctx.request.body.email, {
             s: '200',
             r: 'pg',
-            d: 'mm'
+            d: 'identicon'
         });
         const newUser = new User({
             username: ctx.request.body.username,

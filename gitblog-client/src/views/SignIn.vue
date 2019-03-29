@@ -58,6 +58,7 @@
 </template>
 
 <script>
+    import jwt_decode from "jwt-decode";
     export default {
         name: "SignIn",
         data() {
@@ -89,7 +90,11 @@
                                 localStorage.setItem("blogToken", token);
                                 // console.log('前端Token设置成功！');
                                 // 页面跳转
-                                this.$Message.success("登录成功！")
+                                const decode = jwt_decode(token);
+                                this.$store.commit("setLogin", decode);
+                                this.$store.commit("setUser", decode);
+                                this.$store.commit("judgeIdentity", decode);
+                                this.$Message.success("登录成功！");
                                 this.$router.push("/");
                             })
                     }else{

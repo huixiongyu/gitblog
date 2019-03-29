@@ -23,25 +23,63 @@
             </Badge>
             <Icon type="md-add" class="add-icon" size="20" />
             <Icon type="md-arrow-dropdown" size="20" />
-                <div class="portriat" >
-                    <img src="../assets/images/gitcat.jpeg" alt="logo">
+                <Dropdown class="portriat" v-if="this.$store.state.isLogin" transfer  @on-click="dropdownSelect">
+                    <div>
+                        <img :src="this.$store.state.user.avatar" alt="logo">
+                    </div>
+                    <DropdownMenu  slot="list">
+                        <DropdownItem name="comment"><Icon type="md-chatboxes" />评论管理</DropdownItem>
+                        <DropdownItem name="profile" v-if="!this.$store.state.isAdmin"><Icon type="md-settings" />个人信息</DropdownItem>
+                        <DropdownItem name="settings" v-else><Icon type="md-settings" />后台管理</DropdownItem>
+                        <DropdownItem name="logout">退出</DropdownItem>
+                    </DropdownMenu>
+                </Dropdown>
+                <div class="portriat" v-else>
+                    <img @click="toSignin" src="../assets/images/gitcat.jpeg" alt="logo">
                 </div>
         </div>
-
-        <div class="admin-select" v-show="adminPanelshow">
-
-        </div>
-
     </nav>
 </template>
 <script>
 export default {
     data(){
         return {
-            adminPanelshow: false
+            // adminPanelshow: true
         }
     },
     methods: {
+        toSignin(){
+            this.$router.push('/signin');
+        },
+        dropdownSelect(name){
+            if(name === 'logout'){
+                if(localStorage.profile){
+                    localStorage.removeItem('profile');
+                }
+                localStorage.removeItem('blogToken');
+                localStorage.removeItem('user');
+                location. reload();
+                this.$router.push('/');
+                this.$Message.success('已经退出ヾ(￣▽￣)Bye~Bye~');
+            }
+            if(name === 'settings'){
+                this.$router.push('settings');
+            }
+            if(name === 'profile'){
+                if(this.$store.state.isAdmin === "admin"){
+                    this.$router.push({name: 'profile'});
+                }else{
+                    this.$router.push({name: 'userprofile'});
+                }
+            }
+            if(name === 'comment'){
+                if(this.$store.state.isAdmin === "admin"){
+                    this.$router.push({name: 'comment'});
+                }else{
+                    this.$router.push({name: 'usercomment'});
+                }
+            }
+        }
     }
 }
 </script>
@@ -97,6 +135,18 @@ export default {
     .avatar{
         float:right;
         margin-top: 18px;
+        position: relative;
+        /*.admin-select{*/
+        /*    position: absolute;*/
+        /*    top: 50px;*/
+        /*    right: 18px;*/
+        /*    width: 180px;*/
+        /*    height: 220px;*/
+        /*    border: 1px solid #DCDEE2;*/
+        /*    border-radius: 3px;*/
+        /*    z-index: 900;*/
+        /*    background-color: yellow;*/
+        /*}*/
     }
     .add-icon{
         margin-left: 15px;
@@ -112,16 +162,7 @@ export default {
             border-radius: 5px;
         }
     }
-    .admin-select{
-        position: absolute;
-        top: 50px;
-        right: 18px;
-        width: 180px;
-        height: 220px;
-        border: 1px solid #DCDEE2;
-        border-radius: 3px;
-        z-index: 900;
-    }
+
 
 
 </style>
