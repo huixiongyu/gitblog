@@ -416,6 +416,7 @@ handleClick(name) {
 ```
 
 * vuex数据更新的时候头像的登录状态还没有变化，使用了beforeRouteEnter调用location.reload()进行页面刷新，provide/inject可能是更好的解决方法：[vue项目如何刷新当前页面](https://blog.csdn.net/qq_16772725/article/details/80467492) 
+* beforeEach要注意判断条件，避免进入 无限循环
 
 ## 问题目录
 

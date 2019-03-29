@@ -1,7 +1,7 @@
 <template>
     <div class="overview">
         <div class="post-search">
-            <Input class="search-box" v-model="value" size="large" placeholder="Find an article..." style="width:500px;height:43px;" />
+            <Input class="search-box"  size="large" placeholder="Find an article..." style="width:500px;height:43px;" />
             <Select class="tag-select" placeholder="Tag:All" v-model="model1" style="width:140px" size="large">
                 <Option v-for="item in tagList" :value="item.value" :key="item.value">{{ item.label }}</Option>
             </Select>           

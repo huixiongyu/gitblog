@@ -118,6 +118,7 @@
                         .then(data => {
                             // console.log(data.data);
                             this.formTop = data.data;
+                            localStorage.setItem('profile', JSON.stringify(this.formTop));
                         })
                         .catch((error) =>{
                             console.log(error)

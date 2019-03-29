@@ -58,8 +58,7 @@ export default {
                 }
                 localStorage.removeItem('blogToken');
                 localStorage.removeItem('user');
-                location. reload();
-                this.$router.push('/');
+                this.$router.replace('/');
                 this.$Message.success('已经退出ヾ(￣▽￣)Bye~Bye~');
             }
             if(name === 'settings'){

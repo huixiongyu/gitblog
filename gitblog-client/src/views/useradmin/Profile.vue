@@ -98,23 +98,16 @@
                         .then(data => {
                             // console.log(data.data);
                             this.formTop = data.data;
+                            localStorage.setItem('profile', JSON.stringify(this.formTop));
                         })
                         .catch((error) =>{
                             console.log(error);
                         });
                 }
-            },
-            printInfo(){
-                if(this.$store.state.isAdmin){
-                    console.log('我是管理员');
-                }else{
-                    console.log('我不是管理员');
-                }
             }
         },
         mounted() {
             this.fetchData();
-            this.printInfo();
         }
     }
 </script>
