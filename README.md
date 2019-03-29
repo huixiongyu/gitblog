@@ -416,7 +416,96 @@ handleClick(name) {
 ```
 
 * vuex数据更新的时候头像的登录状态还没有变化，使用了beforeRouteEnter调用location.reload()进行页面刷新，provide/inject可能是更好的解决方法：[vue项目如何刷新当前页面](https://blog.csdn.net/qq_16772725/article/details/80467492) 
-* beforeEach要注意判断条件，避免进入 无限循环
+
+* beforeEach要注意判断条件，避免进入 无限循环，全局路由守卫可以借助meta来设置，下面是有一个管理员，其他用户可登录的权限设置
+
+  *  1.settings，需要登录，并且是管理员
+  * 2.useradmin, 需要登录，不是管理员，普通用户的管理页面，管理员不能访问！(也就是同时满足不是管理员，不是管理员管理后台)
+  * 3.不满足以上的跳到首页，也就是管理员不能访问普通用户，普通用户不能访问后台
+  * 4.没有登录，不能访问需要登录的页面！
+  * 5.随便看，我不管
+
+  ```
+  //上面要设置路由的meta信息，比如
+  {
+      path: '/useradmin',
+      name: 'useradmin',
+      component: UserAdmin,
+      meta:  {
+          requiresAuth: true ,
+          requiresAdmin: false
+  	}
+  },
+      {
+        path: '/settings',
+        name: 'settings',
+        component: Settings,
+        meta:  {
+          requiresAuth: true ,
+          requiresAdmin: true
+        }
+  }
+  
+  
+  function isAdmin(){
+    if(localStorage.blogToken){
+      const token = localStorage.getItem('blogToken')
+      const decode = jwt_decode(token);
+      if(decode.identity === "admin"){
+        return true;
+      }
+    }
+    return false;
+  }
+  
+  function isLogin(){
+    if(localStorage.blogToken){
+      return true;
+    }
+    return false;
+  }
+  
+  
+  router.beforeEach((to, from, next) => {
+    // 需要登录的跳转判断
+    //需要权限，并且已经登录了
+    // 权限有5种：
+    // 1.settings，需要登录，需要管理员
+    // 2.useradmin, 需要登录，不需要管理员，管理员不能访问！(也就是同时满足不是管理员，不是管理员管理后台)
+    // 3.不满足以上的跳到首页，也就是管理员不能访问普通用户，普通用户不能访问后台
+    // 4.没有登录，不能访问需要登录的页面！
+    // 5.随便看，我不管
+    if (to.matched.some(record => record.meta.requiresAuth) && isLogin()) {
+        console.log('我已经登录了');
+        if(to.matched.some(record => record.meta.requiresAdmin) && isAdmin()){
+          console.log('进入了高级管理员模式，我要管理博客发布');
+          next();
+        }else if(!to.matched.some(record => record.meta.requiresAdmin) && !isAdmin()){
+          console.log('进入了普通用户模式, 我要设置个人信息');
+          next();
+        }
+        else{
+          console.log('因为不符合权限，所以跳到首页了');
+          next({
+            path: '/'
+          });
+        }
+    // 需要权限，并且没有登录！！
+    } else if(to.matched.some(record => record.meta.requiresAuth) && !isLogin()){
+      console.log('需要权限验证，但是我没有登录，所以跳到首页了');
+      next({
+        path: '/'
+      });
+    }else{
+      // 不需要登录直接跳转
+      console.log('我的行为不需要任何权限');
+      next()
+    }
+  });
+  
+  ```
+
+  
 
 ## 问题目录
 

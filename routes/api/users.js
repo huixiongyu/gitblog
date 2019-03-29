@@ -3,7 +3,7 @@ const router = new Router()
 const bcrypt = require('bcryptjs')
 const gravatar = require('gravatar')
 const jwt = require('jsonwebtoken')
-// const passport = require('koa-passport')
+const passport = require('koa-passport')
 const secretOrKey = require('../../config/keys').secretOrKey
 const tools = require('../../config/tools')
 
@@ -13,6 +13,7 @@ const User = require('../../models/User')
 // 引入字段验证
 const validateRegisterInput = require('../../validation/register')
 const validateSigninInput = require('../../validation/sign-in')
+const validatePasswordInput = require('../../validation/change-password')
 
 //测试路由
 router.get('/test', async ctx => {
@@ -110,7 +111,51 @@ router.post('/signin', async ctx => {
     }
 });
 
-
-
+/*
+@router POST  api/users/changepassword
+@desc 返回Token
+ */
+router.post('/changepassword', passport.authenticate('jwt', { session: false }),
+    async ctx => {
+        const {errors, isValid} = validatePasswordInput(ctx.request.body);
+        console.log(ctx.request.body);
+        console.log('我进来profile路由了')
+        // 判断是否验证通过
+        if (!isValid) {
+            ctx.status = 400;
+            ctx.body = errors;
+            return;
+        }
+        //查询账户，修改密码
+        const findResult = await User.find({ username: ctx.request.body.username });
+        const user = findResult[0];
+        const password = ctx.request.body.old;
+        //开始验证跟原始密码是否一致
+        let result = await bcrypt.compareSync(password, user.password);
+        // 验证通过
+        if (result) {
+            //开始修改
+            const userUpdate ={
+                username: ctx.request.body.username,
+                email: user.email,
+                avatar: user.avatar,
+                password: tools.enbcrypt(ctx.request.body.newPass),
+                identity: user.identity,
+                banned: user.banned,
+                date: user.date
+            };
+             await User.findOneAndUpdate(
+                { username: ctx.request.body.username},
+                { $set: userUpdate },
+                { overwrite: true, new: true }
+            );
+            ctx.status = 200;
+            ctx.body = { message: '密码已经修改了'};
+        } else {
+            ctx.status = 400;
+            ctx.body = { password: '原始输入密码错误!' };
+        }
+    }
+);
 
 module.exports = router.routes();

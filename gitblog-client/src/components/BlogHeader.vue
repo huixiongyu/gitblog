@@ -27,11 +27,11 @@
                     <div>
                         <img :src="this.$store.state.user.avatar" alt="logo">
                     </div>
-                    <DropdownMenu  slot="list">
-                        <DropdownItem name="comment"><Icon type="md-chatboxes" />评论管理</DropdownItem>
-                        <DropdownItem name="profile" v-if="!this.$store.state.isAdmin"><Icon type="md-settings" />个人信息</DropdownItem>
-                        <DropdownItem name="settings" v-else><Icon type="md-settings" />后台管理</DropdownItem>
-                        <DropdownItem name="logout">退出</DropdownItem>
+                    <DropdownMenu class="drop-menu"  slot="list">
+                        <DropdownItem class="drop-item" name="pinglun"><Icon type="md-chatboxes" />评论管理</DropdownItem>
+                        <DropdownItem class="drop-item" name="profile" v-if="!this.$store.state.isAdmin"><Icon type="md-settings" />个人信息</DropdownItem>
+                        <DropdownItem class="drop-item" name="settings" v-else><Icon type="md-settings" />后台管理</DropdownItem>
+                        <DropdownItem class="drop-item" name="logout">退出</DropdownItem>
                     </DropdownMenu>
                 </Dropdown>
                 <div class="portriat" v-else>
@@ -62,20 +62,20 @@ export default {
                 this.$Message.success('已经退出ヾ(￣▽￣)Bye~Bye~');
             }
             if(name === 'settings'){
-                this.$router.push('settings');
+                this.$router.push('/settings');
             }
             if(name === 'profile'){
                 if(this.$store.state.isAdmin === "admin"){
-                    this.$router.push({name: 'profile'});
+                    this.$router.push('settings/profile');
                 }else{
-                    this.$router.push({name: 'userprofile'});
+                    this.$router.push( '/useradmin/profile');
                 }
             }
-            if(name === 'comment'){
+            if(name === 'pinglun'){
                 if(this.$store.state.isAdmin === "admin"){
-                    this.$router.push({name: 'comment'});
+                    this.$router.push('/settings/comment');
                 }else{
-                    this.$router.push({name: 'usercomment'});
+                    this.$router.push('/useradmin/comment');
                 }
             }
         }
@@ -161,7 +161,14 @@ export default {
             border-radius: 5px;
         }
     }
-
+    .drop-menu{
+        .drop-item{
+            &:hover{
+                background-color: #0366D6;
+                color: white;
+            }
+        }
+    }
 
 
 </style>

@@ -218,29 +218,29 @@ router.beforeEach((to, from, next) => {
   // 4.没有登录，不能访问需要登录的页面！
   // 5.随便看，我不管
   if (to.matched.some(record => record.meta.requiresAuth) && isLogin()) {
-      console.log('我已经登录了');
+      // console.log('我已经登录了');
       if(to.matched.some(record => record.meta.requiresAdmin) && isAdmin()){
-        console.log('进入了高级管理员模式，我要管理博客发布');
+        // console.log('进入了高级管理员模式，我要管理博客发布');
         next();
       }else if(!to.matched.some(record => record.meta.requiresAdmin) && !isAdmin()){
-        console.log('进入了普通用户模式, 我要设置个人信息');
+        // console.log('进入了普通用户模式, 我要设置个人信息');
         next();
       }
       else{
-        console.log('因为不符合权限，所以跳到首页了');
+        // console.log('因为不符合权限，所以跳到首页了');
         next({
           path: '/'
         });
       }
   // 需要权限，并且没有登录！！
   } else if(to.matched.some(record => record.meta.requiresAuth) && !isLogin()){
-    console.log('需要权限验证，但是我没有登录，所以跳到首页了');
+    // console.log('需要权限验证，但是我没有登录，所以跳到首页了');
     next({
       path: '/'
     });
   }else{
     // 不需要登录直接跳转
-    console.log('我的行为不需要任何权限');
+    // console.log('我的行为不需要任何权限');
     next()
   }
 });
