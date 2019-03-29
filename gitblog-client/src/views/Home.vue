@@ -2,12 +2,14 @@
     <div class="home">
         <blog-header></blog-header>
         <Row class="mainpage">
-            <i-col span="3" offset="3">
+            <i-col span="3" class="main-haide">.</i-col>
+            <i-col span="3">
                 <left-side></left-side>
             </i-col>
-            <i-col span="16" offset="2">
+            <i-col class="middle-page" span="16" offset="2">
                 <main-page></main-page>
             </i-col>
+            <i-col span="2" class="main-haide">.</i-col>
         </Row>
         <blog-footer></blog-footer>
     </div>
@@ -28,8 +30,10 @@ export default {
     beforeRouteEnter(to, from, next) {
         if(from.name === 'signin'){
             next(vm => {
-                location.reload();
-                vm.$router.go(0);
+                setTimeout(function () {
+                    location.reload();
+                    vm.$router.go(0);
+                }, 1000);
             })
         }else{
             next();
@@ -39,10 +43,17 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="less">
+    .home{
+        width: 100%;
+        height: 100%;
+    }
     .mainpage{
         width: 100%;
         height: 100%;
-        float: left;
+        clear: both;
+    }
+    .main-haide{
+        color: white;
     }
 </style>

@@ -136,12 +136,15 @@ server是使用koa-generator生成的
     * categories    分类
     * Tags  标签
     * star 喜欢的数量
-    * coment 评论列表
+    * coment 评论列表，
+    * secreat   决定是否是草稿
 * Comment
     * user
     * content
     * read  已读
     * toRead 未读
+    * date
+    * id 
 ## API设计
 
 * POST    /api/users/register  注册
@@ -151,6 +154,11 @@ server是使用koa-generator生成的
 * POST  /api/users/signin  登录
   * email 必须
   * password 必须
+* POST /api/users/changepassword  修改密码
+  * username 必须
+  * old 旧密码
+  * newPass 新密码
+  * repeatNew 重复的密码
 * POST /api/profile  添加或更新个人信息
   * nick 必填
   * username 自动关联登录账户的username(为了方便用户信息查询接口)
@@ -163,7 +171,7 @@ server是使用koa-generator生成的
   * yuncun 可选
   * weibo 可选
 * GET  /api/profile/user?username=xxx
-  * 
+* 
 
 
 
@@ -218,6 +226,7 @@ server是使用koa-generator生成的
 * 分页：手机端上拉自动加载
 * 评论需要登录，手机端是弹框登录，电脑端需要携带评论页面的位置，登录后跳转
 * 评论框带表情选择
+* webSocket在线校验注册信息，搜索信息
 
 ## 收获
 * 一个神奇的bug!在postman一直测试提交数据，数据库就是没接收到，后来含泪发现请求地址忘记了api前缀！！！

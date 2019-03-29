@@ -74,7 +74,25 @@
         },
         methods: {
             handleSubmit(name){
-                console.log(name);
+                this.$refs[name].validate( (valid) =>{
+                    if(valid){
+                        const postData =this.passwordData;
+                        postData.username = this.$store.state.user.username;
+                        this.$axios.post('/api/users/changepassword', postData)
+                            .then(data => {
+                                if(localStorage.profile){
+                                    localStorage.removeItem('profile');
+                                }
+                                localStorage.removeItem('blogToken');
+                                localStorage.removeItem('user');
+                                this.$router.replace('/signin');
+                                this.$Message.success('更改成功~\(≧▽≦)/~啦啦啦，重新登录吧ヾ(￣▽￣)Bye~Bye~');
+                            })
+                            .catch((error) =>{
+                                console.log(error)
+                            });
+                    }
+                })
             }
         }
     }

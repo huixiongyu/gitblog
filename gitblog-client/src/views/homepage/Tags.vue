@@ -18,7 +18,7 @@ export default {
 </script>
 <style lang="less">
 .tags-container{
-
+    width: 100%;
 }
 .tag-item{
     float: left;

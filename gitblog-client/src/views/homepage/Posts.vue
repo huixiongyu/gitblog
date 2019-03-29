@@ -1,7 +1,7 @@
 <template>
     <div class="overview">
         <div class="post-search">
-            <Input class="search-box"  size="large" placeholder="Find an article..." style="width:500px;height:43px;" />
+            <Input class="search-box"  size="large" placeholder="Find an article..." style="width:390px;height:43px;" />
             <Select class="tag-select" placeholder="Tag:All" v-model="model1" style="width:140px" size="large">
                 <Option v-for="item in tagList" :value="item.value" :key="item.value">{{ item.label }}</Option>
             </Select>           
@@ -114,90 +114,94 @@ export default {
 </script>
 
 <style lang="less">
-.post-search{
-    position: relative;
-    margin-top: 20px;
-}
-.search-box{
-    margin-top: 5px;
-}
-.tag-select{
-    margin-left: 25px;
-}
-.cate-select{
-    margin-left: 5px;
-}
-.post-line{
-    width: 852px;
-    height: 0;
-    margin-top: 20px;
-    border-bottom: 1px solid #DCDEE2;
-}
-.post-list{
-    position: relative;
-    width: 100%;
-    height: 220px;
-    border-bottom: 1px solid #DCDEE2;
-}
-.post-title{
-    margin-top: 10px;
-    color: #0366d6;
-    font-size: 24px;
-    font-weight: 800;
-    &:hover{
-        text-decoration: underline;
-        text-decoration-color: #0366d6;
+    .overview{
+        width: 100%;
     }
-}
-.post-content{
-    margin-top: 10px;
-    width: 100%;
-    color: #586069;
-    font-size: 16px;
-    line-height: 24px;
-    height: 80px;
-    overflow: hidden;   
-     word-wrap: break-word;
-    text-overflow: ellipsis; 
-}
-.post-tags{
-    margin-top: 10px;
-    margin-bottom: 10px;
-    color: #0366d6;
-    font-size: 12px;
-    .tag-detail{
-        float:left;
-        margin-right: 8px;
-        box-sizing: border-box;
-        padding: 2px;
-        border: 1px solid #999;
-        background-color: rgba(135,206,250, 0.2);
-        border-radius: 2px;
+    .post-search{
+        position: relative;
+        margin-top: 20px;
+    }
+    .search-box{
+        margin-top: 5px;
+    }
+    .tag-select{
+        margin-left: 25px;
+    }
+    .cate-select{
+        margin-left: 5px;
+    }
+    .post-line{
+        /*width: 852px;*/
+        width: 100px;
+        height: 0;
+        margin-top: 20px;
+        border-bottom: 1px solid #DCDEE2;
+    }
+    .post-list{
+        position: relative;
+        width: 100%;
+        height: 220px;
+        border-bottom: 1px solid #DCDEE2;
+    }
+    .post-title{
+        margin-top: 10px;
+        color: #0366d6;
+        font-size: 24px;
+        font-weight: 800;
         &:hover{
-            background-color: rgba(135,206,235, 0.6);   
+            text-decoration: underline;
+            text-decoration-color: #0366d6;
         }
     }
+    .post-content{
+        margin-top: 10px;
+        width: 100%;
+        color: #586069;
+        font-size: 16px;
+        line-height: 24px;
+        height: 80px;
+        overflow: hidden;
+         word-wrap: break-word;
+        text-overflow: ellipsis;
+    }
+    .post-tags{
+        margin-top: 10px;
+        margin-bottom: 10px;
+        color: #0366d6;
+        font-size: 12px;
+        .tag-detail{
+            float:left;
+            margin-right: 8px;
+            box-sizing: border-box;
+            padding: 2px;
+            border: 1px solid #999;
+            background-color: rgba(135,206,250, 0.2);
+            border-radius: 2px;
+            &:hover{
+                background-color: rgba(135,206,235, 0.6);
+            }
+        }
 
-}
-.post-bottom{
-    position: absolute;
-    left: 0;
-    bottom: 25px;
-    clear: left;
-    color: #586069;
-    font-size: 12px;    
-    .post-cate{
-        float: left;
-        .cate-detail{
-            margin-left: 5px;
+    }
+    .post-bottom{
+        position: absolute;
+        left: 0;
+        bottom: 25px;
+        clear: left;
+        color: #586069;
+        font-size: 12px;
+        .post-cate{
+            float: left;
+            .cate-detail{
+                margin-left: 5px;
+                margin-right: 15px;
+            }
+        }
+        .post-mark{
+            float: left;
             margin-right: 15px;
         }
-    }
-    .post-mark{
-        float: left;
-        margin-right: 15px;
-    }
 
-}
+    }
 </style>
 

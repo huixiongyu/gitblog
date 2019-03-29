@@ -9,10 +9,10 @@
                 <span class="github-name">yi-ge</span>
             </div>
             <div class="motto-desc right-offset">
-
+                Full stack Developer!
             </div>
             <div class="follower-location right-offset">
-
+                Beijing, China
             </div>
         </div>
     </div>
@@ -25,12 +25,13 @@ export default {
 
 <style lang="less">
 .follower-page{
-    width: 852px;
+    width: 730px;
 }
 .follower-item{
     position: relative;
     width: 100%;
     height: 140px;
+    border-bottom: 1px solid #586069;
 }
 .right-offset{
     margin-left: 70px;

@@ -76,7 +76,7 @@ export default {
 
 <style lang="less">
 .pin{
-    margin-top: 32px;
+    margin-top: 10px;
     margin-bottom: 0px;
     color: #24292e;
     font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol;
@@ -84,11 +84,11 @@ export default {
 }
 .pro-box{
     position: relative;
-    width:412px;
-    height:152px;
+    width:360px;
+    height:130px;
     float: left;
     margin-top: 20px;
-    margin-right: 14px;
+    margin-right: 5px;
     border: 1px solid #DCDEE2;
     border-radius: 2px;
     padding: 20px;
