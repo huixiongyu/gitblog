@@ -51,4 +51,27 @@ router.get('/',
     }
 });
 
+
+/**
+ * @route DELETE api/tags/
+ * @desc  删除整个用户接口地址
+ * @access 接口是私有的
+ */
+
+router.post('/delete', passport.authenticate('jwt', { session: false }),
+    async ctx => {
+        console.log(ctx.request);
+        const tag = await Tag.deleteOne({ name: ctx.request.body.name });
+        // console.log(tag);
+        if (tag.ok === 1) {
+            // 有文章的时候需要增加内容，关联文章的Tag删掉
+            ctx.status = 200;
+            ctx.body = { success: true };
+        } else {
+            ctx.status = 404;
+            ctx.body = { error: '标签不存在' };
+        }
+    }
+);
+
 module.exports = router.routes();
