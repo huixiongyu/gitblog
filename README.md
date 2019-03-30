@@ -161,7 +161,6 @@ server是使用koa-generator生成的
     * old 旧密码
     * newPass 新密码
     * repeatNew 重复的密码
-
 * Profile
 
   * 添加或更新个人信息  POST /api/profile  
@@ -179,11 +178,9 @@ server是使用koa-generator生成的
     * xxx代表用户名，可以在blogToken中解析
   * 获取所有用户 GET  /api/users/followers
 
-  
-
-
-
-
+* Tag
+  * 添加标签  POST  /api/tags
+    * newTag  标签名  (必须)
 
 
 ## 功能特性
@@ -380,7 +377,7 @@ axios.interceptors.request.use(
 );
 ```
 
-* 输入框回车进行登录获注册,  @keyup.enter.native
+* 输入框回车进行登录获注册,  @keyup.enter.native  最近发现并不好用，这句好像好一些`@keydown.native.enter.prevent ="handleEnter"`
 
 ```
 <Input type="password" 
@@ -523,7 +520,9 @@ handleClick(name) {
   
   ```
 
-  
+* **this.$set(this.data,”key”,value)**   对于 给数组某位置内容变更，触发视图更新，和改变数组长度的需要用this.$set,其他的使用数组的push()、pop()、shift()、unshift()、splice()、sort()和reverse()[文档-列表渲染](https://cn.vuejs.org/v2/guide/list.html) 
+
+* axios POST必须是对象形式提交数据的
 
 ## 问题目录
 
@@ -533,3 +532,6 @@ handleClick(name) {
 * 用户登录状态管理
 * 首页数据初始化（其实是leftside）,需要管理好部署的配置，以便最小化配置实现部署
 * 没有初始化用户的话可能导致followers页出现问题
+* 权限验证的问题，管理员接口的POST和普通用户的应该不同，因为要判断identity。暂时没修改（普通用户页具备修改的权限）。解决：在管理员的POST接口里检查用户是不是管理员---超权问题
+
+![yinghua](http://qiniu.hackslog.cn/FmnHNuACuNohCUx55_lEmIfyinjw.jpg)

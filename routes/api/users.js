@@ -62,7 +62,7 @@ router.post('/register', async ctx => {
         // 返回json数据
         ctx.body = { message: '注册成功！' }
     }
-})
+});
 
 /*
 @router POST  api/users/signin

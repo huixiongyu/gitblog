@@ -12,8 +12,8 @@ module.exports = passport => {
         new JwtStrategy(opts, async function(jwt_payload, done) {
             // console.log(jwt_payload);
             const user = await User.find({email: jwt_payload.email});
-            console.log('进入字段验证')
-            console.log(`验证字段找到的user: ${user}`);
+            // console.log('进入字段验证')
+            // console.log(`验证字段找到的user: ${user}`);
             if (user) {
                 return done(null, user);
             } else {

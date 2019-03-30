@@ -1,19 +1,32 @@
 <template>
     <div class="tags-container">
-        <div class="tag-item">
-            <span>Node.js</span>    
-        </div>
-        <div class="tag-item">
-            <span>网络原理</span>
-        </div>
-        <div class="tag-item">
-            <span>爬虫技术</span>
+        <div class="tag-item" v-for="item in tagList" :key="item.name">
+            <span>{{item.name}}</span>
         </div>
     </div>
 </template>
 <script>
 export default {
-    name: 'tags'
+    name: 'tags',
+    data(){
+        return {
+            tagList: []
+        }
+    },
+    methods: {
+        fetchTags(){
+            this.$axios.get('/api/tags')
+                .then(data => {
+                    this.tagList = data.data.tags;
+                })
+                .catch(error => {
+                    console.log(error);
+                })
+        }
+    },
+    created() {
+        this.fetchTags();
+    }
 }
 </script>
 <style lang="less">
