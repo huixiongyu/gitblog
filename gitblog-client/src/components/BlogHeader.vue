@@ -11,8 +11,10 @@
         </div>
         
         <div class="nav-link">
-            <router-link to="/" tag="div" class="header-link">Archives</router-link>
-            <router-link to="/" tag="div" class="header-link">Categories</router-link>
+            <router-link to="/" tag="div" class="header-link" v-if="!this.$store.state.isAdmin">Archives</router-link>
+            <router-link to="/" tag="div" class="header-link" v-else>Article</router-link>
+            <router-link to="/" tag="div" class="header-link" v-if="!this.$store.state.isAdmin">Categories</router-link>
+            <router-link to="/" tag="div" class="header-link" v-else>Write</router-link>
             <router-link to="/" tag="div" class="header-link">Tag</router-link>
             <router-link to="/" tag="div" class="header-link">Issues</router-link>
         </div>
@@ -41,47 +43,47 @@
     </nav>
 </template>
 <script>
-export default {
-    data(){
-        return {
-            // adminPanelshow: true
-        }
-    },
-    methods: {
-        toSignin(){
-            this.$router.push('/signin');
+    export default {
+        data(){
+            return {
+                isAdmin : false
+            }
         },
-        dropdownSelect(name){
-            if(name === 'logout'){
-                if(localStorage.profile){
-                    localStorage.removeItem('profile');
+        methods: {
+            toSignin(){
+                this.$router.push('/signin');
+            },
+            dropdownSelect(name){
+                if(name === 'logout'){
+                    if(localStorage.profile){
+                        localStorage.removeItem('profile');
+                    }
+                    localStorage.removeItem('blogToken');
+                    localStorage.removeItem('user');
+                    this.$Message.success('已经退出ヾ(￣▽￣)Bye~Bye~');
+                    this.$router.go(0);
+                    this.$router.replace('/');
                 }
-                localStorage.removeItem('blogToken');
-                localStorage.removeItem('user');
-                this.$Message.success('已经退出ヾ(￣▽￣)Bye~Bye~');
-                this.$router.go(0);
-                this.$router.replace('/');
-            }
-            if(name === 'settings'){
-                this.$router.push('/settings');
-            }
-            if(name === 'profile'){
-                if(this.$store.state.isAdmin === "admin"){
-                    this.$router.push('settings/profile');
-                }else{
-                    this.$router.push( '/useradmin/profile');
+                if(name === 'settings'){
+                    this.$router.push('/settings');
                 }
-            }
-            if(name === 'pinglun'){
-                if(this.$store.state.isAdmin === "admin"){
-                    this.$router.push('/settings/comment');
-                }else{
-                    this.$router.push('/useradmin/comment');
+                if(name === 'profile'){
+                    if(this.$store.state.isAdmin === "admin"){
+                        this.$router.push('settings/profile');
+                    }else{
+                        this.$router.push( '/useradmin/profile');
+                    }
+                }
+                if(name === 'pinglun'){
+                    if(this.$store.state.isAdmin === "admin"){
+                        this.$router.push('/settings/comment');
+                    }else{
+                        this.$router.push('/useradmin/comment');
+                    }
                 }
             }
         }
     }
-}
 </script>
 <style lang="less">
     .header{

@@ -92,6 +92,7 @@ server是使用koa-generator生成的
   * 401-未授权
   * 403-禁止
   * 404-请求的网页不存在
+  * 405 方法不允许，比如接口是POST，你用了PATCH
   * 500-服务器内部错误
   * 503-服务不可用
 * [使用$refs访问Vue中的DOM](https://www.w3cplus.com/vue/accessing-dom-refs.html) 
@@ -136,11 +137,11 @@ server是使用koa-generator生成的
     * visited 访问数量
     * content 正文
     * date 发布时间
-    * categories    分类
+    * classify    分类--关联表
     * Tags  标签
     * star 喜欢的数量
     * coment 评论列表，
-    * secreat   决定是否是草稿
+    * secret   决定是否是草稿
 * Comment
     * user
     * content
@@ -148,6 +149,7 @@ server是使用koa-generator生成的
     * toRead 未读
     * date
     * id 
+    * ariticle 所属文章 --关联表
 ## API设计
 
 * User
@@ -547,6 +549,21 @@ handleClick(name) {
 * **this.$set(this.data,”key”,value)**   对于 给数组某位置内容变更，触发视图更新，和改变数组长度的需要用this.$set,其他的使用数组的push()、pop()、shift()、unshift()、splice()、sort()和reverse()[文档-列表渲染](https://cn.vuejs.org/v2/guide/list.html) 
 
 * axios POST必须是对象形式提交数据的
+
+* 无法代理，很多次出现这种情况，然后重启项目就行了。原因是我后端设置了Token一个小时过期，没有提醒过期登录
+
+```
+[1] Proxy error: Could not proxy request /classify from localhost:8080 to http://localhost:3000/api/.
+[1] See https://nodejs.org/api/errors.html#errors_common_system_errors for more information (ECONNREFUSED).
+```
+
+* 报错. 这是由于key值绑定重复了，这个问题出现在数组被推入了重复的数据，解决方法是先清空再重新装数据。
+
+```
+Duplicate keys detected: 'Unix'. This may cause an update error
+```
+
+
 
 ## 问题目录
 

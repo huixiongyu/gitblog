@@ -25,6 +25,7 @@ router.get('/', async ctx=> {
 /*
 @router  POST api/classify
 @desc 私密接口，需要登录权限
+@detail  增加分了类
  */
 router.post('/', passport.authenticate('jwt', { session: false }),
     async ctx => {
