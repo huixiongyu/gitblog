@@ -155,13 +155,13 @@ server是使用koa-generator生成的
 * User
 
   *  注册  POST    /api/users/register 
-    * username 必须
-    * email    邮箱是唯一的，姓名可以重复
-    * password 必须
-  * 登录  POST  /api/users/signin  
+       * username 必须
+       *  email    邮箱是唯一的，姓名可以重复
+       *  password 必须
+  *  登录  POST  /api/users/signin  
     * email 必须
     * password 必须
-  * 修改密码 POST  /api/users/changepassword  
+  *  修改密码 POST  /api/users/changepassword  
     * username 必须
     * old 旧密码
     * newPass 新密码
@@ -575,5 +575,6 @@ Duplicate keys detected: 'Unix'. This may cause an update error
 * 没有初始化用户的话可能导致followers页出现问题
 * 权限验证的问题，管理员接口的POST和普通用户的应该不同，因为要判断identity。暂时没修改（普通用户页具备修改的权限）。解决：在管理员的POST接口里检查用户是不是管理员---**超权问题**  可以利用ctx.state（中间件保存的信息）来比对。
 * mongodb多层嵌套模型创建和查询
+* 导航条大概有20px的margin-bottom, 使用非完全的flex布局留下的，给文章书写页的背景颜色留下了障碍。
 
 ![yinghua](http://qiniu.hackslog.cn/FmnHNuACuNohCUx55_lEmIfyinjw.jpg)
