@@ -138,17 +138,6 @@
         float:right;
         margin-top: 18px;
         position: relative;
-        /*.admin-select{*/
-        /*    position: absolute;*/
-        /*    top: 50px;*/
-        /*    right: 18px;*/
-        /*    width: 180px;*/
-        /*    height: 220px;*/
-        /*    border: 1px solid #DCDEE2;*/
-        /*    border-radius: 3px;*/
-        /*    z-index: 900;*/
-        /*    background-color: yellow;*/
-        /*}*/
     }
     .add-icon{
         margin-left: 15px;

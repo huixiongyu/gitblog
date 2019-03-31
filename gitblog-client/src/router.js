@@ -184,6 +184,11 @@ const router =new Router({
       ]
     },
     {
+      path: '/writing',
+      name: 'writing',
+      component: () => import('./views/Writing.vue')
+    },
+    {
       path:'*',redirect:'/overview'
     }
   ]

@@ -5,10 +5,15 @@ import store from './store'
 import iView from 'iview'
 import 'iview/dist/styles/iview.css'
 import './assets/iconfont/iconfont.css'
+import iEditor from 'iview-editor'
+import 'iview-editor/dist/iview-editor.css'
+// import vuescroll from 'vuescroll/dist/vuescroll-native';
 import axios from 'axios'
 
 
 Vue.use(iView);
+Vue.use(iEditor);
+// Vue.use(vuescroll);
 Vue.config.productionTip = false;
 
 
