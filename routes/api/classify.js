@@ -136,7 +136,7 @@ router.post('/child', passport.authenticate('jwt', { session: false }),
 @desc 私密接口，需要登录权限
 @detail 删掉子类
  */
-router.post('/child', passport.authenticate('jwt', { session: false }),
+router.delete('/child', passport.authenticate('jwt', { session: false }),
     async ctx => {
         // 查询数据库
         const findResult = await Classify.find({ name: ctx.request.body.name });
@@ -145,36 +145,23 @@ router.post('/child', passport.authenticate('jwt', { session: false }),
             ctx.status = 500;
             ctx.body = { Classify: '该分类不存在！' };
         }else{
-            console.log(findResult[0].children.some(item => item.name === ctx.request.body.child));
-            if(findResult[0].children.some(item => item.name === ctx.request.body.child)){
-                ctx.status = 500;
-                ctx.body = { Classify: '该子类已经存在！' };
-            }else{
-                const newChild = {
-                    name: ctx.request.body.child,
-                    amount: 0,
-                    date: Date.now()
-                };
-                findResult[0].children.unshift(newChild);
-                const classifyUpdate = await Classify.update(
+            if (findResult[0].children.length > 0) {
+                // 找元素下标
+                const removeIndex = findResult[0].children
+                    .map(item => item.name)
+                    .indexOf(ctx.request.body.child);
+                // 删除
+                findResult[0].children.splice(removeIndex, 1);
+                // 更新数据库
+                const classUpdate = await Classify.findOneAndUpdate(
                     {name: ctx.request.body.name},
-                    {$push: {children: newChild}},
-                    {$sort: 1}
+                    {$set: findResult[0]},
+                    {new: true}
                 );
-                console.log(classifyUpdate);
-                if(classifyUpdate.ok ===1 ){
-                    const updateResult = await Classify.find({ name: ctx.request.body.name });
-                    if (updateResult.length > 0) {
-                        ctx.status = 200;
-                        ctx.body = updateResult;
-                    }else{
-                        ctx.status = 500;
-                        ctx.body = { message: '服务器错误'}
-                    }
-                }else{
-                    ctx.status = 500;
-                    ctx.body = { message: '数据更新失败！'};
-                }
+                ctx.body = classUpdate;
+            }else {
+                ctx.status = 404;
+                ctx.body = { errors: '没有任何数据' };
             }
         }
     });
