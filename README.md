@@ -98,6 +98,9 @@ server是使用koa-generator生成的
 * [可能比文档还详细--VueRouter完全指北](https://juejin.im/post/5b82bcfcf265da4345153343#heading-11)
 * [vue项目用户登录状态管理，vuex+locaStorage实现](https://blog.csdn.net/weixin_38115427/article/details/79443468) 
 * [vue：从一个下拉框组件理解vue中的父子通讯](https://juejin.im/post/5a37327df265da4325296431)
+* [vue的hover事件](https://blog.csdn.net/sunshine_ping/article/details/80269707) 
+* [MongoDB几种查询嵌套数据的方式](https://www.jianshu.com/p/b28a73ba9a16) 
+* [MongoDB嵌套文档如何局部更新](https://segmentfault.com/q/1010000014273734) 
 
 ## 正在开发的功能
 * 后台管理Profile Setting，包括地理定位
@@ -177,10 +180,22 @@ server是使用koa-generator生成的
   * 获取某个人的信息 GET  /api/profile/user?username=xxx
     * xxx代表用户名，可以在blogToken中解析
   * 获取所有用户 GET  /api/users/followers
-
 * Tag
   * 添加标签  POST  /api/tags
     * newTag  标签名  (必须)
+* Classify
+  * 增加分类 POST  /api/classify
+    * name  新增分类名称 （必须）
+  * 删除整个分类  DELETE  /api/classify    **有待完善，有子类会连子类删除**
+    * name 删除分类的名称 （必须）
+  * 修改分类的名称 PATCH /api/classify
+    * oldClass 原来分类的名称
+    * newClass 修改后分类的名称
+  * 插入子类 POST /api/classify/child
+    * name  父类的名称
+    * child 要插入子类的名称
+  * 修改子类名称 PATCH /api/classify/child
+  * 删除子类  DELETE /api/classify/child 
 
 
 ## 功能特性
@@ -533,6 +548,7 @@ handleClick(name) {
 * 用户登录状态管理
 * 首页数据初始化（其实是leftside）,需要管理好部署的配置，以便最小化配置实现部署
 * 没有初始化用户的话可能导致followers页出现问题
-* 权限验证的问题，管理员接口的POST和普通用户的应该不同，因为要判断identity。暂时没修改（普通用户页具备修改的权限）。解决：在管理员的POST接口里检查用户是不是管理员---超权问题
+* 权限验证的问题，管理员接口的POST和普通用户的应该不同，因为要判断identity。暂时没修改（普通用户页具备修改的权限）。解决：在管理员的POST接口里检查用户是不是管理员---**超权问题**  可以利用ctx.state（中间件保存的信息）来比对。
+* mongodb多层嵌套模型创建和查询
 
 ![yinghua](http://qiniu.hackslog.cn/FmnHNuACuNohCUx55_lEmIfyinjw.jpg)

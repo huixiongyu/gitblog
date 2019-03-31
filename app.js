@@ -18,6 +18,7 @@ const db = require('./config/keys').mongoURI;
 const users = require('./routes/api/users');
 const profile = require('./routes/api/profile');
 const tags = require('./routes/api/tags');
+const classify = require('./routes/api/classify');
 // error handler
 onerror(app);
 
@@ -64,6 +65,7 @@ require('./config/passport')(passport);
 router.use('/api/users', users);
 router.use('/api/profile', profile);
 router.use('/api/tags', tags);
+router.use('/api/classify', classify);
 
 
 app.use(router.routes()).use(router.allowedMethods());
