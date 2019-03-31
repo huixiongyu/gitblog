@@ -4,6 +4,25 @@ const passport = require('koa-passport');
 const Classify = require('../../models/Classify');
 
 /*
+@router  GET api/classify
+@desc 公开接口，获取所有分类
+ */
+router.get('/', async ctx=> {
+   const findResult = await Classify.find();
+   if(findResult.length === 0){
+       ctx.status = 200;
+       ctx.body = {
+           message: '没有任何数据',
+           data: []
+       }
+   }else{
+       ctx.body = findResult;
+   }
+});
+
+
+
+/*
 @router  POST api/classify
 @desc 私密接口，需要登录权限
  */
@@ -81,6 +100,25 @@ router.patch('/', passport.authenticate('jwt', { session: false }),
         }
     }
 );
+
+/*
+@router  GET api/classify/child
+@desc 公开接口，获取所有分类
+ */
+router.get('/child', async ctx=> {
+    console.log(ctx.query.name);
+    const findResult = await Classify.find({name: ctx.query.name});
+    if(findResult.length === 0){
+        ctx.status = 200;
+        ctx.body = {
+            message: '没有任何数据',
+            data: []
+        }
+    }else{
+        ctx.status = 200;
+        ctx.body = findResult[0].children;
+    }
+});
 
 
 /*
@@ -165,5 +203,46 @@ router.delete('/child', passport.authenticate('jwt', { session: false }),
             }
         }
     });
+
+/**
+ * @route PATCH api/classfiy/child
+ * @desc  修改子类的名字
+ * @access 接口是私有的
+ */
+
+router.patch('/child', passport.authenticate('jwt', { session: false }),
+    async ctx => {
+        const findResult = await Classify.find({name: ctx.request.body.name});
+        if (findResult.length === 0) {
+            ctx.status = 500;
+            ctx.body = {Classify: '该分类不存在！'};
+        } else {
+            if (findResult[0].children.length > 0) {
+                //要插入的元素不能跟原有的数据重名
+                if(findResult[0].children.some(item => item.name === ctx.request.body.newChild)){
+                    ctx.status = 500;
+                    ctx.body = {errors: '要更改的名字跟之前的重名啦～～'};
+                }else{
+                    // 找元素下标
+                    const modifyIndex = findResult[0].children
+                        .map(item => item.name)
+                        .indexOf(ctx.request.body.oldChild);
+                    // 删除
+                    findResult[0].children[modifyIndex].name = ctx.request.body.newChild;
+                    // 更新数据库
+                    const classUpdate = await Classify.findOneAndUpdate(
+                        {name: ctx.request.body.name},
+                        {$set: findResult[0]},
+                        {new: true}
+                    );
+                    ctx.body = classUpdate;
+                }
+            } else {
+                ctx.status = 404;
+                ctx.body = {errors: '没有任何数据'};
+            }
+        }
+    }
+);
 
 module.exports = router.routes();

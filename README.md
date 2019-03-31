@@ -184,6 +184,7 @@ server是使用koa-generator生成的
   * 添加标签  POST  /api/tags
     * newTag  标签名  (必须)
 * Classify
+  * 获取所有分类  GET /api/classify
   * 增加分类 POST  /api/classify
     * name  新增分类名称 （必须）
   * 删除整个分类  DELETE  /api/classify    **有待完善，有子类会连子类删除**
@@ -191,11 +192,18 @@ server是使用koa-generator生成的
   * 修改分类的名称 PATCH /api/classify
     * oldClass 原来分类的名称
     * newClass 修改后分类的名称
+  * 获取子类  GET /api/child?name=xxx
+    * name 父类名称
   * 插入子类 POST /api/classify/child
     * name  父类的名称
     * child 要插入子类的名称
   * 修改子类名称 PATCH /api/classify/child
+    * name  父类的名称
+    * oldChild 子类原有名称
+    * newChild 子类更新后的名称
   * 删除子类  DELETE /api/classify/child 
+    * name  父类的名称
+    * child 子类的名称
 
 
 ## 功能特性
