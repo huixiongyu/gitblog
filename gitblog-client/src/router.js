@@ -186,7 +186,11 @@ const router =new Router({
     {
       path: '/writing',
       name: 'writing',
-      component: () => import('./views/Writing.vue')
+      component: () => import('./views/Writing.vue'),
+      meta:  {
+        requiresAuth: true ,
+        requiresAdmin: true
+      }
     },
     {
       path:'*',redirect:'/overview'

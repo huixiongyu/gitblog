@@ -16,8 +16,17 @@
                               v-model="content">
                     </i-editor>
                     <div class="post-button">
-                        <Button type="info" icon="md-refresh-circle" style="margin-right: 10px">保存为草稿</Button>
-                        <Button type="success" icon="md-paper-plane">发布文章</Button>
+                        <Button type="info"
+                                icon="md-refresh-circle"
+                                @click="saveArticle()"
+                                style="margin-right: 10px">
+                            保存为草稿
+                        </Button>
+                        <Button type="success"
+                                @click="postArticle()"
+                                icon="md-paper-plane">
+                            发布文章
+                        </Button>
                     </div>
                 </i-col>
                 <i-col span="6" class="article-extra">
@@ -43,7 +52,7 @@
                         </div>
                     </div>
                     <p class="post-date">标签</p>
-                    <Input v-model="tag" placeholder="请输入标签名" style="width: 300px" />
+                    <Input v-model="tags" placeholder="请输入标签名" style="width: 300px" />
                 </i-col>
                 <i-col span="1" class="write-space">.</i-col>
             </Row>
@@ -71,7 +80,7 @@
                 postTime: '19:06:00',
                 allClassify: [],
                 classify: '',
-                tag: ''
+                tags: ''
             }
         },
         methods:{
@@ -79,15 +88,112 @@
                 this.$axios.get('/api/classify')
                     .then(data => {
                         this.allClassify =data.data;
-                        console.log(this.allClassify);
+                        // console.log(this.allClassify);
                     })
                     .catch(error => {
                         console.log(error);
                     })
+            },
+            saveArticle(){
+                if(this.title === ''){
+                    this.$Message.warning('标题不能为空o(≧口≦)o');
+                    return ;
+                }
+                if(this.content === ''){
+                    this.$Message.warning('你还没有写文章呢o(￣▽￣)ｄ');
+                    return ;
+                }
+                if(this.classify === ''){
+                    this.$Message.warning('你还没填写分类呢o(￣▽￣)ｄ');
+                    return ;
+                }
+                if(this.path === 'secret'){
+                    this.$Message.error('不能为当前文章路径X﹏X');
+                    return ;
+                }
+                // let timeString = this.postDate + ' '+ this.postTime;
+                // console.log(timeString);
+                // let timeStamp =new Date(timeString);
+                // console.log(timeStamp);
+                let postData = {
+                    title : this.title,
+                    content : this.content,
+                    path: this.path,
+                    classify: this.classify,
+                    tags : this.tags
+                };
+                this.$axios.post('/api/article/secret', postData)
+                    .then(() => {
+                        this.$Message.success('草稿已经保存~\(≧▽≦)/~啦啦啦');
+                        this.$router.push('/');
+                    })
+                    .catch(error => {
+                    console.log(error);
+                });
+            },
+            postArticle(){
+                if(this.title === ''){
+                    this.$Message.warning('标题不能为空o(≧口≦)o');
+                    return ;
+                }
+                if(this.content === ''){
+                    this.$Message.warning('你还没有写文章呢o(￣▽￣)ｄ');
+                    return ;
+                }
+                if(this.classify === ''){
+                    this.$Message.warning('你还没填写分类呢o(￣▽￣)ｄ');
+                    return ;
+                }
+                if(this.path === 'secret'){
+                    this.$Message.error('不能为当前文章路径X﹏X');
+                    return ;
+                }
+                // let timeString = this.postDate + ' '+ this.postTime;
+                // console.log(timeString);
+                // let timeStamp =new Date(timeString);
+                // console.log(timeStamp);
+                let postData = {
+                    title : this.title,
+                    content : this.content,
+                    path: this.path,
+                    classify: this.classify,
+                    tags : this.tags
+                };
+                this.$axios.post('/api/article', postData)
+                    .then(() => {
+                        this.$Message.success('文章发布成功(o゜▽゜)o☆[BINGO!]');
+                        this.$router.push('/');
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    });
             }
         },
         created(){
             this.fetchData();
+            let myDate = new Date();
+            let month = myDate.getMonth() + 1;
+            let day = myDate.getDay();
+            if(month >=1 && month <=9){
+                month = '0' + month;
+            }
+            if(day >=0 && day <= 9){
+                day = '0' + day;
+            }
+            this.postDate = myDate.getFullYear() + "-" + month + "-" + day;
+            let hour =  myDate.getHours();
+            let minute =  myDate.getMinutes();
+            let second = myDate.getSeconds();
+            if(hour < 10){
+                hour = '0' + hour;
+            }
+            if(minute <10){
+                minute = '0' + minute;
+            }
+            if(second < 10){
+                second = '0' + second;
+            }
+            this.postTime = hour + ":" + minute + ":" + second;
         }
     }
 </script>

@@ -30,7 +30,7 @@ password: 12345678
 
 如果自己部署必须运行运行init文件夹下的admin.js和profile.js用来初始化博主，否则首页无法正常显示
 
-
+如果没有挂VPN，头像可能无法正常显示，因为用了gravatar
 
 
 
@@ -224,6 +224,11 @@ server是使用koa-generator生成的
     * classify  分类(只能选择一个)
     * tags  标签(可以多个，用逗号分隔，不存在的标签会自动创建)
     * secret  保密 (保存为草稿server设置为true)
+    * time 写文章的时间（时间戳）
+  * 获取某篇正式发布的文章  /api/article/:path
+    * path  文章的路径（是公开的）
+  * 获取草稿  /api/article/secret/:path
+    * path  文章的路径(需要登录授权)
 
 
 ## 功能特性
@@ -581,6 +586,33 @@ handleClick(name) {
 Duplicate keys detected: 'Unix'. This may cause an update error
 ```
 
+* 一种时间戳转换的老方法：
+
+```
+function transformTime(timestamp = +new Date()) {
+    if (timestamp) {
+        var time = new Date(timestamp);
+        var y = time.getFullYear();
+        var M = time.getMonth() + 1;
+        var d = time.getDate();
+        var h = time.getHours();
+        var m = time.getMinutes();
+        var s = time.getSeconds();
+        return y + '-' + addZero(M) + '-' + addZero(d) + ' ' + addZero(h) + ':' + addZero(m) + ':' + addZero(s);
+      } else {
+          return '';
+      }
+}
+function addZero(m) {
+    return m < 10 ? '0' + m : m;
+}
+transformTime();
+
+//字符串转时间戳
+    var stringTime = "2019-04-19 12:13:42";
+    var timestamp = Date.parse(new Date(stringTime));
+```
+
 
 
 ## 问题目录
@@ -596,5 +628,6 @@ Duplicate keys detected: 'Unix'. This may cause an update error
 * 导航条大概有20px的margin-bottom, 使用非完全的flex布局留下的，给文章书写页的背景颜色留下了障碍。
 * 文章书写页的分类选择应该加入块内滚动条
 * 如果分类或者标签的名字改变了，文章管理的名字也需要改变(这里最好使用id关联)
+* 文章发布时间戳还没设置
 
 ![yinghua](http://qiniu.hackslog.cn/FmnHNuACuNohCUx55_lEmIfyinjw.jpg)
