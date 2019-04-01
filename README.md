@@ -576,5 +576,6 @@ Duplicate keys detected: 'Unix'. This may cause an update error
 * 权限验证的问题，管理员接口的POST和普通用户的应该不同，因为要判断identity。暂时没修改（普通用户页具备修改的权限）。解决：在管理员的POST接口里检查用户是不是管理员---**超权问题**  可以利用ctx.state（中间件保存的信息）来比对。
 * mongodb多层嵌套模型创建和查询
 * 导航条大概有20px的margin-bottom, 使用非完全的flex布局留下的，给文章书写页的背景颜色留下了障碍。
+* 文章书写页的分类选择应该加入块内滚动条
 
 ![yinghua](http://qiniu.hackslog.cn/FmnHNuACuNohCUx55_lEmIfyinjw.jpg)
