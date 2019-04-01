@@ -15,24 +15,29 @@ const ArticleSchema = new Schema({
         default: 0
     },
     content: {
-        type: String
+        type: String,
+        required: true
+    },
+    path: {
+      type: String,
+      required: true
     },
     classify: {
-        type: Schema.Types.ObjectId,
-        refs: 'classify'
+        type: String
+        // refs: 'classify'
     },
     tags: [
         {
-            tag:{
-                type: Schema.Types.ObjectId,
-                refs: 'tags'
+            name:{
+                type: String
+                // refs: 'tags'
             }
         }
     ],
     stars: [
         {
             user: {
-                type: Schema.Types.ObjectId,
+                type: String,
                 refs: 'users'
             }
         }
@@ -40,11 +45,11 @@ const ArticleSchema = new Schema({
     comments: [
         {
             from: {
-                type: Schema.Types.ObjectId,
+                type: String,
                 refs: 'users'
             },
             to: {
-                type: Schema.Types.ObjectId,
+                type: String,
                 refs: 'users'
             },
             comment: {
@@ -53,6 +58,10 @@ const ArticleSchema = new Schema({
             date: {
                 type: Date,
                 default: Date.now
+            },
+            read: {
+                type: Boolean,
+                default: false
             }
         }
     ],

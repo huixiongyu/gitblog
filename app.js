@@ -19,6 +19,7 @@ const users = require('./routes/api/users');
 const profile = require('./routes/api/profile');
 const tags = require('./routes/api/tags');
 const classify = require('./routes/api/classify');
+const article = require('./routes/api/article');
 // error handler
 onerror(app);
 
@@ -66,6 +67,7 @@ router.use('/api/users', users);
 router.use('/api/profile', profile);
 router.use('/api/tags', tags);
 router.use('/api/classify', classify);
+router.use('/api/article', article);
 
 
 app.use(router.routes()).use(router.allowedMethods());

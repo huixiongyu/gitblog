@@ -69,6 +69,7 @@ server是使用koa-generator生成的
     [async-validator](https://github.com/yiminghe/async-validator) element-ui和iview表单校验的时候基于这个库的实现								
 * [cross-env](https://www.npmjs.com/package/cross-env)   package.json运行不同的配置项NODE_ENV
 * [concurrently](https://www.npmjs.com/package/concurrently)  开发的时候用来前后端连载，注意写上客户端的--prefix
+* [crypto](https://codeday.me/bug/20170623/28733.html)  我用来生成文章的路径，因为使用时间戳生产一般不会出现重复
 
 **开发工具： WebStorm、Postman、MongoDB Atlas**
 
@@ -206,6 +207,23 @@ server是使用koa-generator生成的
   * 删除子类  DELETE /api/classify/child 
     * name  父类的名称
     * child 子类的名称
+* Aritcle
+  * 获取所有公开文章 GET  /api/article
+  * 获取所有私密文章 GET  /api/article/secret   需要权限验证(这些文章都是草稿状态)
+  * 发布文章  POST  /api/article
+    * title   文章的标题
+    * content  文章内容
+    * path 文章路径
+    * classify  分类(只能选择一个)
+    * tags  标签(可以多个，用逗号分隔，不存在的标签会自动创建)
+    * secret  保密 (发布，server端自动设置为false)
+  * 保存草稿 POST   /api/article/secret
+    * title   文章的标题
+    * content  文章内容
+    * path 文章路径
+    * classify  分类(只能选择一个)
+    * tags  标签(可以多个，用逗号分隔，不存在的标签会自动创建)
+    * secret  保密 (保存为草稿server设置为true)
 
 
 ## 功能特性
@@ -577,5 +595,6 @@ Duplicate keys detected: 'Unix'. This may cause an update error
 * mongodb多层嵌套模型创建和查询
 * 导航条大概有20px的margin-bottom, 使用非完全的flex布局留下的，给文章书写页的背景颜色留下了障碍。
 * 文章书写页的分类选择应该加入块内滚动条
+* 如果分类或者标签的名字改变了，文章管理的名字也需要改变(这里最好使用id关联)
 
 ![yinghua](http://qiniu.hackslog.cn/FmnHNuACuNohCUx55_lEmIfyinjw.jpg)
