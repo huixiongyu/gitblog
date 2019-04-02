@@ -57,7 +57,13 @@
                 <i-col span="1" class="write-space">.</i-col>
             </Row>
         </div>
-
+<!--        <Modal-->
+<!--                v-model="modal1"-->
+<!--                title="请留步！"-->
+<!--                @on-ok="ok"-->
+<!--                @on-cancel="cancel">-->
+<!--            <p>你确认离开当前页面吗？文章还没保存，一旦离开就会清空的哦</p>-->
+<!--        </Modal>-->
         <blog-footer></blog-footer>
     </div>
 </template>
@@ -80,7 +86,8 @@
                 postTime: '19:06:00',
                 allClassify: [],
                 classify: '',
-                tags: ''
+                tags: '',
+                modal1: false
             }
         },
         methods:{
@@ -168,6 +175,12 @@
                         console.log(error);
                     });
             }
+            // ok(){
+            //     this.$Message.success('(。・_・)/~~~');
+            // },
+            // cancel(){
+            //     this.$Message.success('开始干活！');
+            // }
         },
         created(){
             this.fetchData();
