@@ -193,6 +193,11 @@ const router =new Router({
       }
     },
     {
+      path: '/post',
+      name: 'post',
+      component: () => import('./views/ArticlePage')
+    },
+    {
       path:'*',redirect:'/overview'
     }
   ]
