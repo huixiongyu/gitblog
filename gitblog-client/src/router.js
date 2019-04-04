@@ -193,8 +193,8 @@ const router =new Router({
       }
     },
     {
-      path: '/post',
-      name: 'post',
+      path: '/article',
+      name: 'article',
       component: () => import('./views/ArticlePage')
     },
     {

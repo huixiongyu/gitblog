@@ -70,6 +70,8 @@ server是使用koa-generator生成的
 * [cross-env](https://www.npmjs.com/package/cross-env)   package.json运行不同的配置项NODE_ENV
 * [concurrently](https://www.npmjs.com/package/concurrently)  开发的时候用来前后端连载，注意写上客户端的--prefix
 * [crypto](https://codeday.me/bug/20170623/28733.html)  我用来生成文章的路径，因为使用时间戳生产一般不会出现重复
+* [iview-editor](http://editor.iviewui.com/) 后台中输入文章使用的Markdown编辑器
+* [marked](https://marked.js.org/#/USING_ADVANCED.md) 前端渲染Markdown时使用
 
 **开发工具： WebStorm、Postman、MongoDB Atlas**
 
@@ -285,6 +287,7 @@ server是使用koa-generator生成的
 * 评论框带表情选择
 * webSocket在线校验注册信息，搜索信息
 * 管理登录设备数量
+* 合理的缓存，优化浏览体验
 
 ## 收获
 * 一个神奇的bug!在postman一直测试提交数据，数据库就是没接收到，后来含泪发现请求地址忘记了api前缀！！！

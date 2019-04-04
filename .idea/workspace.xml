@@ -2,16 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a333c4af-dc0b-4e50-9407-1736dbca1ef1" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/gitblog-client/src/components/Post.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gitblog-client/src/views/ArticlePage.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gitblog-client/src/assets/iconfont/iconfont.css" beforeDir="false" afterPath="$PROJECT_DIR$/gitblog-client/src/assets/iconfont/iconfont.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gitblog-client/src/assets/iconfont/iconfont.eot" beforeDir="false" afterPath="$PROJECT_DIR$/gitblog-client/src/assets/iconfont/iconfont.eot" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gitblog-client/src/assets/iconfont/iconfont.js" beforeDir="false" afterPath="$PROJECT_DIR$/gitblog-client/src/assets/iconfont/iconfont.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gitblog-client/src/assets/iconfont/iconfont.svg" beforeDir="false" afterPath="$PROJECT_DIR$/gitblog-client/src/assets/iconfont/iconfont.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gitblog-client/src/assets/iconfont/iconfont.ttf" beforeDir="false" afterPath="$PROJECT_DIR$/gitblog-client/src/assets/iconfont/iconfont.ttf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gitblog-client/src/assets/iconfont/iconfont.woff" beforeDir="false" afterPath="$PROJECT_DIR$/gitblog-client/src/assets/iconfont/iconfont.woff" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gitblog-client/src/assets/iconfont/iconfont.woff2" beforeDir="false" afterPath="$PROJECT_DIR$/gitblog-client/src/assets/iconfont/iconfont.woff2" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gitblog-client/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/gitblog-client/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gitblog-client/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/gitblog-client/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gitblog-client/src/components/Post.vue" beforeDir="false" afterPath="$PROJECT_DIR$/gitblog-client/src/components/Post.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/gitblog-client/src/router.js" beforeDir="false" afterPath="$PROJECT_DIR$/gitblog-client/src/router.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -25,11 +20,20 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/gitblog-client/src/views/ArticlePage.vue">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="62">
+              <caret line="2" column="21" selection-start-line="2" selection-start-column="21" selection-end-line="2" selection-end-column="21" />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/gitblog-client/src/components/Post.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="558">
-              <caret line="66" column="28" lean-forward="true" selection-start-line="66" selection-start-column="28" selection-end-line="66" selection-end-column="28" />
+            <state relative-caret-position="351">
+              <caret line="80" column="22" lean-forward="true" selection-start-line="80" selection-start-column="22" selection-end-line="80" selection-end-column="22" />
               <folding>
                 <element signature="n#style#0;n#i#0;n#BreadcrumbItem#0;n#Breadcrumb#0;n#div#0;n#i-col#1;n#Row#0;n#div#0;n#div#0;n#template#0;n#!!top" expanded="true" />
               </folding>
@@ -40,30 +44,13 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/gitblog-client/src/router.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="504">
-              <caret line="197" column="52" selection-start-line="197" selection-start-column="52" selection-end-line="197" selection-end-column="52" />
+            <state relative-caret-position="473">
+              <caret line="196" column="20" selection-start-line="196" selection-start-column="20" selection-end-line="196" selection-end-column="20" />
               <folding>
                 <element signature="e#0#21#0" expanded="true" />
               </folding>
             </state>
           </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/gitblog-client/src/views/ArticlePage.vue">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="62">
-              <caret line="2" column="21" selection-start-line="2" selection-start-column="21" selection-end-line="2" selection-end-column="21" />
-              <folding>
-                <element signature="e#88#137#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/gitblog-client/src/views/ForgetPassword.vue">
-          <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
     </leaf>
@@ -268,12 +255,13 @@
       <workItem from="1554087479228" duration="10367000" />
       <workItem from="1554112806323" duration="12211000" />
       <workItem from="1554171129817" duration="1334000" />
-      <workItem from="1554210247016" duration="4844000" />
+      <workItem from="1554210247016" duration="5490000" />
+      <workItem from="1554381286585" duration="4268000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="267852000" />
+    <option name="totallyTimeSpent" value="272766000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1920" height="1005" extended-state="6" />
@@ -684,10 +672,13 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/gitblog-client/src/views/ForgetPassword.vue">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/gitblog-client/src/router.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="504">
-          <caret line="197" column="52" selection-start-line="197" selection-start-column="52" selection-end-line="197" selection-end-column="52" />
+        <state relative-caret-position="473">
+          <caret line="196" column="20" selection-start-line="196" selection-start-column="20" selection-end-line="196" selection-end-column="20" />
           <folding>
             <element signature="e#0#21#0" expanded="true" />
           </folding>
@@ -698,19 +689,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="62">
           <caret line="2" column="21" selection-start-line="2" selection-start-column="21" selection-end-line="2" selection-end-column="21" />
-          <folding>
-            <element signature="e#88#137#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/gitblog-client/src/views/ForgetPassword.vue">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/gitblog-client/src/components/Post.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="558">
-          <caret line="66" column="28" lean-forward="true" selection-start-line="66" selection-start-column="28" selection-end-line="66" selection-end-column="28" />
+        <state relative-caret-position="351">
+          <caret line="80" column="22" lean-forward="true" selection-start-line="80" selection-start-column="22" selection-end-line="80" selection-end-column="22" />
           <folding>
             <element signature="n#style#0;n#i#0;n#BreadcrumbItem#0;n#Breadcrumb#0;n#div#0;n#i-col#1;n#Row#0;n#div#0;n#div#0;n#template#0;n#!!top" expanded="true" />
           </folding>
