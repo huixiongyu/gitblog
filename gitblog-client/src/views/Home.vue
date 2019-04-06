@@ -52,6 +52,7 @@ export default {
         width: 100%;
         height: 100%;
         clear: both;
+        margin-top: 20px;
     }
     .main-haide{
         color: white;
