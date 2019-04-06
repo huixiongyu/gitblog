@@ -71,7 +71,7 @@ server是使用koa-generator生成的
 * [concurrently](https://www.npmjs.com/package/concurrently)  开发的时候用来前后端连载，注意写上客户端的--prefix
 * [crypto](https://codeday.me/bug/20170623/28733.html)  我用来生成文章的路径，因为使用时间戳生产一般不会出现重复
 * [iview-editor](http://editor.iviewui.com/) 后台中输入文章使用的Markdown编辑器
-* [marked](https://marked.js.org/#/USING_ADVANCED.md) 前端渲染Markdown时使用
+* [marked](https://marked.js.org/#/USING_ADVANCED.md) 前端渲染Markdown时使用， [mavonEditor](https://www.jianshu.com/p/aca26ec75ec3) 则既可以编辑也可以解析
 
 **开发工具： WebStorm、Postman、MongoDB Atlas**
 
@@ -107,6 +107,8 @@ server是使用koa-generator生成的
 * [vue的hover事件](https://blog.csdn.net/sunshine_ping/article/details/80269707) 
 * [MongoDB几种查询嵌套数据的方式](https://www.jianshu.com/p/b28a73ba9a16) 
 * [MongoDB嵌套文档如何局部更新](https://segmentfault.com/q/1010000014273734) 
+* [记一次Vue使用marked.js](https://blog.csdn.net/sdta25196/article/details/80325181) 
+* 
 
 ## 正在开发的功能
 * 后台管理Profile Setting，包括地理定位
@@ -619,7 +621,7 @@ transformTime();
     var timestamp = Date.parse(new Date(stringTime));
 ```
 
-
+* vue获取路由参数this.$route.params.xxx
 
 ## 问题目录
 

@@ -214,10 +214,11 @@ router.post('/secret', passport.authenticate('jwt', { session: false }),
 );
 
 /*
-@route GET /api/article/
+@route GET /api/article/:path
 @desc 公开接口，获取未加密的文章
  */
 router.get('/:path', async ctx => {
+    console.log(ctx.params.path);
     const findResult = await Article.find({path: ctx.params.path, secret: false});
     if(findResult.length > 0){
         ctx.body = findResult[0];

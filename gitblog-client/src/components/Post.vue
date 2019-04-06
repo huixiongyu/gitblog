@@ -10,7 +10,7 @@
                                 <i class="iconfont" style="font-size: 16px">&#xe604;</i>
                                 huixiongyu
                             </BreadcrumbItem>
-                            <BreadcrumbItem class="title-font" to="/">文章标题</BreadcrumbItem>
+                            <BreadcrumbItem class="title-font" to="/">{{this.articleInfo.title}}</BreadcrumbItem>
                         </Breadcrumb>
                     </div>
                     <div class="post-info">
@@ -19,7 +19,7 @@
                                 <Icon type="ios-star" />Star
                             </div>
                             <div class="info-num">
-                                12
+                               {{this.articleInfo.stars.length}}
                             </div>
                         </div>
                         <div class="info-detail">
@@ -76,7 +76,7 @@
                         <Icon type="md-create" />
                     </div>
                 </div>
-                <div class="content">
+                <div class="content" v-html="compiledMarkdown">
 
                 </div>
             </div>
@@ -86,8 +86,59 @@
 </template>
 
 <script>
+    import marked from 'marked';
     export default {
-        name: "Post"
+        name: "Post",
+        data(){
+            let rendererMD = new marked.Renderer();
+            marked.setOptions({
+                renderer: rendererMD,
+                gfm: true,
+                tables: true,
+                breaks: false,
+                pedantic: false,
+                sanitize: false,
+                smartLists: true,
+                smartypants: true
+            });
+            return {
+                path: '',
+                articleInfo : {
+                    title: '',
+                    content: '# hello `java` ',
+                    path: '',
+                    stars: 0,
+                    visited: 0,
+                    classify: '',
+                    tags: [],
+                    comments: []
+                }
+            }
+        },
+        computed: {
+            compiledMarkdown: function () {
+                return marked(this.articleInfo.content, { sanitize: true })
+            },
+            getContent(){
+                this.$axios.get(`/api/article/${this.articleInfo.path}`)
+                    .then(data => {
+                        // console.log(data);
+                        let datas = data.data;
+                        this.articleInfo.title = datas.title;
+                        this.articleInfo.content = datas.content;
+                        this.articleInfo.visited = datas.visited;
+                        this.articleInfo.stars = datas.stars;
+                        this.articleInfo.tags = datas.tags;
+                        this.articleInfo.comments = datas.comments;
+
+                    })
+            }
+        },
+        mounted() {
+            // console.log(this.$route.params.path);
+            this.articleInfo.path = this.$route.params.path;
+            this.getContent();
+        }
     }
 </script>
 
@@ -165,8 +216,8 @@
         }
     }
     .mark{
-        border-left:1px solid #FAFBFC;
-        border-right:1px solid #FAFBFC;
+        border-left:2px solid #FAFBFC;
+        border-right:2px solid #FAFBFC;
         border-bottom:4px solid white !important;
         border-top:3px solid red;
         background-color: white;
@@ -177,7 +228,7 @@
         clear: both;
         .content-detail{
             width: 982px;
-            min-height: 1600px;
+            min-height: 200px;
             border: 1px solid #D3D3D3;
             border-radius: 4px;
             margin: 20px auto 20px auto;
@@ -199,6 +250,10 @@
                     padding: 5px;
                 }
             }
+        }
+        .content{
+            width: 100%;
+            padding: 25px;
         }
 
     }
