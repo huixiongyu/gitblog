@@ -4,34 +4,31 @@
             <Input class="search-box"  size="large" placeholder="Find an article..." style="width:390px;height:43px;" />
             <Select class="tag-select" placeholder="Tag:All" v-model="model1" style="width:140px" size="large">
                 <Option v-for="item in tagList" :value="item.value" :key="item.value">{{ item.label }}</Option>
-            </Select>           
+            </Select>
             <Select class="cate-select" placeholder="Categories:All" v-model="model2" style="width:160px" size="large">
                 <Option v-for="item in cateList" :value="item.value" :key="item.value">{{ item.label }}</Option>
-            </Select>                
+            </Select>
         </div>
 
         <div class="post-line"></div>
 
-        <div class="post-list">
+        <div class="post-list" v-for="item in articleData" :key="item.path">
             <div class="post-title">
-                <a href="" target="_blank">shinian</a>
+                <a :href="'/article' + item.path" target="_blank">{{item.title}}</a>
             </div>
             <div class="post-content">
-                拾年，又名iDone(what have done)，用来记录已经完成的任务和专注重要的任务
+                {{item.content}}
             </div>
-            <div class="post-tags">
+            <div class="post-tags" v-for="tagItem in item.tags" :key="tagItem.name">
                 <div class="tag-detail">
-                    <a href="" target="_blank">二分法</a>
-                </div>
-                <div class="tag-detail">
-                    <a href="" target="_blank">二分法</a>
+                    <a href="" target="_blank">{{tagItem.name}}</a>
                 </div>
             </div>
 
             <div class="post-bottom">
                 <div class="post-cate">
                     <Icon type="ios-folder-open" size="20" />
-                    <span class="cate-detail">Linux</span>
+                    <span class="cate-detail">{{item.classify}}</span>
                 </div>
                 <div class="post-mark">
                     <Icon type="ios-bookmark" size="20" />
@@ -39,12 +36,12 @@
                 </div>
                  <div class="post-mark">
                      <Icon type="md-calendar" size="20" />
-                    <span>Publised at </span>
-                </div>   
+                    <span>Publised at{{item.date}} </span>
+                </div>
                 <div class="post-mark">
                    <Icon type="ios-thermometer-outline" size="20" />
                     <span>100℃</span>
-                </div>                            
+                </div>
             </div>
         </div>
     </div>
@@ -105,10 +102,28 @@ export default {
                         value: '吃货的世界',
                         label: '吃货的世界'
                     }
-            ],            
+            ],
             model1: '',
-            model2: ''
+            model2: '',
+            articleData: {
+
+            }
         }
+    },
+    methods: {
+        fectchArticle(){
+            this.$axios.get('/api/article/')
+                .then(data => {
+                    console.log(data);
+                    this.articleData = data.data;
+                })
+                .catch(err => {
+                    console.log(err);
+                })
+        }
+    },
+    mounted() {
+        this.fectchArticle();
     }
 }
 </script>
@@ -132,7 +147,7 @@ export default {
     }
     .post-line{
         /*width: 852px;*/
-        width: 100px;
+        width: 100%;
         height: 0;
         margin-top: 20px;
         border-bottom: 1px solid #DCDEE2;
@@ -160,9 +175,13 @@ export default {
         font-size: 16px;
         line-height: 24px;
         height: 80px;
+        /*overflow: hidden;*/
+        /* word-wrap: break-word;*/
+        /*text-overflow: ellipsis;*/
+
         overflow: hidden;
-         word-wrap: break-word;
         text-overflow: ellipsis;
+        white-space: nowrap;
     }
     .post-tags{
         margin-top: 10px;

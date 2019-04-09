@@ -23,9 +23,10 @@ router.get('/test', async ctx => {
 @desc 公开接口，获取所有分类
  */
 router.get('/', async ctx=> {
-    const findResult = await Article.find({screte: false});
+    const findResult = await Article.find({secret: false});
+    console.log(findResult);
     if(findResult.length === 0){
-        ctx.status = 200;
+        ctx.status = 400;
         ctx.body = {
             message: '没有任何数据',
             data: []
