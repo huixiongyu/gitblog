@@ -23,8 +23,8 @@ router.get('/test', async ctx => {
 @desc 公开接口，获取所有分类
  */
 router.get('/', async ctx=> {
-    const findResult = await Article.find({secret: false});
-    console.log(findResult);
+    const findResult = await Article.find({secret: false}).sort({ date: -1 });
+    // console.log(findResult);
     if(findResult.length === 0){
         ctx.status = 400;
         ctx.body = {
@@ -222,6 +222,14 @@ router.get('/:path', async ctx => {
     console.log(ctx.params.path);
     const findResult = await Article.find({path: ctx.params.path, secret: false});
     if(findResult.length > 0){
+        const addVisited = findResult[0];
+        addVisited.visited += 1;
+        const dataChange = await Article.findOneAndUpdate(
+            { path: ctx.params.path },
+            { $set: addVisited },
+            { new: true }
+        ); 
+        console.log(dataChange);
         ctx.body = findResult[0];
     }else{
         ctx.status = 400;

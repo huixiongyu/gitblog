@@ -12,13 +12,15 @@
 
         <div class="post-line"></div>
 
-        <div class="post-list" v-for="item in articleData" :key="item.path">
+        <div class="post-list" 
+            v-for="item in articleData" 
+            :key="item.path">
             <div class="post-title">
                 <a :href="'/article' + item.path" target="_blank">{{item.title}}</a>
             </div>
-            <div class="post-content">
+            <p class="post-content">
                 {{item.content}}
-            </div>
+            </p>
             <div class="post-tags" v-for="tagItem in item.tags" :key="tagItem.name">
                 <div class="tag-detail">
                     <a href="" target="_blank">{{tagItem.name}}</a>
@@ -32,21 +34,22 @@
                 </div>
                 <div class="post-mark">
                     <Icon type="ios-bookmark" size="20" />
-                    <span>3</span>
+                    <span>{{item.tags.length}}</span>
                 </div>
                  <div class="post-mark">
                      <Icon type="md-calendar" size="20" />
-                    <span>Publised at{{item.date}} </span>
+                    <span>{{item.date | timeFormat}} </span>
                 </div>
                 <div class="post-mark">
                    <Icon type="ios-thermometer-outline" size="20" />
-                    <span>100℃</span>
+                    <span>{{item.visited}}℃</span>
                 </div>
             </div>
         </div>
     </div>
 </template>
 <script>
+import moment from 'moment'    
 export default {
     name: 'posts',
     data(){
@@ -105,26 +108,29 @@ export default {
             ],
             model1: '',
             model2: '',
-            articleData: {
-
-            }
+            articleData: []
         }
     },
     methods: {
         fectchArticle(){
             this.$axios.get('/api/article/')
                 .then(data => {
-                    console.log(data);
+                    // console.log(data);
                     this.articleData = data.data;
                 })
                 .catch(err => {
                     console.log(err);
-                })
+                });
         }
     },
-    mounted() {
+    created() {
         this.fectchArticle();
+    },
+    filters: {
+    timeFormat: function (value) {
+      return   moment(value).fromNow();
     }
+}
 }
 </script>
 
@@ -161,27 +167,30 @@ export default {
     .post-title{
         margin-top: 10px;
         color: #0366d6;
-        font-size: 24px;
-        font-weight: 800;
+        font-size: 20px;
+        font-weight: 500;
         &:hover{
             text-decoration: underline;
             text-decoration-color: #0366d6;
         }
     }
     .post-content{
+        position: relative;
         margin-top: 10px;
         width: 100%;
         color: #586069;
         font-size: 16px;
-        line-height: 24px;
+        line-height: 26px;
         height: 80px;
-        /*overflow: hidden;*/
-        /* word-wrap: break-word;*/
-        /*text-overflow: ellipsis;*/
-
         overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
+        word-wrap: break-word;
+        &:after {
+            content:"...";
+            position:absolute;
+            bottom:0;
+            right:0;
+            padding: 0 5px;
+        }
     }
     .post-tags{
         margin-top: 10px;
@@ -219,6 +228,7 @@ export default {
         .post-mark{
             float: left;
             margin-right: 15px;
+            font-size: 14px;
         }
 
     }

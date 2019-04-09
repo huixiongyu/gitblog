@@ -72,8 +72,9 @@ server是使用koa-generator生成的
 * [crypto](https://codeday.me/bug/20170623/28733.html)  我用来生成文章的路径，因为使用时间戳生产一般不会出现重复
 * [iview-editor](http://editor.iviewui.com/) 后台中输入文章使用的Markdown编辑器
 * [marked](https://marked.js.org/#/USING_ADVANCED.md) 前端渲染Markdown时使用， [mavonEditor](https://www.jianshu.com/p/aca26ec75ec3) 则既可以编辑也可以解析
+* [moment.js](http://momentjs.cn/)   处理日期和时间
 
-**开发工具： WebStorm、Postman、MongoDB Atlas**
+**开发工具： WebStorm、Postman、MongoDB Atlas、VS Code** 
 
 
 
@@ -108,7 +109,8 @@ server是使用koa-generator生成的
 * [MongoDB几种查询嵌套数据的方式](https://www.jianshu.com/p/b28a73ba9a16) 
 * [MongoDB嵌套文档如何局部更新](https://segmentfault.com/q/1010000014273734) 
 * [记一次Vue使用marked.js](https://blog.csdn.net/sdta25196/article/details/80325181) 
-* 
+* [vue 过滤器](https://cn.vuejs.org/v2/guide/filters.html) 
+* [多行的文字省略处理](http://lomu.me/post/css-multiline-text-overflow)
 
 ## 正在开发的功能
 * 后台管理Profile Setting，包括地理定位
@@ -267,6 +269,7 @@ server是使用koa-generator生成的
 * 分类支持二级，点进分类可以进入该类别发布的时间轴
 * 支持Github授权登录
 * 支持文章目录（并且设置锚点）
+* 支持文章内嵌代码选项卡：CSS、HTML和最终效果，类似JSFiddle
 * 支持友链
 * 支持发说说（发图片＋文字），在首页导航栏
 * 图片的弹出层
