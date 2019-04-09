@@ -1,6 +1,6 @@
 <template>
     <div class="overview">
-        <div class="post-search">
+        <div class="post-search" v-if="totalArticle !== 0">
             <Input class="search-box"  size="large" placeholder="Find an article..." style="width:390px;height:43px;" />
             <Select class="tag-select" placeholder="Tag:All" v-model="model1" style="width:140px" size="large">
                 <Option v-for="item in tagList" :value="item.value" :key="item.value">{{ item.label }}</Option>
@@ -8,6 +8,9 @@
             <Select class="cate-select" placeholder="Categories:All" v-model="model2" style="width:160px" size="large">
                 <Option v-for="item in cateList" :value="item.value" :key="item.value">{{ item.label }}</Option>
             </Select>
+        </div>
+        <div class="no-article" v-else>
+           <p>目前还没有文章哦</p> 
         </div>
 
         <div class="post-line"></div>
@@ -46,6 +49,9 @@
                 </div>
             </div>
         </div>
+        <div class="paging">
+            <Page :total="totalArticles" />
+        </div> 
     </div>
 </template>
 <script>
@@ -108,15 +114,22 @@ export default {
             ],
             model1: '',
             model2: '',
-            articleData: []
+            articleData: [],
+            totalArticles: 10,
+            currentPage: 1,
+            pageSize: 5
         }
     },
     methods: {
         fectchArticle(){
-            this.$axios.get('/api/article/')
+            this.$axios.get(`/api/article/${this.pageSize}/${this.currentPage}`)
                 .then(data => {
-                    // console.log(data);
-                    this.articleData = data.data;
+                    console.log(data);
+                    const currentData = data.data;
+                    this.articleData = currentData.data;
+                    console.log(this.articleData)
+                    this.totalArticles = currentData.totalArticles;
+                    console.log(this.totalArticles);
                 })
                 .catch(err => {
                     console.log(err);
@@ -141,6 +154,17 @@ export default {
     .post-search{
         position: relative;
         margin-top: 20px;
+    }
+    .no-article{
+        width: 100%;
+        height: 300px;
+        color: red;
+        font-size: 20px;
+        font-weight: 600;
+        display: flex;
+        justify-content: center;
+        align-content: center;
+        align-items: center;
     }
     .search-box{
         margin-top: 5px;
@@ -231,6 +255,14 @@ export default {
             font-size: 14px;
         }
 
+    }
+    .paging{
+        margin: 10px 0 10px 0;
+        width: 100%;
+        height: 30px;
+        display: flex;
+        justify-content: center;
+        align-content: center;
     }
 </style>
 

@@ -28,11 +28,50 @@ router.get('/', async ctx=> {
     if(findResult.length === 0){
         ctx.status = 400;
         ctx.body = {
-            message: '没有任何数据',
-            data: []
+            message: '没有任何数据'
         }
     }else{
         ctx.body = findResult;
+    }
+});
+
+/*
+@route GET /api/article/:size/:page
+@desc 分页获取文章
+ */
+router.get('/:size/:page', async ctx => {
+    console.log('我进来了');
+    console.log(ctx.params.size);
+    console.log(ctx.params.page);
+    const findResult = await Article.find({secret: false}).sort({ date: -1 });
+    if(findResult.length > 0){
+        const totalArticles = findResult.length;
+        let resultList = [];
+        const num = ctx.params.size * (ctx.params.page - 1)
+        if(num < totalArticles){
+            if((num + ctx.params.size) < totalArticles){
+                resultList = findResult.slice(num, num + ctx.params.size);
+            }else{
+                resultList = findResult.slice(num);
+            }
+        }else{
+            ctx.status = 400;
+            ctx.body = {
+                message: '没有任何数据',
+                totalArticles: totalArticles
+            }
+        }
+        ctx.status = 200
+        ctx.body = {
+            totalArticles: totalArticles,
+            data: resultList
+        }
+    }else{
+        ctx.status = 400;
+        ctx.body = {
+            message: '没有任何数据',
+            totalArticles: 0
+        }
     }
 });
 
@@ -110,9 +149,11 @@ router.post('/', passport.authenticate('jwt', { session: false }),
             }
         }
         tags = [];
-        tagList.map(item => {
-            tags.unshift({name: item});
-        });
+        if(tagList.length > 0){
+            tagList.map(item => {
+                tags.unshift({name: item});
+            });
+        }
         const toPost = {
             title: ctx.request.body.title,
             content: ctx.request.body.content,
@@ -189,9 +230,11 @@ router.post('/secret', passport.authenticate('jwt', { session: false }),
             }
         }
         tags = [];
-        tagList.map(item => {
-            tags.unshift({name: item});
-        });
+        if(tagList.length > 0){
+            tagList.map(item => {
+                tags.unshift({name: item});
+            });
+        }
         const toPost = {
             title: ctx.request.body.title,
             content: ctx.request.body.content,
@@ -219,7 +262,7 @@ router.post('/secret', passport.authenticate('jwt', { session: false }),
 @desc 公开接口，获取未加密的文章
  */
 router.get('/:path', async ctx => {
-    console.log(ctx.params.path);
+    // console.log(ctx.params.path);
     const findResult = await Article.find({path: ctx.params.path, secret: false});
     if(findResult.length > 0){
         const addVisited = findResult[0];
@@ -236,6 +279,8 @@ router.get('/:path', async ctx => {
         ctx.body = { message: '路径不正确！'};
     }
 });
+
+
 
 /*
 @route GET /api/article/

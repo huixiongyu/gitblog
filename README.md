@@ -640,5 +640,7 @@ transformTime();
 * 文章书写页的分类选择应该加入块内滚动条
 * 如果分类或者标签的名字改变了，文章管理的名字也需要改变(这里最好使用id关联)
 * 文章发布时间戳还没设置
+* 登录时间过期，文章无法发布，也没有提醒
+* 文章发布的tag有问题，空的时候最后会添加空格作为标签
 
 ![yinghua](http://qiniu.hackslog.cn/FmnHNuACuNohCUx55_lEmIfyinjw.jpg)
