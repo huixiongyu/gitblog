@@ -40,17 +40,21 @@ router.get('/', async ctx=> {
 @desc 分页获取文章
  */
 router.get('/:size/:page', async ctx => {
-    console.log('我进来了');
-    console.log(ctx.params.size);
-    console.log(ctx.params.page);
+    // console.log('我进来了');
+    // console.log(ctx.params.size);
+    // console.log(ctx.params.page);
+    const size = parseInt(ctx.params.size);
+    const page = parseInt(ctx.params.page);
     const findResult = await Article.find({secret: false}).sort({ date: -1 });
+    // console.log(findResult);
     if(findResult.length > 0){
         const totalArticles = findResult.length;
         let resultList = [];
-        const num = ctx.params.size * (ctx.params.page - 1)
+        const num = size * (page - 1);  //前面已经加载了的数量
         if(num < totalArticles){
-            if((num + ctx.params.size) < totalArticles){
-                resultList = findResult.slice(num, num + ctx.params.size);
+            console.log(num + size);
+            if((num + size) < totalArticles){
+                resultList = findResult.slice(num, num + size);
             }else{
                 resultList = findResult.slice(num);
             }
@@ -60,7 +64,10 @@ router.get('/:size/:page', async ctx => {
                 message: '没有任何数据',
                 totalArticles: totalArticles
             }
+            return;
         }
+        // console.log(totalArticles);
+        // console.log(resultList);
         ctx.status = 200
         ctx.body = {
             totalArticles: totalArticles,

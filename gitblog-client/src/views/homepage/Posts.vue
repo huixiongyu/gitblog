@@ -50,7 +50,13 @@
             </div>
         </div>
         <div class="paging">
-            <Page :total="totalArticles" />
+            <Page show-total 
+                show-sizer
+                :total="totalArticles" 
+                :current.sync="currentPage"
+                @on-change="changePage" 
+                @on-page-size-change="changeSize"
+                :page-size-opts="sizeList"	></Page>
         </div> 
     </div>
 </template>
@@ -115,6 +121,7 @@ export default {
             model1: '',
             model2: '',
             articleData: [],
+            sizeList: [5, 10, 20, 50],
             totalArticles: 10,
             currentPage: 1,
             pageSize: 5
@@ -124,16 +131,33 @@ export default {
         fectchArticle(){
             this.$axios.get(`/api/article/${this.pageSize}/${this.currentPage}`)
                 .then(data => {
-                    console.log(data);
+                    // console.log(data);
                     const currentData = data.data;
-                    this.articleData = currentData.data;
-                    console.log(this.articleData)
+                    const articleList = currentData.data;
+                    console.log(`这是我从服务器获取的数据${articleList}`);
+                    this.articleData.splice(0, this.articleData.length);
+                    articleList.forEach( item => {
+                        this.articleData.push(item);
+                    });
+                    console.log(`这是修改分页后本地的数据${this.articleData}`);
+                    // this.articleData = currentData.data;
+                    // console.log(this.articleData)
                     this.totalArticles = currentData.totalArticles;
-                    console.log(this.totalArticles);
+                    // console.log(this.totalArticles);
+                    
                 })
                 .catch(err => {
                     console.log(err);
                 });
+        },
+        changePage(value){
+            this.currentPage = value;
+            this.fectchArticle();
+        },
+        changeSize(size){
+            this.pageSize = size;
+            this.currentPage = 1;
+            this.fectchArticle();
         }
     },
     created() {

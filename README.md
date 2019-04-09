@@ -111,6 +111,8 @@ server是使用koa-generator生成的
 * [记一次Vue使用marked.js](https://blog.csdn.net/sdta25196/article/details/80325181) 
 * [vue 过滤器](https://cn.vuejs.org/v2/guide/filters.html) 
 * [多行的文字省略处理](http://lomu.me/post/css-multiline-text-overflow)
+* [Vue中数组和对象更改后视图不刷新的问题](https://blog.csdn.net/zifeiyu130/article/details/78950244) 
+* [iview table组件和page组件组合使用](https://segmentfault.com/a/1190000010392169)
 
 ## 正在开发的功能
 * 后台管理Profile Setting，包括地理定位
@@ -625,6 +627,7 @@ transformTime();
 ```
 
 * vue获取路由参数this.$route.params.xxx
+* 发现这个巨坑的！！！**Koa中ctx.params.xxx 的数据类型都是String！！！** 
 
 ## 问题目录
 
