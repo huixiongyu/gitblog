@@ -81,7 +81,12 @@
                 </div>
             </div>
         </div>
-        <div class="post-comment"></div>
+        <div class="post-comment">
+            <div class="comment-title">发表评论</div>
+            <Input v-model="comment" :autosize="autoSize" type="textarea" placeholder="Enter something..." />
+            <Button type="success" long>SUBMIT</Button>
+        </div>
+        <div class="comment-list"></div>
     </div>
 </template>
 
@@ -112,7 +117,9 @@
                     classify: '',
                     tags: [],
                     comments: []
-                }
+                },
+                comment: '',
+                autoSize: { minRows: 4, maxRows: 6 }
             }
         },
         computed: {
