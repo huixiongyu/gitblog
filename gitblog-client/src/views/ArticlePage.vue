@@ -8,7 +8,7 @@
 
 <script>
     import BlogHeader from '../components/BlogHeader'
-    import Post from '../components/Post'
+    import Post from '../components/ThePost'
     import BlogFooter from '../components/BlogFooter'
     export default {
         name: "ArticlePage",

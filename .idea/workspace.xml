@@ -3,10 +3,29 @@
   <component name="ChangeListManager">
     <list default="true" id="a333c4af-dc0b-4e50-9407-1736dbca1ef1" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gitblog-client/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/gitblog-client/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gitblog-client/src/views/homepage/Posts.vue" beforeDir="false" afterPath="$PROJECT_DIR$/gitblog-client/src/views/homepage/Posts.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/api/article.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api/article.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gitblog-client/src/components/Post.vue" beforeDir="false" afterPath="$PROJECT_DIR$/gitblog-client/src/components/ThePost.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gitblog-client/src/router.js" beforeDir="false" afterPath="$PROJECT_DIR$/gitblog-client/src/router.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gitblog-client/src/views/Admin/AdminSettings.vue" beforeDir="false" afterPath="$PROJECT_DIR$/gitblog-client/src/views/Admin/AdminSettings.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gitblog-client/src/views/Admin/Settings.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gitblog-client/src/views/ArticlePage.vue" beforeDir="false" afterPath="$PROJECT_DIR$/gitblog-client/src/views/ArticlePage.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gitblog-client/src/views/ForgetPassword.vue" beforeDir="false" afterPath="$PROJECT_DIR$/gitblog-client/src/views/TheForgetPassword.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gitblog-client/src/views/Register.vue" beforeDir="false" afterPath="$PROJECT_DIR$/gitblog-client/src/views/TheRegister.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gitblog-client/src/views/SignIn.vue" beforeDir="false" afterPath="$PROJECT_DIR$/gitblog-client/src/views/TheSignIn.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gitblog-client/src/views/UserAdmin.vue" beforeDir="false" afterPath="$PROJECT_DIR$/gitblog-client/src/views/useradmin/UserAdmin.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gitblog-client/src/views/Writing.vue" beforeDir="false" afterPath="$PROJECT_DIR$/gitblog-client/src/views/Admin/AdminWriting.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gitblog-client/src/views/adminpage/Account.vue" beforeDir="false" afterPath="$PROJECT_DIR$/gitblog-client/src/views/Admin/AdminAccount.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gitblog-client/src/views/adminpage/Categories.vue" beforeDir="false" afterPath="$PROJECT_DIR$/gitblog-client/src/views/Admin/AdminCategories.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gitblog-client/src/views/adminpage/Comment.vue" beforeDir="false" afterPath="$PROJECT_DIR$/gitblog-client/src/views/Admin/AdminComment.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gitblog-client/src/views/adminpage/Data.vue" beforeDir="false" afterPath="$PROJECT_DIR$/gitblog-client/src/views/Admin/AdminData.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gitblog-client/src/views/adminpage/Profile.vue" beforeDir="false" afterPath="$PROJECT_DIR$/gitblog-client/src/views/Admin/AdminProfile.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gitblog-client/src/views/adminpage/Tag.vue" beforeDir="false" afterPath="$PROJECT_DIR$/gitblog-client/src/views/Admin/AdminTag.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gitblog-client/src/views/adminpage/User.vue" beforeDir="false" afterPath="$PROJECT_DIR$/gitblog-client/src/views/Admin/AdminUser.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gitblog-client/src/views/homepage/AboutMe.vue" beforeDir="false" afterPath="$PROJECT_DIR$/gitblog-client/src/views/Home/HomeAboutMe.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gitblog-client/src/views/homepage/Categories.vue" beforeDir="false" afterPath="$PROJECT_DIR$/gitblog-client/src/views/Home/HomeCategories.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gitblog-client/src/views/homepage/Followers.vue" beforeDir="false" afterPath="$PROJECT_DIR$/gitblog-client/src/views/Home/HomeFollowers.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gitblog-client/src/views/homepage/Overview.vue" beforeDir="false" afterPath="$PROJECT_DIR$/gitblog-client/src/views/Home/HomeOverview.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gitblog-client/src/views/homepage/Posts.vue" beforeDir="false" afterPath="$PROJECT_DIR$/gitblog-client/src/views/Home/HomePosts.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gitblog-client/src/views/homepage/Tags.vue" beforeDir="false" afterPath="$PROJECT_DIR$/gitblog-client/src/views/Home/HomeTags.vue" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -34,7 +53,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/gitblog-client/src/views/adminpage/Settings.vue" />
         <option value="$PROJECT_DIR$/gitblog-client/src/views/useradmin/profile.vue" />
         <option value="$PROJECT_DIR$/gitblog-client/src/views/useradmin/comment.vue" />
         <option value="$PROJECT_DIR$/gitblog-client/src/views/useradmin/Comment.vue" />
@@ -78,13 +96,14 @@
         <option value="$PROJECT_DIR$/validation/article.js" />
         <option value="$PROJECT_DIR$/models/Article.js" />
         <option value="$PROJECT_DIR$/gitblog-client/src/views/Writing.vue" />
-        <option value="$PROJECT_DIR$/gitblog-client/src/views/ArticlePage.vue" />
         <option value="$PROJECT_DIR$/gitblog-client/src/router.js" />
         <option value="$PROJECT_DIR$/gitblog-client/src/components/Post.vue" />
         <option value="$PROJECT_DIR$/gitblog-client/src/components/BlogHeader.vue" />
         <option value="$PROJECT_DIR$/gitblog-client/src/views/Home.vue" />
         <option value="$PROJECT_DIR$/routes/api/article.js" />
         <option value="$PROJECT_DIR$/gitblog-client/src/views/homepage/Posts.vue" />
+        <option value="$PROJECT_DIR$/gitblog-client/src/views/useradmin/UserAdmin.vue" />
+        <option value="$PROJECT_DIR$/gitblog-client/src/views/ArticlePage.vue" />
       </list>
     </option>
   </component>
@@ -101,6 +120,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -139,7 +159,7 @@
               <item name="gitblog-client" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="views" type="462c0819:PsiDirectoryNode" />
-              <item name="homepage" type="462c0819:PsiDirectoryNode" />
+              <item name="Admin" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="gitblog" type="b2602c69:ProjectViewProjectNode" />
@@ -161,7 +181,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -169,7 +188,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="javascript.nodejs.core.library.configured.version" value="10.13.0" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/gitblog-client/src/views/Admin" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.standard" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -177,10 +196,12 @@
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.standard" value="" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="E:\Github\gitblog\gitblog-client\src\views\Admin" />
+      <recent name="E:\Github\gitblog\gitblog-client\src\views\useradmin" />
       <recent name="$PROJECT_DIR$/gitblog-client/src/views" />
       <recent name="$PROJECT_DIR$/gitblog-client/src/views/homepage" />
     </key>
@@ -239,21 +260,22 @@
       <workItem from="1554736592740" duration="236000" />
       <workItem from="1554779017820" duration="628000" />
       <workItem from="1554780505452" duration="3063000" />
+      <workItem from="1554995762150" duration="1511000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="295324000" />
+    <option name="totallyTimeSpent" value="296835000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="67" y="-7" width="1476" height="878" extended-state="6" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.18472221" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.23402777" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="npm" order="2" side_tool="true" />
       <window_info id="Favorites" order="3" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" sideWeight="0.4997353" weight="0.05707196" />
+      <window_info anchor="bottom" id="Find" order="1" sideWeight="0.4997353" visible="true" weight="0.10694444" />
       <window_info anchor="bottom" id="Run" order="2" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
@@ -292,30 +314,6 @@
     <option name="version" value="1" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/gitblog-client/vue.config.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="527">
-          <caret line="17" column="1" selection-start-line="17" selection-start-column="1" selection-end-line="17" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/gitblog-client/src/views/UserAdmin.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="124">
-          <caret line="4" column="36" selection-start-line="4" selection-start-column="36" selection-end-line="4" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/gitblog-client/src/views/Settings.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1488">
-          <caret line="49" column="9" selection-start-line="49" selection-start-column="9" selection-end-line="49" selection-end-column="9" />
-          <folding>
-            <element signature="e#1577#1626#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/validation/sign-in.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="444">
@@ -330,7 +328,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/gitblog-client/src/views/adminpage/Profile.vue">
+    <entry file="file://$PROJECT_DIR$/gitblog-client/src/views/Admin/AdminProfile.vue">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="41">
           <caret line="98" selection-start-line="98" selection-end-line="112" selection-end-column="18" />
@@ -340,7 +338,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/gitblog-client/src/views/adminpage/Account.vue">
+    <entry file="file://$PROJECT_DIR$/gitblog-client/src/views/Admin/AdminAccount.vue">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2914">
           <caret line="94" column="18" lean-forward="true" selection-start-line="94" selection-start-column="18" selection-end-line="94" selection-end-column="18" />
@@ -352,14 +350,14 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/gitblog-client/src/views/homepage/AboutMe.vue">
+    <entry file="file://$PROJECT_DIR$/gitblog-client/src/views/Home/HomeAboutMe.vue">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="248">
           <caret line="8" lean-forward="true" selection-start-line="8" selection-end-line="8" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/gitblog-client/src/views/homepage/Overview.vue">
+    <entry file="file://$PROJECT_DIR$/gitblog-client/src/views/Home/HomeOverview.vue">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1891">
           <caret line="79" column="20" selection-start-line="79" selection-start-column="20" selection-end-line="79" selection-end-column="20" />
@@ -380,14 +378,14 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/gitblog-client/src/views/homepage/Followers.vue">
+    <entry file="file://$PROJECT_DIR$/gitblog-client/src/views/Home/HomeFollowers.vue">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="318">
           <caret line="45" column="9" lean-forward="true" selection-start-line="45" selection-start-column="9" selection-end-line="45" selection-end-column="9" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/gitblog-client/src/views/Register.vue">
+    <entry file="file://$PROJECT_DIR$/gitblog-client/src/views/TheRegister.vue">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-62">
           <caret line="33" column="80" selection-start-line="33" selection-start-column="59" selection-end-line="33" selection-end-column="80" />
@@ -399,7 +397,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/gitblog-client/src/views/homepage/Tags.vue">
+    <entry file="file://$PROJECT_DIR$/gitblog-client/src/views/Home/HomeTags.vue">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="992">
           <caret line="32" selection-start-line="32" selection-end-line="51" selection-end-column="1" />
@@ -423,14 +421,14 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/gitblog-client/src/views/adminpage/Tag.vue">
+    <entry file="file://$PROJECT_DIR$/gitblog-client/src/views/Admin/AdminTag.vue">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1246">
           <caret line="8" column="139" selection-start-line="8" selection-start-column="81" selection-end-line="8" selection-end-column="139" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/gitblog-client/src/views/homepage/Categories.vue">
+    <entry file="file://$PROJECT_DIR$/gitblog-client/src/views/Home/HomeCategories.vue">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="155">
           <caret line="5" column="54" lean-forward="true" selection-start-line="5" selection-start-column="54" selection-end-line="5" selection-end-column="54" />
@@ -448,7 +446,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/gitblog-client/src/views/adminpage/Categories.vue">
+    <entry file="file://$PROJECT_DIR$/gitblog-client/src/views/Admin/AdminCategories.vue">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="217">
           <caret line="99" selection-start-line="99" selection-end-line="116" selection-end-column="9" />
@@ -483,7 +481,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/gitblog-client/src/views/adminpage/User.vue">
+    <entry file="file://$PROJECT_DIR$/gitblog-client/src/views/Admin/AdminUser.vue">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="93">
           <caret line="3" column="21" selection-start-line="3" selection-start-column="21" selection-end-line="3" selection-end-column="21" />
@@ -538,7 +536,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/gitblog-client/src/views/SignIn.vue">
+    <entry file="file://$PROJECT_DIR$/gitblog-client/src/views/TheSignIn.vue">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1418">
           <caret line="25" column="129" lean-forward="true" selection-start-line="25" selection-start-column="80" selection-end-line="25" selection-end-column="129" />
@@ -549,20 +547,13 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/gitblog-client/src/components/Post.vue">
+    <entry file="file://$PROJECT_DIR$/gitblog-client/src/components/ThePost.vue">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="5404">
           <caret line="230" column="25" selection-start-line="230" selection-start-column="25" selection-end-line="230" selection-end-column="25" />
           <folding>
             <element signature="n#style#0;n#i#0;n#BreadcrumbItem#0;n#Breadcrumb#0;n#div#0;n#i-col#1;n#Row#0;n#div#0;n#div#0;n#template#0;n#!!top" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/gitblog-client/src/views/ArticlePage.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-145">
-          <caret line="2" column="21" selection-start-line="2" selection-start-column="21" selection-end-line="2" selection-end-column="21" />
         </state>
       </provider>
     </entry>
@@ -640,9 +631,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/gitblog-client/src/views/ForgetPassword.vue">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/gitblog-client/src/views/Home.vue">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="401">
@@ -653,7 +641,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/gitblog-client/src/views/homepage/Posts.vue">
+    <entry file="file://$PROJECT_DIR$/gitblog-client/src/views/Home/HomePosts.vue">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="324">
           <caret line="177" selection-start-line="177" selection-end-line="179" selection-end-column="34" />
@@ -664,7 +652,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/gitblog-client/src/views/Writing.vue">
+    <entry file="file://$PROJECT_DIR$/gitblog-client/src/views/Admin/AdminWriting.vue">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1566">
           <caret line="59" selection-start-line="59" selection-start-column="4" selection-end-line="65" selection-end-column="20" />
@@ -691,6 +679,39 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="756">
           <caret line="28" column="6" lean-forward="true" selection-start-line="28" selection-start-column="4" selection-end-line="28" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gitblog-client/src/views/useradmin/Comment.vue">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gitblog-client/src/views/useradmin/UserAdmin.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="108">
+          <caret line="4" column="36" selection-start-line="4" selection-start-column="36" selection-end-line="4" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gitblog-client/src/views/Admin/AdminSettings.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1242">
+          <caret line="49" column="9" selection-start-line="49" selection-start-column="9" selection-end-line="49" selection-end-column="9" />
+          <folding>
+            <element signature="e#1577#1626#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gitblog-client/src/views/TheForgetPassword.vue">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gitblog-client/src/views/ArticlePage.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-23">
+          <caret line="2" column="21" selection-start-line="2" selection-start-column="21" selection-end-line="2" selection-end-column="21" />
+          <folding>
+            <element signature="e#173#222#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

@@ -52,11 +52,12 @@
         <div class="paging">
             <Page show-total 
                 show-sizer
+                :page-size="pageSize"
                 :total="totalArticles" 
                 :current.sync="currentPage"
                 @on-change="changePage" 
                 @on-page-size-change="changeSize"
-                :page-size-opts="sizeList"	></Page>
+                :page-size-opts="sizeList"></Page>
         </div> 
     </div>
 </template>

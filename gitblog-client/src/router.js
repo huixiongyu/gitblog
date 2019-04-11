@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home'
-import Settings from './views/Settings'
-import UserAdmin from "./views/UserAdmin"
+import Settings from './views/Admin/AdminSettings'
+import UserAdmin from "./views/useradmin/UserAdmin"
 import jwt_decode from "jwt-decode";
 Vue.use(Router)
 
@@ -18,54 +18,54 @@ const router =new Router({
       children: [
         {
           path: '',
-          component: () => import('./views/homepage/Overview.vue')
+          component: () => import('./views/Home/HomeOverview.vue')
         },
         {
           path: 'overview',
           name: 'overview',
-          component: () => import('./views/homepage/Overview.vue')
+          component: () => import('./views/Home/HomeOverview.vue')
         },
         {
           path: 'posts',
           name: 'posts',
-          component: () => import('./views/homepage/Posts.vue')
+          component: () => import('./views/Home/HomePosts.vue')
         },
         {
           path: 'categories',
           name: 'categories',
-          component: () => import('./views/homepage/Categories.vue')
+          component: () => import('./views/Home/HomeCategories.vue')
         },
         {
           path: 'tags',
           name: 'tags',
-          component: () => import('./views/homepage/Tags.vue')
+          component: () => import('./views/Home/HomeTags.vue')
         },
         {
           path: 'followers',
           name: 'followers',
-          component: () => import('./views/homepage/Followers.vue')
+          component: () => import('./views/Home/HomeFollowers.vue')
         },
         {
           path: 'aboutme',
           name: 'aboutme',
-          component: () => import('./views/homepage/AboutMe.vue')
+          component: () => import('./views/Home/HomeAboutMe.vue')
         }
       ]
     },
     {
       path: '/signin',
       name: 'signin',
-      component: () => import('./views/SignIn.vue')
+      component: () => import('./views/TheSignIn.vue')
     },
     {
       path: '/reset',
       name: 'reset',
-      component: () => import('./views/ForgetPassword.vue')
+      component: () => import('./views/TheForgetPassword.vue')
     },
     {
       path: '/register',
       name: 'register',
-      component: () => import('./views/Register.vue')
+      component: () => import('./views/TheRegister.vue')
     },
     {
       path: '/settings',
@@ -78,7 +78,7 @@ const router =new Router({
       children: [
         {
           path: '',
-          component: () => import('./views/adminpage/Profile.vue'),
+          component: () => import('./views/Admin/AdminProfile.vue'),
           meta:  {
             requiresAuth: true ,
             requiresAdmin: true
@@ -87,7 +87,7 @@ const router =new Router({
         {
           path: 'profile',
           name: 'profile',
-          component: () => import('./views/adminpage/Profile.vue'),
+          component: () => import('./views/Admin/AdminProfile.vue'),
           meta:  {
             requiresAuth: true ,
             requiresAdmin: true
@@ -96,7 +96,7 @@ const router =new Router({
         {
           path: 'account',
           name: 'account',
-          component: () => import('./views/adminpage/Account.vue'),
+          component: () => import('./views/Admin/AdminAccount.vue'),
           meta:  {
             requiresAuth: true ,
             requiresAdmin: true
@@ -105,7 +105,7 @@ const router =new Router({
         {
           path: 'comment',
           name: 'comment',
-          component: () => import('./views/adminpage/Comment.vue'),
+          component: () => import('./views/Admin/AdminComment.vue'),
           meta:  {
             requiresAuth: true ,
             requiresAdmin: true
@@ -113,7 +113,7 @@ const router =new Router({
         },        {
           path: 'data',
           name: 'data',
-          component: () => import('./views/adminpage/Data.vue'),
+          component: () => import('./views/Admin/AdminData.vue'),
           meta:  {
             requiresAuth: true ,
             requiresAdmin: true
@@ -121,7 +121,7 @@ const router =new Router({
         },        {
           path: 'tag',
           name: 'tag',
-          component: () => import('./views/adminpage/Tag.vue'),
+          component: () => import('./views/Admin/AdminTag.vue'),
           meta:  {
             requiresAuth: true ,
             requiresAdmin: true
@@ -129,7 +129,7 @@ const router =new Router({
         },        {
           path: 'categories',
           name: 'admin-categories',
-          component: () => import('./views/adminpage/Categories.vue'),
+          component: () => import('./views/Admin/AdminCategories.vue'),
           meta:  {
             requiresAuth: true ,
             requiresAdmin: true
@@ -138,7 +138,7 @@ const router =new Router({
         {
           path: 'user',
           name: 'user',
-          component: () => import('./views/adminpage/User.vue'),
+          component: () => import('./views/Admin/AdminUser.vue'),
           meta:  {
             requiresAuth: true ,
             requiresAdmin: true
@@ -186,7 +186,7 @@ const router =new Router({
     {
       path: '/writing',
       name: 'writing',
-      component: () => import('./views/Writing.vue'),
+      component: () => import('./views/Admin/AdminWriting.vue'),
       meta:  {
         requiresAuth: true ,
         requiresAdmin: true

@@ -69,8 +69,8 @@
 </template>
 
 <script>
-    import BlogHeader from '../components/BlogHeader'
-    import BlogFooter from '../components/BlogFooter'
+    import BlogHeader from '../../components/BlogHeader'
+    import BlogFooter from '../../components/BlogFooter'
     export default {
         name: "Write",
         components: {
