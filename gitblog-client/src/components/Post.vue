@@ -125,7 +125,9 @@
         computed: {
             compiledMarkdown: function () {
                 return marked(this.articleInfo.content, { sanitize: true })
-            },
+            }
+        },
+        methods: {
             getContent(){
                 this.$axios.get(`/api/article/${this.articleInfo.path}`)
                     .then(data => {
@@ -139,9 +141,12 @@
                         this.articleInfo.comments = datas.comments;
 
                     })
+                    .catch(error => {
+                        console.log(error);
+                    })
             }
         },
-        mounted() {
+        created() {
             // console.log(this.$route.params.path);
             this.articleInfo.path = this.$route.params.path;
             this.getContent();

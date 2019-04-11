@@ -52,7 +52,7 @@ router.get('/:size/:page', async ctx => {
         let resultList = [];
         const num = size * (page - 1);  //前面已经加载了的数量
         if(num < totalArticles){
-            console.log(num + size);
+            // console.log(num + size);
             if((num + size) < totalArticles){
                 resultList = findResult.slice(num, num + size);
             }else{
@@ -279,7 +279,7 @@ router.get('/:path', async ctx => {
             { $set: addVisited },
             { new: true }
         ); 
-        console.log(dataChange);
+        // console.log(dataChange);
         ctx.body = findResult[0];
     }else{
         ctx.status = 400;

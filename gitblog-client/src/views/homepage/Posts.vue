@@ -19,7 +19,7 @@
             v-for="item in articleData" 
             :key="item.path">
             <div class="post-title">
-                <a :href="'/article' + item.path" target="_blank">{{item.title}}</a>
+                <router-link :to="'/article/' + item.path" target="_blank">{{item.title}}</router-link>
             </div>
             <p class="post-content">
                 {{item.content}}
@@ -131,20 +131,13 @@ export default {
         fectchArticle(){
             this.$axios.get(`/api/article/${this.pageSize}/${this.currentPage}`)
                 .then(data => {
-                    // console.log(data);
                     const currentData = data.data;
                     const articleList = currentData.data;
-                    console.log(`这是我从服务器获取的数据${articleList}`);
                     this.articleData.splice(0, this.articleData.length);
                     articleList.forEach( item => {
                         this.articleData.push(item);
                     });
-                    console.log(`这是修改分页后本地的数据${this.articleData}`);
-                    // this.articleData = currentData.data;
-                    // console.log(this.articleData)
                     this.totalArticles = currentData.totalArticles;
-                    // console.log(this.totalArticles);
-                    
                 })
                 .catch(err => {
                     console.log(err);
