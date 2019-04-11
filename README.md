@@ -306,6 +306,7 @@ server是使用koa-generator生成的
 * webSocket在线校验注册信息，搜索信息
 * 管理登录设备数量
 * 合理的缓存，优化浏览体验
+* 优化代码结构
 
 ## 收获
 * 一个神奇的bug!在postman一直测试提交数据，数据库就是没接收到，后来含泪发现请求地址忘记了api前缀！！！
@@ -639,6 +640,11 @@ transformTime();
 
 * vue获取路由参数this.$route.params.xxx
 * 发现这个巨坑的！！！**Koa中ctx.params.xxx 的数据类型都是String！！！** 
+* 不推荐v-for和v-if一起用，如果遍历的时候特定数据不现实，可以采用先用computed使用filter()方法，原因是v-for比v-if更优先，会影响性能。
+* 当页面切换到同一个路由但不同参数的地址是，组件的生命周期钩子并不会重新出发
+  * 路由导航守卫beforeRouteUpdate来执行逻辑
+  * 通过watch来监听路由对象变化，对变化做出响应
+  * 为router-view组件添加属性key，比较暴力的方法
 
 ## 问题目录
 
