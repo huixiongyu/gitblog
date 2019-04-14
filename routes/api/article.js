@@ -266,6 +266,50 @@ router.post('/secret', passport.authenticate('jwt', { session: false }),
         ctx.body = { message: '草稿保存成功！' }
     }
 );
+/* 
+@route GET /api/article/comment/
+@desc 获取评论列表
+*/
+router.get('/comment', async ctx => {
+    // console.log(ctx.request.body.path);
+    const articleInfo = await Article.find({path: ctx.request.body.path});
+    const resultList = [];
+    if(articleInfo.length > 0){
+        const commentList = articleInfo[0].comments;
+        // console.log(commentList);
+        if(commentList.length === 0 ){
+            ctx.body = resultList;
+            return;
+        }else{
+            for(item of commentList){
+                // console.log(resultList);
+                const commentItem = {
+                    id: item.id,
+                    from: item.from,
+                    to: item.to,
+                    date: item.date,
+                    read: item.read
+                }
+                let fromResult = await User.find({username: commentItem.from});
+                let fromInfo = fromResult[0];
+                commentItem.avatar = fromInfo.avatar;
+                // console.log(commentItem);
+                resultList.push(commentItem);
+                // console.log(resultList);
+            }
+            console.log(resultList);
+            ctx.status = 200;
+            ctx.body ={ data: resultList }
+            return ;
+        }
+    }else{
+        ctx.body = {
+            data: []
+        };
+        return;        
+    }     
+}
+);
 
 /* 
 @route POST /api/article/comment/
