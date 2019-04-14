@@ -60,6 +60,7 @@
                     }
                     localStorage.removeItem('blogToken');
                     localStorage.removeItem('user');
+                    this.$store.commit('setLogout')
                     this.$Message.success('已经退出ヾ(￣▽￣)Bye~Bye~');
                     this.$router.go(0);
                     this.$router.replace('/');

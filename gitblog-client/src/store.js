@@ -38,6 +38,9 @@ export default new Vuex.Store({
     },
     judgeIdentity(state, payload){
       state.isAdmin = payload.identity === "admin";
+    },
+    setLogout(state){
+      state.isLogin = false;
     }
   },
   actions: {

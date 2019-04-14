@@ -6,34 +6,34 @@
                 <Card style="width:100%" class="profile-card">
                     <Form :model="formTop" ref="formValidate" :rules="ruleValidate" label-position="left" :label-width="80">
                         <FormItem label="Name" prop="nick">
-                            <Input v-model="formTop.nick" placeholder="Nickname show in comment"></Input>
+                            <Input v-model="formTop.nick" placeholder="Nickname show in comment" />
                         </FormItem>
                         <FormItem label="Bio" prop="bio">
                             <Input type="textarea"
                                    v-model="formTop.bio"
                                    :autosize="{minRows: 3,maxRows: 5}"
-                                   placeholder="Say something..."></Input>
+                                   placeholder="Say something..." />
                         </FormItem>
                         <FormItem label="URL" prop="website">
-                            <Input v-model="formTop.website" placeholder="your website"></Input>
+                            <Input v-model="formTop.website" placeholder="your website" />
                         </FormItem>
                         <FormItem label="Company" prop="company">
-                            <Input v-model="formTop.company"></Input>
+                            <Input v-model="formTop.company" />
                         </FormItem>
                         <FormItem label="Location" prop="location">
-                            <Input v-model="formTop.location" placeholder="Such as: Guangdong,Guangzhou"></Input>
+                            <Input v-model="formTop.location" placeholder="Such as: Guangdong,Guangzhou" />
                         </FormItem>
                         <FormItem label="Github" prop="github">
-                            <Input v-model="formTop.github" placeholder="your Github home page,begin with https://"></Input>
+                            <Input v-model="formTop.github" placeholder="your Github home page,begin with https://" />
                         </FormItem>
                         <FormItem label="zhihu" prop="zhihu">
-                            <Input v-model="formTop.zhihu" placeholder="https://www.zhihu.com/people/xxx"></Input>
+                            <Input v-model="formTop.zhihu" placeholder="https://www.zhihu.com/people/xxx" />
                         </FormItem>
                         <FormItem label="yuncun" prop="yuncun">
-                            <Input v-model="formTop.yuncun" placeholder="share musicCloud to enjoy music together"></Input>
+                            <Input v-model="formTop.yuncun" placeholder="share musicCloud to enjoy music together" />
                         </FormItem>
                         <FormItem label="weibo" prop="weibo">
-                            <Input v-model="formTop.weibo" placeholder="sina weibo."></Input>
+                            <Input v-model="formTop.weibo" placeholder="sina weibo." />
                         </FormItem>
                         <FormItem>
                             <Button type="success" @click="handleSubmit('formValidate')">Update profile</Button>

@@ -239,7 +239,7 @@
         width: 100%;
         clear: both;
         .content-detail{
-            width: 982px;
+            width: 1100px;
             min-height: 200px;
             border: 1px solid #D3D3D3;
             border-radius: 4px;

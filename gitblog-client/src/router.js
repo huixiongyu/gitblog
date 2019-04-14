@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home'
 import Settings from './views/Admin/AdminSettings'
-import UserAdmin from "./views/useradmin/UserAdmin"
+import UserAdmin from "./views/User/UserAdmin"
 import jwt_decode from "jwt-decode";
 Vue.use(Router)
 
@@ -157,7 +157,7 @@ const router =new Router({
       children: [
         {
           path: '',
-          component: () => import('./views/useradmin/Profile.vue'),
+          component: () => import('./views/User/UserProfile.vue'),
           meta:  {
             requiresAuth: true ,
             requiresAdmin: false
@@ -166,7 +166,7 @@ const router =new Router({
         {
           path: 'profile',
           name: 'userprofile',
-          component: () => import('./views/useradmin/Profile.vue'),
+          component: () => import('./views/User/UserProfile.vue'),
           meta:  {
             requiresAuth: true ,
             requiresAdmin: false
@@ -175,7 +175,7 @@ const router =new Router({
         {
           path: 'comment',
           name: 'usercomment',
-          component: () => import('./views/useradmin/Comment.vue'),
+          component: () => import('./views/User/UserComment.vue'),
           meta:  {
             requiresAuth: true ,
             requiresAdmin: false
@@ -227,7 +227,7 @@ router.beforeEach((to, from, next) => {
   //需要权限，并且已经登录了
   // 权限有5种：
   // 1.settings，需要登录，需要管理员
-  // 2.useradmin, 需要登录，不需要管理员，管理员不能访问！(也就是同时满足不是管理员，不是管理员管理后台)
+  // 2/User, 需要登录，不需要管理员，管理员不能访问！(也就是同时满足不是管理员，不是管理员管理后台)
   // 3.不满足以上的跳到首页，也就是管理员不能访问普通用户，普通用户不能访问后台
   // 4.没有登录，不能访问需要登录的页面！
   // 5.随便看，我不管

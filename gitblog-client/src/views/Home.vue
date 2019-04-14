@@ -27,19 +27,19 @@ export default {
         MainPage,
         BlogFooter
     },
-    beforeRouteEnter(to, from, next) {
-        if(from.name === 'signin'){
-            next(vm => {
-                setTimeout(function () {
-                    location.reload();
-                    vm.$router.go(0);
-                }, 1000);
-            })
-        }else{
-            next();
-        }
+    // beforeRouteEnter(to, from, next) {
+    //     if(from.name === 'signin'){
+    //         next(vm => {
+    //             setTimeout(function () {
+    //                 location.reload();
+    //                 vm.$router.go(0);
+    //             }, 1000);
+    //         })
+    //     }else{
+    //         next();
+    //     }
 
-    }
+    // }
 }
 </script>
 
