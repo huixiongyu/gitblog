@@ -82,11 +82,37 @@
             </div>
         </div>
         <div class="post-comment">
-            <div class="comment-title">发表评论</div>
-            <Input v-model="comment" :autosize="autoSize" type="textarea" placeholder="Enter something..." />
-            <Button type="success" long>SUBMIT</Button>
+            <div class="comment-area">
+                <div class="comment-title">发表评论</div>
+                <div class="repeat-to">回复 <span class="user"> xxx</span></div>
+                <Input v-model="comment"
+                    :autosize="autoSize"
+                    type="textarea"
+                    style="width:1100px"
+                    placeholder="说点什么吧..." />
+                <Button type="success">发表评论</Button>
+            </div>
         </div>
-        <div class="comment-list"></div>
+        <div class="comment-list">
+            <div class="list-area">
+                <div class="comment-item">
+                    <div class="info-head">
+                        <router-linke class="user-avatar" tag="div" to="/">
+                            <img src="../assets/221.jpg" alt="">
+                        </router-linke>
+                        <div class="user-detail">
+                            <div class="name">huixiongyu</div>
+                            <div class="post-time">March 5th, 2019 at 05:00 pm</div>
+                        </div>
+                    </div>
+                    <div class="comment-content">
+                        <div class="to-whom">@赵曼</div>
+                        <div class="comment">ssssssssssssssssssssjk</div>
+                        <Button class="reply" type="info" size="small">回复</Button>
+                    </div>     
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -119,7 +145,7 @@
                     comments: []
                 },
                 comment: '',
-                autoSize: { minRows: 4, maxRows: 6 }
+                autoSize: { minRows: 3, maxRows: 20 }
             }
         },
         computed: {
@@ -267,6 +293,86 @@
             width: 100%;
             padding: 25px;
         }
+    }
+    .post-comment{
+        position: relative;
+        width: 100%;
+        min-height: 200px; 
+        .comment-area{
+            width: 1100px;
+            height: 100%;
+            margin: 0 auto 0 auto;
+            // position: absolute;
+            // top: 0;
+            // left: 50%;
+            // margin-left: -550px;
+            .comment-title{
+                font-size: 18px;
+            }
+            .repeat-to{
+                font-size: 16px;
+                font-weight: 600;
+                color: #FF4500;
+                .user{
+                    font-size: 16px;
+                    color: #1E90FF;                   
+                }
+            }
+            button{
+                margin-top: 10px;
+            }
+        }
+    }
+    .comment-list{
+        position: relative;
+        width: 100%;
+        min-height: 300px;
+        .list-area{
+            width: 1100px;
+            height: 100%;
+            margin: 0 auto 0 auto;  
+            .comment-item{
+                width: 100%;
+                min-height: 100px;
+                .info-head{
+                    width: 100%;
+                    height: 50px;
+                    display: inline-flex;
+                    justify-content: flex-start;
+                    .user-avatar{
+                        width: 50px;;
+                        height: 100%;
+                        img{
+                            width: 100%;
+                            height: 100%;
+                            border-radius: 50%;
+                        }
+                    }
+                    .user-detail{
+                        margin-left: 10px;
+                        .name{
+                            font-size: 16px;
+                            font-weight: 600;
+                        }
+                    }
 
+                }
+                .comment-content{
+                    width: 100%;
+                    min-height: 50px;
+                    padding-left: 50px;
+                    .to-whom{
+                        font-size: 16px;
+                        font-weight: 600;
+                    }
+                    .comment{
+                        font-size: 18px;
+                    }
+                    .reply{
+                        margin-top: 20px;
+                    }
+                }
+            }
+        }
     }
 </style>
