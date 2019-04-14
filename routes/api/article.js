@@ -4,7 +4,10 @@ const passport = require('koa-passport');
 const crypto = require('crypto');
 const Article = require('../../models/Article');
 const Tag = require('../../models/Tag');
+const User = require('../../models/User');
 const validatePostInput = require('../../validation/article');
+
+
 
 //检测是否存在特殊字符
 function checkIsHasSpecialStr(str){
@@ -264,6 +267,50 @@ router.post('/secret', passport.authenticate('jwt', { session: false }),
     }
 );
 
+/* 
+@route POST /api/article/comment/
+@desc 私密接口，需要登录才能提交评论
+*/
+router.post('/comment', passport.authenticate('jwt', { session: false }),
+    async ctx => {
+        if(ctx.request.body.comment === ''){
+            ctx.status = 400;
+            ctx.body = {
+                message: '评论不能为空'
+            };
+            return;
+        }
+        // console.log(ctx.request.body.from)
+        // console.log(ctx.request.body.to)
+        // console.log(ctx.request.body.comment)
+        const from = await User.find({username: ctx.request.body.from});
+        const to = await User.find({username: ctx.request.body.to});
+        const articleInfo = await Article.find({path: ctx.request.body.path});
+        if((from.length > 0) && (to.length > 0) && (articleInfo.length > 0)){
+            const newComment = {
+                from: ctx.request.body.from,
+                to: ctx.request.body.to,
+                comment: ctx.request.body.comment,
+                date: Date.now(),
+                read: false
+            };
+            // articleInfo[0].comments.unshift(newComment);
+            const commentUpdate = await Article.findOneAndUpdate(
+                { path: ctx.request.body.path },
+                { $push: {comments: newComment} },
+                { $sort: 1,new: true }
+            );    
+            console.log(commentUpdate);
+            ctx.body =  { message: '评论插入成功！' };
+            ctx.status = 200;
+        }else {
+            ctx.status = 404;
+            ctx.body = {message: '查找不到用户！'};
+        }
+   
+    }
+);
+
 /*
 @route GET /api/article/:path
 @desc 公开接口，获取未加密的文章
@@ -287,8 +334,6 @@ router.get('/:path', async ctx => {
     }
 });
 
-
-
 /*
 @route GET /api/article/
 @desc 私密接口，保存为草稿
@@ -303,5 +348,7 @@ router.get('/secret/:path', passport.authenticate('jwt', { session: false }),asy
         ctx.body = { message: '路径不正确！'};
     }
 });
+
+
 
 module.exports = router.routes();

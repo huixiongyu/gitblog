@@ -266,7 +266,7 @@
         clear: both;
         .content-detail{
             width: 1100px;
-            min-height: 200px;
+            min-height: 600px;
             border: 1px solid #D3D3D3;
             border-radius: 4px;
             margin: 20px auto 20px auto;

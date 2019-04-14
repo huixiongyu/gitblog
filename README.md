@@ -238,10 +238,15 @@ server是使用koa-generator生成的
     * tags  标签(可以多个，用逗号分隔，不存在的标签会自动创建)
     * secret  保密 (保存为草稿server设置为true)
     * time 写文章的时间（时间戳）
-  * 获取某篇正式发布的文章  /api/article/:path
+  * 获取某篇正式发布的文章 GET  /api/article/:path
     * path  文章的路径（是公开的）
-  * 获取草稿  /api/article/secret/:path
+  * 获取草稿 GET  /api/article/secret/:path
     * path  文章的路径(需要登录授权)
+  * 增加评论 POST  /api/article/comment
+    * path 文章地路径
+    * from 你地用户名（已经登录地用户名）
+    * to 评论对象，如果是文章本身那就是博主
+    * comment  评论地正文
 
 
 ## 正在开发
