@@ -267,12 +267,12 @@ router.post('/secret', passport.authenticate('jwt', { session: false }),
     }
 );
 /* 
-@route GET /api/article/comment/
+@route GET /api/article/comment?path=xxxx
 @desc 获取评论列表
 */
 router.get('/comment', async ctx => {
     // console.log(ctx.request.body.path);
-    const articleInfo = await Article.find({path: ctx.request.body.path});
+    const articleInfo = await Article.find({path: ctx.query.path});
     const resultList = [];
     if(articleInfo.length > 0){
         const commentList = articleInfo[0].comments;
@@ -281,12 +281,13 @@ router.get('/comment', async ctx => {
             ctx.body = resultList;
             return;
         }else{
-            for(item of commentList){
+            for(let item of commentList){
                 // console.log(resultList);
                 const commentItem = {
                     id: item.id,
                     from: item.from,
                     to: item.to,
+                    comment: item.comment,
                     date: item.date,
                     read: item.read
                 }
@@ -297,9 +298,9 @@ router.get('/comment', async ctx => {
                 resultList.push(commentItem);
                 // console.log(resultList);
             }
-            console.log(resultList);
+            // console.log(resultList);
             ctx.status = 200;
-            ctx.body ={ data: resultList }
+            ctx.body =resultList;
             return ;
         }
     }else{
@@ -352,6 +353,54 @@ router.post('/comment', passport.authenticate('jwt', { session: false }),
             ctx.body = {message: '查找不到用户！'};
         }
    
+    }
+);
+
+/**
+ * @route DELETE api/aritcle/comment?path=xxxx
+ * @desc  删除某条评论，只有管理员和用户自己可以操作
+ * @access 接口是私有的
+ */
+router.post('/comment/delete',passport.authenticate('jwt', { session: false }),
+    async ctx => {
+        console.log(ctx.request.body);
+        const id = ctx.request.body.id;
+        const from = ctx.request.body.from;
+        const owner = ctx.request.body.username;
+        const path = ctx.request.body.path;
+        if(from !== owner){
+            ctx.status = 401;
+            ctx.body = {message: '错误的请求！'};         
+            return ;   
+        }else{
+            const article = await Article.find({path: path});
+            if (article.length > 0) {
+                const commentList = article[0].comments;
+                const idExist = commentList.filter(item => item.id === id)
+                if (idExist.length === 0) {
+                  ctx.status = 400;
+                  ctx.body = { error : '该评论不存在' };
+                  return;
+                }
+          
+                // 获取要删掉的评论 id
+                const removeIndex = commentList
+                  .map(item => item.id)
+                  .indexOf(id);
+                console.log(removeIndex);
+                article[0].comments.splice(removeIndex, 1);
+                console.log(article);
+                const articleUpdate = await Article.findOneAndUpdate(
+                  { path: path },
+                  { $set: {comments: article[0].comments} },
+                  { new: true }
+                );
+                ctx.body = articleUpdate;
+            } else {
+                ctx.status = 404;
+                ctx.body = { error: '文章不存在' };
+            }            
+        }
     }
 );
 

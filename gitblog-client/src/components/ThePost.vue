@@ -27,7 +27,7 @@
                                 <Icon type="ios-pricetags" />Tags
                             </div>
                             <div class="info-num">
-                                12
+                                {{this.articleInfo.tags.length}}
                             </div>
                         </div>
                         <div class="info-detail">
@@ -35,7 +35,7 @@
                                 <Icon type="md-folder" />Categories
                             </div>
                             <div class="info-num">
-                                12
+                                23
                             </div>
                         </div>
                     </div>
@@ -60,7 +60,7 @@
                         <Icon type="ios-speedometer" />Projects
                     </div>
                     <div>
-                        <Icon type="ios-thermometer-outline" />100℃
+                        <Icon type="ios-thermometer-outline" />{{this.articleInfo.visited}}℃
                     </div>
                 </i-col>
                 <i-col span="3" class="hide-point">.</i-col>
@@ -82,33 +82,49 @@
             </div>
         </div>
         <div class="post-comment">
-            <div class="comment-area">
+            <div class="comment-area" id="repeat">
                 <div class="comment-title">发表评论</div>
-                <div class="repeat-to">回复 <span class="user"> xxx</span></div>
+                <div class="repeat-to" 
+                    v-if="repeatTo !== ''">回复 <span class="user">{{this.repeatTo}}</span></div>
                 <Input v-model="comment"
                     :autosize="autoSize"
                     type="textarea"
                     style="width:1100px"
                     placeholder="说点什么吧..." />
-                <Button type="success">发表评论</Button>
+                <Button type="success" @click="addComment">发表评论</Button>
             </div>
         </div>
         <div class="comment-list">
             <div class="list-area">
-                <div class="comment-item">
+                <div class="comment-item" v-for="item in commentList" :key="item.id">
                     <div class="info-head">
-                        <router-linke class="user-avatar" tag="div" to="/">
-                            <img src="../assets/221.jpg" alt="">
-                        </router-linke>
+                        <router-link class="user-avatar" tag="div" to="/">
+                            <img :src="item.avatar" alt="">
+                        </router-link>
                         <div class="user-detail">
-                            <div class="name">huixiongyu</div>
-                            <div class="post-time">March 5th, 2019 at 05:00 pm</div>
+                            <div class="name">{{item.from}}</div>
+                            <div class="post-time">{{item.date | timeFormat}}</div>
                         </div>
                     </div>
                     <div class="comment-content">
-                        <div class="to-whom">@赵曼</div>
-                        <div class="comment">ssssssssssssssssssssjk</div>
-                        <Button class="reply" type="info" size="small">回复</Button>
+                        <div class="to-whom" v-if="item.to !== 'huixiongyu'">@{{item.to}}</div>
+                        <div class="comment">{{item.comment}}</div>
+                        <div class="btn-c">
+                            <Button class="reply" 
+                                type="info" 
+                                to="#repeat"
+                                @click="handleRepeat(item.from)"
+                                size="small">
+                                回复
+                            </Button>
+                            <Button type="dashed" 
+                                    size="small" 
+                                    @click="handleDelete(item.from, item.id)"
+                                    ghost>
+                                删除
+                            </Button>
+                        </div>
+
                     </div>     
                 </div>
             </div>
@@ -118,6 +134,7 @@
 
 <script>
     import marked from 'marked';
+    import moment from 'moment';    
     export default {
         name: "Post",
         data(){
@@ -145,7 +162,9 @@
                     comments: []
                 },
                 comment: '',
-                autoSize: { minRows: 3, maxRows: 20 }
+                autoSize: { minRows: 3, maxRows: 20 },
+                commentList: [],
+                repeatTo: ''
             }
         },
         computed: {
@@ -167,8 +186,70 @@
                         this.articleInfo.comments = datas.comments;
 
                     })
+                    .then(() => {
+                        this.$axios.get(`/api/article/comment?path=${this.articleInfo.path}`)
+                            .then(data => {
+                                const listComment = data.data;
+                                for(let item of listComment){
+                                    this.commentList.push(item);
+                                }
+                                // console.log(this.commentList);
+                            })
+                    })
                     .catch(error => {
                         console.log(error);
+                    })
+            },
+            handleRepeat(name){
+                this.repeatTo = name;
+                console.log(name);
+                let anchor = document.getElementById('repeat');
+                anchor.scrollIntoView();
+            },
+            handleDelete(name, id){
+                const username = this.$store.state.user.username;
+                if(name === username){
+                    const deleteOne = {
+                        path: this.articleInfo.path,
+                        username: username,
+                        from: name,
+                        id: id
+                    }
+                    this.$axios.post('/api/article/comment/delete', deleteOne)
+                        .then(() => {
+                            this.$Message.success('评论删除成功！');
+                            location.reload();
+                            this.$router.go(0);
+                        })
+                        .catch(error => {
+                            console.log(error);
+                        })
+                }else{
+                    this.$Message.warning('您不是当前用户，无法删除他的评论哦！');
+                }
+            },
+            addComment(){
+                let repeatToWhom = this.repeatTo;
+                if(this.comment === ''){
+                    this.$Message.warning('评论内容不能为空！');
+                    return ;
+                }
+                if(this.repeatTo === ''){
+                    repeatToWhom = 'huixiongyu'
+                }
+                const newComment = {
+                    from: this.$store.state.user.username,
+                    to: repeatToWhom,
+                    path: this.articleInfo.path,
+                    comment: this.comment
+                }
+                this.$axios.post('/api/article/comment', newComment)
+                    .then(() => {
+                        this.$Message.success('评论添加成功！');
+                        this.comment = '';
+                        this.repeatTo = '';
+                        location.reload();
+                        this.$router.go(0);
                     })
             }
         },
@@ -176,6 +257,11 @@
             // console.log(this.$route.params.path);
             this.articleInfo.path = this.$route.params.path;
             this.getContent();
+        },
+        filters: {
+            timeFormat: function (value) {
+                return   moment(value).format("dddd, MMMM Do YYYY, h:mm:ss a");
+            }
         }
     }
 </script>
@@ -266,7 +352,7 @@
         clear: both;
         .content-detail{
             width: 1100px;
-            min-height: 600px;
+            min-height: 300px;
             border: 1px solid #D3D3D3;
             border-radius: 4px;
             margin: 20px auto 20px auto;
@@ -334,6 +420,7 @@
             .comment-item{
                 width: 100%;
                 min-height: 100px;
+                margin-bottom: 10px;
                 .info-head{
                     width: 100%;
                     height: 50px;
@@ -360,7 +447,7 @@
                 .comment-content{
                     width: 100%;
                     min-height: 50px;
-                    padding-left: 50px;
+                    padding-left: 55px;
                     .to-whom{
                         font-size: 16px;
                         font-weight: 600;
@@ -368,9 +455,13 @@
                     .comment{
                         font-size: 18px;
                     }
-                    .reply{
-                        margin-top: 20px;
+                    .btn-c{
+                        width: 100px;
+                        height: 20px;
+                        display: flex;
+                        justify-content: space-between;
                     }
+
                 }
             }
         }

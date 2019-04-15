@@ -1,6 +1,6 @@
 <template>
     <div class="overview">
-        <div class="post-search" v-if="totalArticle !== 0">
+        <div class="post-search" v-if="totalArticles !== 0">
             <Input class="search-box"  size="large" placeholder="Find an article..." style="width:390px;height:43px;" />
             <Select class="tag-select" placeholder="Tag:All" v-model="model1" style="width:140px" size="large">
                 <Option v-for="item in tagList" :value="item.value" :key="item.value">{{ item.label }}</Option>

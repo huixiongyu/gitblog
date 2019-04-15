@@ -113,6 +113,8 @@ server是使用koa-generator生成的
 * [多行的文字省略处理](http://lomu.me/post/css-multiline-text-overflow)
 * [Vue中数组和对象更改后视图不刷新的问题](https://blog.csdn.net/zifeiyu130/article/details/78950244) 
 * [iview table组件和page组件组合使用](https://segmentfault.com/a/1190000010392169)
+* [vue2.0中怎么做锚点定位](https://segmentfault.com/q/1010000007888351)
+* [Vue单页：当前页面刷新或跳转时提示保存](https://segmentfault.com/a/1190000016874879)
 
 ## 正在开发的功能
 * 后台管理Profile Setting，包括地理定位
@@ -243,10 +245,12 @@ server是使用koa-generator生成的
   * 获取草稿 GET  /api/article/secret/:path
     * path  文章的路径(需要登录授权)
   * 增加评论 POST  /api/article/comment
-    * path 文章地路径
+    * path 文章路径
     * from 你地用户名（已经登录地用户名）
     * to 评论对象，如果是文章本身那就是博主
     * comment  评论地正文
+  * 获取评论 GET /api/article/comment
+    * path 文章路径
 
 
 ## 正在开发
@@ -312,6 +316,7 @@ server是使用koa-generator生成的
 * 管理登录设备数量
 * 合理的缓存，优化浏览体验
 * 优化代码结构
+* MongoDB图片存储
 
 ## 收获
 * 一个神奇的bug!在postman一直测试提交数据，数据库就是没接收到，后来含泪发现请求地址忘记了api前缀！！！
@@ -650,6 +655,14 @@ transformTime();
   * 路由导航守卫beforeRouteUpdate来执行逻辑
   * 通过watch来监听路由对象变化，对变化做出响应
   * 为router-view组件添加属性key，比较暴力的方法
+* 页面锚点定位
+
+```
+let anchor = document.getElementById('repeat');
+anchor.scrollIntoView();
+```
+
+
 
 ## 问题目录
 
