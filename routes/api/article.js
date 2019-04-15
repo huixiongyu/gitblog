@@ -87,11 +87,11 @@ router.get('/:size/:page', async ctx => {
 
 /*
 @route GET /api/article
-@desc 私密接口，增加文章
+@desc 私密接口，获取私密的文章
  */
-router.get('/secrete', passport.authenticate('jwt', { session: false }),
+router.get('/secret', passport.authenticate('jwt', { session: false }),
     async ctx => {
-        const findResult = await Article.find({screte: true});
+        const findResult = await Article.find({scret: true});
         if(findResult.length === 0){
             ctx.status = 200;
             ctx.body = {
@@ -129,8 +129,7 @@ router.post('/', passport.authenticate('jwt', { session: false }),
             ctx.status = 400;
             ctx.body = {path: "路径存在非法字符！"};
             return;
-        }
-        else{
+        }else{
             const findPath = await Article.find({path: path});
             if(findPath.length > 0){
                 ctx.status = 400;
@@ -138,40 +137,43 @@ router.post('/', passport.authenticate('jwt', { session: false }),
                 return ;
             }
         }
-        console.log(ctx.state.user.username);
+        //现在设置可以保存的文章
+        const toPost = {};
+        toPost.title = ctx.request.body.title;
+        toPost.content = ctx.request.body.content;
+        toPost.path = path;
+        toPost.classify = ctx.request.body.classify;
+        toPost.secret = false;
         // 处理标签
         let tags = ctx.request.body.tags;
-        let tagList = tags.split(',');
-        for(let item of tagList){
-            const findTag= await Tag.find({ name: item });
-            if(findTag.length > 0){
-                console.log(item);
-            }else{
-                const newTag = new Tag({
-                    name: item
-                });
-                // 存储到数据库
-                await newTag
-                    .save()
-                    .catch(err => {
-                        console.log(err)
+        tags.replace(/\s+/g,"");
+        if(tags !== ''){
+            let tagList = tags.split(','); 
+            console.log(`我存储的tagList是${tagList}`);
+            for(let item of tagList){
+                const findTag= await Tag.find({ name: item });
+                if(findTag.length > 0){
+                    console.log(item);
+                }else{
+                    const newTag = new Tag({
+                        name: item
                     });
+                    // 存储到数据库
+                    await newTag
+                        .save()
+                        .catch(err => {
+                            console.log(err)
+                        });
+                }
+            }
+            let newTags = [];
+            if(tagList.length > 0){
+                tagList.forEach(item => {
+                    newTags.unshift({name: item});
+                });
+                toPost.tags = newTags;
             }
         }
-        tags = [];
-        if(tagList.length > 0){
-            tagList.map(item => {
-                tags.unshift({name: item});
-            });
-        }
-        const toPost = {
-            title: ctx.request.body.title,
-            content: ctx.request.body.content,
-            path: path,
-            classify: ctx.request.body.classify,
-            tags: tags,
-            secret: false
-        };
         const newArticle= new Article(toPost);
         // 存储到数据库
         await newArticle
@@ -191,38 +193,46 @@ router.post('/', passport.authenticate('jwt', { session: false }),
 @desc 私密接口，保存为草稿
  */
 router.post('/secret', passport.authenticate('jwt', { session: false }),
-    async ctx => {
-        const { errors, isValid } = validatePostInput(ctx.request.body);
-        // 判断是否验证通过
-        if (!isValid) {
+async ctx => {
+    const { errors, isValid } = validatePostInput(ctx.request.body);
+    // 判断是否验证通过
+    if (!isValid) {
+        ctx.status = 400;
+        ctx.body = errors;
+        return;
+    }
+    // 生成文章的专属路径
+    let path = ctx.request.body.path;
+    if(path === ''){
+        let current_date = (new Date()).valueOf().toString();
+        let random = Math.random().toString();
+        path = crypto.createHash('sha1').update(current_date + random).digest('hex');
+        console.log(path);
+    }else if(checkIsHasSpecialStr(path)){
+        ctx.status = 400;
+        ctx.body = {path: "路径存在非法字符！"};
+        return;
+    }else{
+        const findPath = await Article.find({path: path});
+        if(findPath.length > 0){
             ctx.status = 400;
-            ctx.body = errors;
-            return;
+            ctx.body = { path: '该路径已经存在！'};
+            return ;
         }
-        // 生成文章的专属路径
-        let path = ctx.request.body.path;
-        if(path === ''){
-            let current_date = (new Date()).valueOf().toString();
-            let random = Math.random().toString();
-            path = crypto.createHash('sha1').update(current_date + random).digest('hex');
-            console.log(path);
-        }else if(checkIsHasSpecialStr(path)){
-            ctx.status = 400;
-            ctx.body = {path: "路径存在非法字符！"};
-            return;
-        }
-        else{
-            const findPath = await Article.find({path: path});
-            if(findPath.length > 0 || path === 'secret'){ //这里要预防超权问题
-                ctx.status = 400;
-                ctx.body = { path: '该路径已经存在！'};
-                return ;
-            }
-        }
-        console.log(ctx.state.user.username);
-        // 处理标签
-        let tags = ctx.request.body.tags;
-        let tagList = tags.split(',');
+    }
+    //现在设置可以保存的文章
+    const toPost = {};
+    toPost.title = ctx.request.body.title;
+    toPost.content = ctx.request.body.content;
+    toPost.path = path;
+    toPost.classify = ctx.request.body.classify;
+    toPost.secret = true;
+    // 处理标签
+    let tags = ctx.request.body.tags;
+    tags.replace(/\s+/g,"");
+    if(tags !== ''){
+        let tagList = tags.split(','); 
+        console.log(`我存储的tagList是${tagList}`);
         for(let item of tagList){
             const findTag= await Tag.find({ name: item });
             if(findTag.length > 0){
@@ -239,32 +249,26 @@ router.post('/secret', passport.authenticate('jwt', { session: false }),
                     });
             }
         }
-        tags = [];
+        let newTags = [];
         if(tagList.length > 0){
-            tagList.map(item => {
-                tags.unshift({name: item});
+            tagList.forEach(item => {
+                newTags.unshift({name: item});
             });
+            toPost.tags = newTags;
         }
-        const toPost = {
-            title: ctx.request.body.title,
-            content: ctx.request.body.content,
-            path: path,
-            classify: ctx.request.body.classify,
-            tags: tags,
-            secret: true
-        };
-        const newArticle= new Article(toPost);
-        // 存储到数据库
-        await newArticle
-            .save()
-            .catch(err => {
-                console.log(err)
-            });
-        console.log(`标签：${newArticle}创建成功！`)
-        //
-        // 返回json数据
-        ctx.body = { message: '草稿保存成功！' }
     }
+    const newArticle= new Article(toPost);
+    // 存储到数据库
+    await newArticle
+        .save()
+        .catch(err => {
+            console.log(err)
+        });
+    console.log(`标签：${newArticle}创建成功！`)
+    //
+    // 返回json数据
+    ctx.body = { message: '文章发布成功！' }
+}
 );
 /* 
 @route GET /api/article/comment?path=xxxx

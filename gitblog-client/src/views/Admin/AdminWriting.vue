@@ -8,8 +8,8 @@
                     <h2 class="writing-title">撰写新文章</h2>
                     <Input v-model="title" placeholder="标题" style="width: 840px" />
                     <div class="article-link">
-                        Article Adress: https://www.localhost:8080/archives/<Input v-model="path"
-                                                                                    style="width: 150px" />
+                        <span>Article Adress: https://www.localhost:8080/archives/</span>
+                        <Input v-model="path" style="width: 150px" />
                     </div>
                     <i-editor :autosize="{minRows: 50,maxRows: 200, minCols: 30,maxCols: 50}"
                               class="content-area"
@@ -40,7 +40,6 @@
                             <input type="radio" :name="item.name" :value="item.name" v-model="classify">
                             <label class="label">{{item.name}}</label>
                             <div class="classify-child"
-                                 v-if="item.children.length > 0"
                                  v-for="child in item.children"
                                  :key="child.name">
                                 <input type="radio"

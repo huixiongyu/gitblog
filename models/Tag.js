@@ -8,7 +8,7 @@ const TagSchema = new Schema({
     },
     amount: {
       type: Number,
-    default: 0
+        default: 0
     },
     date: {
         type: Date,
