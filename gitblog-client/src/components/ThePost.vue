@@ -15,8 +15,9 @@
                     </div>
                     <div class="post-info">
                         <div class="info-detail">
-                            <div class="info-name">
-                                <Icon type="ios-star" />Star
+                            <div class="info-name" @click="handleLike">
+                                <Icon type="ios-star" v-if="isLike" />
+                                <Icon type="ios-star-outline" v-if="!isLike" />Star
                             </div>
                             <div class="info-num">
                                {{this.articleInfo.stars.length}}
@@ -155,7 +156,7 @@
                     title: '',
                     content: '# hello `java` ',
                     path: '',
-                    stars: 0,
+                    stars: [],
                     visited: 0,
                     classify: '',
                     tags: [],
@@ -164,12 +165,18 @@
                 comment: '',
                 autoSize: { minRows: 3, maxRows: 20 },
                 commentList: [],
-                repeatTo: ''
+                repeatTo: '',
+                asking: false
             }
         },
         computed: {
             compiledMarkdown: function () {
                 return marked(this.articleInfo.content, { sanitize: true })
+            },
+            isLike: function(){
+                const currentUser = this.$store.state.user.username;
+                const isExsit = this.articleInfo.stars.filter(item => item.user ===currentUser).length > 0;
+                return isExsit;
             }
         },
         methods: {
@@ -251,6 +258,45 @@
                         location.reload();
                         this.$router.go(0);
                     })
+            },
+            handleLike(){
+                if(this.asking){
+                    this.$Message.warning('点赞太频繁了！');
+                    return;
+                }
+                this.asking = true;
+                const currentUser = this.$store.state.user.username;
+                const isExsit = this.articleInfo.stars.filter(item => item.user ===currentUser).length > 0;
+                const postData = {
+                    username: currentUser,
+                    path: this.articleInfo.path
+                }
+                if(isExsit){
+                    this.$axios.post('/api/article/unlike',postData)
+                        .then(() => {
+                            this.$Message.success('已经取消点赞！');
+                            const removeIndex = 0;
+                            for(let item in  this.articleInfo.stars){
+                                if(item.user === currentUser)
+                                    removeIndex = item;
+                            }
+                            this.articleInfo.stars.splice(removeIndex,1);
+                            this.asking = false;
+                        })
+                        .catch(error => {
+                            console.log(error);
+                        })
+                }else{
+                    this.$axios.post('/api/article/like',postData)
+                        .then(() => {
+                            this.$Message.success('点赞成功！');
+                            this.articleInfo.stars.push({user: currentUser});
+                            this.asking = false;
+                        })
+                        .catch(error => {
+                            console.log(error);
+                        })
+                }
             }
         },
         created() {

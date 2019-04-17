@@ -251,6 +251,14 @@ server是使用koa-generator生成的
     * comment  评论地正文
   * 获取评论 GET /api/article/comment
     * path 文章路径
+  * 点赞 POST /api/article/like
+    * path 文章路径
+    * username 当前用户的名字
+  * 取消点赞 POST /api/article/unlike
+    * path 文章路径
+    * username 当前用户的名字
+
+
 
 
 ## 正在开发

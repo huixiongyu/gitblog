@@ -150,8 +150,11 @@ export default {
         },
         changeSize(size){
             this.pageSize = size;
-            this.currentPage = 1;
-            this.fectchArticle();
+            // this.currentPage = 1;
+            this.$nextTick(() => {
+                this.fectchArticle();
+            })
+            // this.fectchArticle();
         }
     },
     created() {

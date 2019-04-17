@@ -181,7 +181,7 @@ router.post('/', passport.authenticate('jwt', { session: false }),
             .catch(err => {
                 console.log(err)
             });
-        console.log(`标签：${newArticle}创建成功！`)
+        // console.log(`标签：${newArticle}创建成功！`)
         //
         // 返回json数据
         ctx.body = { message: '文章发布成功！' }
@@ -264,12 +264,106 @@ async ctx => {
         .catch(err => {
             console.log(err)
         });
-    console.log(`标签：${newArticle}创建成功！`)
+    // console.log(`标签：${newArticle}创建成功！`)
     //
     // 返回json数据
     ctx.body = { message: '文章发布成功！' }
 }
 );
+/* 
+@route POST /api/article/star/
+@desc 私密接口，需要登录才能设置
+*/
+router.post('/like', passport.authenticate('jwt', { session: false }),
+    async ctx => {
+        const username = ctx.request.body.username;
+        const path = ctx.request.body.path;
+        const articleInfo = await Article.find({path: path});
+        if(articleInfo.length > 0){
+            const starList = articleInfo[0].stars;
+            if(starList.length > 0){
+                const isLike = starList.filter(item => item.user ===username).length > 0;
+                console.log(starList);
+                if (isLike) {
+                    ctx.status = 400;
+                    ctx.body = { message: '该用户已赞过' };
+                    return;
+                }else{
+                    const newLike = {user: username};
+                    const starsUpdate = await Article.findOneAndUpdate(
+                        { path: path },
+                        { $push: {stars: newLike} },
+                        { $sort: 1,new: true }
+                    ); 
+                    ctx.status = 200;
+                    ctx.body =starsUpdate;
+                    return ;
+                }
+            }else{
+                const newLike = {user: username};
+                const starsUpdate = await Article.findOneAndUpdate(
+                    { path: path },
+                    { $push: {stars: newLike} },
+                    { $sort: 1,new: true }
+                );  
+                ctx.status = 200;
+                ctx.body =starsUpdate;
+                return ;
+            }
+        }else{
+            ctx.status = 400;
+            ctx.body = {message: '文章不存在！'};
+        }
+
+    }
+);
+/* 
+@route POST /api/article/unlike
+@desc 私密接口，需要登录才能设置
+*/
+router.post('/unlike', passport.authenticate('jwt', { session: false }),
+    async ctx => {
+        const username = ctx.request.body.username;
+        const path = ctx.request.body.path;
+        const articleInfo = await Article.find({path: path});
+        if(articleInfo.length > 0){
+            const starList = articleInfo[0].stars;
+            if(starList.length > 0){
+                const isExit = starList.filter(item => item.user ===username).length > 0;
+                console.log(starList);
+                if (!isExit) {
+                    ctx.status = 400;
+                    ctx.body = { message: '还没点赞呢' };
+                    return;
+                }else{
+                    const removeIndex = 0;
+                    for(let item in starList){
+                        if(item.user === username)
+                            removeIndex = item
+                    }
+                    starList.splice(removeIndex, 1);
+                    const starsUpdate = await Article.findOneAndUpdate(
+                        { path: path },
+                        { $set: {stars: starList} },
+                        { $sort: 1,new: true }
+                    ); 
+                    ctx.status = 200;
+                    ctx.body =starsUpdate;
+                    return ;
+                }
+            }else{
+                ctx.status = 400;
+                ctx.body = { message: '还没点赞呢' };
+                return;
+            }
+        }else{
+            ctx.status = 400;
+            ctx.body = {message: '文章不存在！'};
+        }
+
+    }
+);
+
 /* 
 @route GET /api/article/comment?path=xxxx
 @desc 获取评论列表
