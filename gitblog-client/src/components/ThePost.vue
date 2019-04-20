@@ -275,7 +275,7 @@
                     this.$axios.post('/api/article/unlike',postData)
                         .then(() => {
                             this.$Message.success('已经取消点赞！');
-                            const removeIndex = 0;
+                            let removeIndex = 0;
                             for(let item in  this.articleInfo.stars){
                                 if(item.user === currentUser)
                                     removeIndex = item;
