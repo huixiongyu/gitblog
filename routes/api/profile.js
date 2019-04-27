@@ -106,7 +106,6 @@ router.get('/user', async ctx => {
         ctx.body = newResponse;
     }
 });
-
 /*
 @route GET /api/profile/followers
 @desc 获取所有用户信息，在follower页面显示
@@ -142,6 +141,70 @@ router.get('/followers', async ctx => {
         // console.log(user[i]);
     }
     ctx.body = responseList;
+});
+
+/*
+@route GET /api/profile/followers/:size/:page
+@desc 分页获取注册用户
+ */
+router.get('/followers/:size/:page', async ctx => {
+    const size = parseInt(ctx.params.size);
+    const page = parseInt(ctx.params.page);
+    const user = await User.find().sort({ date: 1 });;
+    // console.log(user);
+    let len = user.length;
+    for(var item = 0; item < len ; item++){
+        if(user[item].identity === 'admin'){
+            user.splice(item, 1);
+            break;
+        }
+    }
+    // console.log(`这是去除admin之后的用户列表${user}`);
+    len = user.length;
+    if(len === 0){
+        ctx.status = 400;
+        ctx.body = {
+            message: '没有任何注册用户',
+            totalArticles: 0
+        }        
+    }
+    let responseList = [];
+    for(var i=0;i < len; i++ ){
+        const newProfile ={
+            username: user[i].username,
+            avatar: user[i].avatar
+        };
+        const profile = await Profile.find({ username: user[i].username });
+        // console.log(profile);
+        newProfile.nick = profile[0].nick;
+        newProfile.bio = profile[0].bio;
+        newProfile.company = profile[0].company;
+        newProfile.location = profile[0].location;
+        newProfile.github = profile[0].github;
+        responseList.push(newProfile);
+        // console.log(user[i]);
+    }
+    const num = size * (page - 1);  //前面已经加载了的数量
+    let resultList = [];
+    if(num < len){
+        if((num + size) < len){
+            resultList = responseList.slice(num, num + size);
+        }else{
+            resultList = responseList.slice(num);
+        }
+    }else{
+        ctx.status = 400;
+        ctx.body = {
+            message: '没有任何数据'
+        }
+        return;
+    }
+
+    ctx.status = 200
+    ctx.body = {
+        totalFollowers: len,
+        data: resultList
+    }
 });
 
 module.exports = router.routes();

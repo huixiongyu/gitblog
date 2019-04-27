@@ -23,6 +23,16 @@
                 Unfollow
             </div>
         </div>
+        <div class="paging">
+            <Page show-total 
+                show-sizer
+                :page-size="pageSize"
+                :total="totalFollowers" 
+                :current.sync="currentPage"
+                @on-change="changePage" 
+                @on-page-size-change="changeSize"
+                :page-size-opts="sizeList"></Page>
+        </div> 
     </div>
 </template>
 <script>
@@ -30,19 +40,38 @@ export default {
     name: 'followers',
     data(){
         return{
-            followesList : [ ]
+            followesList : [ ],
+            sizeList: [5, 10, 20, 50],
+            totalFollowers: 10,
+            currentPage: 1,
+            pageSize: 5
         }
     },
     methods:{
         fetchFollowers(){
-            this.$axios.get('/api/profile/followers')
+            this.$axios.get(`/api/profile/followers/${this.pageSize}/${this.currentPage}`)
                 .then(data => {
-                    this.followesList = data.data;
-                    // console.log(this.followesList);
+                    const currentData = data.data;
+                    const followeData = currentData.data;
+                    this.followesList.splice(0, this.followesList.length);
+                    followeData.forEach( item => {
+                        this.followesList.push(item);
+                    });
+                    this.totalFollowers = currentData.totalFollowers;
                 })
-                .catch((error) =>{
-                    console.log(error);
+                .catch(err => {
+                    console.log(err);
                 });
+        },
+        changePage(value){
+            this.currentPage = value;
+            this.fetchFollowers();
+        },
+        changeSize(size){
+            this.pageSize = size;
+            this.$nextTick(() => {
+                this.fetchFollowers();
+            })            
         }
     },
     created() {
@@ -114,5 +143,13 @@ export default {
         &:hover{
             background-color: #E7EBF1;
         }
+    }
+    .paging{
+        margin: 10px 0 10px 0;
+        width: 100%;
+        height: 30px;
+        display: flex;
+        justify-content: center;
+        align-content: center;
     }
 </style>

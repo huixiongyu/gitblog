@@ -70,7 +70,7 @@
                 }
                 if(name === 'profile'){
                     if(this.$store.state.isAdmin === "admin"){
-                        this.$router.push('settings/profile');
+                        this.$router.push('/settings/profile');
                     }else{
                         this.$router.push( '/useradmin/profile');
                     }
