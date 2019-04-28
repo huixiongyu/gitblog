@@ -19,13 +19,13 @@
             <router-link to="/" tag="div" class="header-link">Issues</router-link>
         </div>
 
-        <div class="avatar">
+        <div class="avatar" v-if="this.$store.state.isLogin">
             <Badge  dot type="primary" :offset="[5,5]">
                 <Icon type="ios-notifications" size="24" />
             </Badge>
             <Icon type="md-add" class="add-icon" size="20" />
             <Icon type="md-arrow-dropdown" size="20" />
-                <Dropdown class="portriat" v-if="this.$store.state.isLogin" transfer  @on-click="dropdownSelect">
+                <Dropdown class="portriat"  transfer  @on-click="dropdownSelect">
                     <div>
                         <img :src="this.$store.state.user.avatar" alt="logo">
                     </div>
@@ -36,9 +36,11 @@
                         <DropdownItem class="drop-item" name="logout">退出</DropdownItem>
                     </DropdownMenu>
                 </Dropdown>
-                <div class="portriat" v-else>
-                    <img @click="toSignin" src="../assets/images/gitcat.jpeg" alt="logo">
-                </div>
+        </div>
+
+        <div class="nologin" v-else>
+            <Button type="text" size="large" @click="toSignin" ghost>Sign in</Button>
+            <Button  type="default" size="large" @click="toSignup" ghost>Sign up</Button>
         </div>
     </nav>
 </template>
@@ -53,6 +55,9 @@
             toSignin(){
                 this.$router.push('/signin');
             },
+            toSignup(){
+                this.$router.push('/register');
+            },
             dropdownSelect(name){
                 if(name === 'logout'){
                     if(localStorage.profile){
@@ -62,8 +67,8 @@
                     localStorage.removeItem('user');
                     this.$store.commit('setLogout')
                     this.$Message.success('已经退出ヾ(￣▽￣)Bye~Bye~');
-                    this.$router.go(0);
-                    this.$router.replace('/');
+                    // this.$router.go(0);
+                    // this.$router.replace('/');
                 }
                 if(name === 'settings'){
                     this.$router.push('/settings');
@@ -133,6 +138,20 @@
         align-items: center;
         height: 100%;
         width: 40%;
+    }
+
+    .nologin{
+        padding-right: 100px;
+        display: flex;
+        justify-content: flex-end;
+        align-content: center;
+        align-items: center;
+        height: 100%;
+        width: 40%;
+        .ivu-btn{
+            font-size: 16px;
+            font-weight: 600;
+        }
     }
 
     .portriat{
