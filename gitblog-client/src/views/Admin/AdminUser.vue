@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="user-settings">
         <settings-title>
             User Info
         </settings-title>
@@ -16,6 +16,8 @@
     }
 </script>
 
-<style scoped>
-
+<style lange="less">
+    .user-settings{
+        width: 920px;
+    }
 </style>

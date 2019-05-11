@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="account-containers">
         <settings-title>
             Change password
         </settings-title>
@@ -99,6 +99,9 @@
 </script>
 
 <style lang="less">
+    .account-containers{
+        width: 920px;
+    }
     .account-settings{
         form > div label{
             font-size: 20px;

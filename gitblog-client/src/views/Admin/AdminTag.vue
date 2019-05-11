@@ -122,7 +122,7 @@
 
 <style lang="less">
     .tag-manage{
-        width: 100%;
+        width: 920px;
         .tags-container{
             width: 100%;
         }

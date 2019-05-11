@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="comment-settings">
         <settings-title>
             Comment Manage
         </settings-title>
@@ -16,6 +16,8 @@
     }
 </script>
 
-<style scoped>
-
+<style lang="less">
+    .comment-settings{
+        width: 920px;
+    }
 </style>

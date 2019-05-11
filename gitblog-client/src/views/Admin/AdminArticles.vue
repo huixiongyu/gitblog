@@ -8,14 +8,17 @@
                     <Button type="info">新增</Button>
                 </div>
                 <div class="select">
-
+                    <button class="btn">筛选</button>
+                    <Select v-model="model1" style="width:200px">
+                        <Option v-for="item in cityList" :value="item.value" :key="item.value">{{ item.label }}</Option>
+                    </Select>
                 </div>
                 <div class="table">
-                    <Table border ref="selection" :columns="columns4" :data="data1"></Table>
+                    <Table border ref="selection" :columns="columns1" :data="data1"></Table>
                 </div>
                 
-                <Button @click="handleSelectAll(true)">Set all selected</Button>
-                <Button @click="handleSelectAll(false)">Cancel all selected</Button>
+                <Button @click="handleSelectAll(true)">选择全部</Button>
+                <Button @click="handleSelectAll(false)">取消选择</Button>
             </div>
         </div>
     </div>
@@ -28,51 +31,82 @@
         },
         data () {
             return {
-                columns4: [
+                columns1: [
                     {
                         type: 'selection',
                         width: 60,
                         align: 'center'
                     },
                     {
-                        title: 'Name',
-                        key: 'name'
+                        title: '标题',
+                        key: 'title'
                     },
                     {
-                        title: 'Age',
-                        key: 'age'
+                        title: '分类',
+                        key: 'category'
                     },
                     {
-                        title: 'Address',
-                        key: 'address'
+                        title: '评论',
+                        key: 'comment'
+                    },
+                    {
+                        title: '发布日期',
+                         key: 'date'
                     }
                 ],
                 data1: [
                     {
-                        name: 'John Brown',
-                        age: 18,
-                        address: 'New York No. 1 Lake Park',
+                        title: 'John Brown',
+                        category: 18,
+                        comment: 'New York No. 1 Lake Park',
                         date: '2016-10-03'
                     },
                     {
-                        name: 'Jim Green',
-                        age: 24,
-                        address: 'London No. 1 Lake Park',
+                        title: 'Jim Green',
+                        category: 24,
+                        comment: 'London No. 1 Lake Park',
                         date: '2016-10-01'
                     },
                     {
-                        name: 'Joe Black',
-                        age: 30,
-                        address: 'Sydney No. 1 Lake Park',
+                        title: 'Joe Black',
+                        category: 30,
+                        comment: 'Sydney No. 1 Lake Park',
                         date: '2016-10-02'
                     },
                     {
-                        name: 'Jon Snow',
-                        age: 26,
-                        address: 'Ottawa No. 2 Lake Park',
+                        title: 'Jon Snow',
+                        category: 26,
+                        comment: 'Ottawa No. 2 Lake Park',
                         date: '2016-10-04'
                     }
-                ]
+                ],
+                cityList: [
+                    {
+                        value: 'New York',
+                        label: 'New York'
+                    },
+                    {
+                        value: 'London',
+                        label: 'London'
+                    },
+                    {
+                        value: 'Sydney',
+                        label: 'Sydney'
+                    },
+                    {
+                        value: 'Ottawa',
+                        label: 'Ottawa'
+                    },
+                    {
+                        value: 'Paris',
+                        label: 'Paris'
+                    },
+                    {
+                        value: 'Canberra',
+                        label: 'Canberra'
+                    }
+                ],
+                model1: ''                
             }
         },
         methods: {
@@ -105,7 +139,27 @@
                 font-weight: 600;
                 display: flex;
                 justify-content: space-between;
+                align-content: center;
                 margin-bottom: 5px;
+            }
+            .select{
+                width: 100%;
+                height: 30px;
+                display: flex;
+                flex-direction: row-reverse;
+                margin-bottom: 5px;
+                .btn{
+                    height: 30px;
+                    width: 60px;
+                    border-radius: 5px;
+                    border: 1px solid #eee;
+                    margin-left: 5px;
+                    background-color: #FFDEAD;
+                    font-weight: 500;
+                    &:hover{
+                        cursor: pointer;
+                    }
+                }
             }
         }
     }

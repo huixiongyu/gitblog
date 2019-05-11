@@ -133,7 +133,7 @@
 
 <style lang="less">
     .profile-page{
-        width: 100%;
+        width: 920px;
     }
     .profile-panel{
         width: 443px;

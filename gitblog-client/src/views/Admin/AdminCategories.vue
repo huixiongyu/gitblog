@@ -120,7 +120,7 @@
 
 <style lang="less">
     .classify-container{
-        width: 100%;
+        width: 920px;
     }
     .classify-list{
         ul{

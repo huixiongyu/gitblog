@@ -2,27 +2,21 @@
     <div class="settings">
         <blog-header></blog-header>
         <div class="settings-content">
-            <Row>
-                <i-col span="3" class="point-hide">.</i-col>
-                <i-col span="5">
-                    <div class="setting-route">
-                        <div class="settings-title">
-                            Personal settings
-                        </div>
-                        <router-link active-class="active-route"  :to="{name: 'profile'}" tag="div">profile </router-link>
-                        <router-link active-class="active-route" :to="{name: 'account'}" tag="div">account </router-link>
-                        <router-link active-class="active-route" :to="{name: 'comment'}" tag="div">comment </router-link>
-                        <router-link active-class="active-route" :to="{name: 'admin-categories'}" tag="div">categories </router-link>
-                        <router-link active-class="active-route" :to="{name: 'tag'}" tag="div">tag </router-link>
-                        <router-link active-class="active-route" :to="{name: 'user'}" tag="div">user </router-link>
-                        <router-link active-class="active-route" :to="{name: 'data'}" tag="div">data </router-link>
+            <div class="settings-box">
+                <div class="setting-route">
+                    <div class="settings-title">
+                        Personal settings
                     </div>
-                </i-col>
-                <i-col span="13">
-                    <router-view></router-view>
-                </i-col>
-                <i-col span="3" class="point-hide">.</i-col>
-            </Row>
+                    <router-link active-class="active-route"  :to="{name: 'profile'}" tag="div">profile </router-link>
+                    <router-link active-class="active-route" :to="{name: 'account'}" tag="div">account </router-link>
+                    <router-link active-class="active-route" :to="{name: 'comment'}" tag="div">comment </router-link>
+                    <router-link active-class="active-route" :to="{name: 'admin-categories'}" tag="div">categories </router-link>
+                    <router-link active-class="active-route" :to="{name: 'tag'}" tag="div">tag </router-link>
+                    <router-link active-class="active-route" :to="{name: 'user'}" tag="div">user </router-link>
+                    <router-link active-class="active-route" :to="{name: 'data'}" tag="div">data </router-link>
+                </div>
+                <router-view></router-view>
+            </div>
         </div>
         <blog-footer></blog-footer>
     </div>
@@ -53,15 +47,19 @@
 
 <style lang="less">
     .settings-content{
+        padding-top: 20px;
         width: 100%;
         clear: both;
-    }
-    .point-hide{
-        color: white;
+        display: flex;
+        justify-content: center;
+        .settings-box{
+            width: 1210px;
+            display: flex;
+            justify-content: space-between;
+        }
     }
     .setting-route{
         width: 225px;
-        /*height: 800px;*/
         border: 1px solid #E1E4E8;
         border-radius: 3px;
         div{

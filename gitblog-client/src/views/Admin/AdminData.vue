@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="data-settings">
         <settings-title>
             Website Status
         </settings-title>
@@ -16,6 +16,8 @@
     }
 </script>
 
-<style scoped>
-
+<style lang="less">
+    .data-settings{
+        width: 920px;
+    }
 </style>
