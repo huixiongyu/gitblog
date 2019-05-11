@@ -547,9 +547,7 @@ router.get('/secret/:path', passport.authenticate('jwt', { session: false }),asy
 router.delete('/admin/:id', passport.authenticate('jwt', { session: false }),async ctx => {
    const id = ctx.params.id;
    const findResult = await Article.findById(id);
-   console.log(findResult);
    if(!findResult){
-       console.log('哈？');
         ctx.status = 400;
         ctx.body = { message: '删除失败！'};
         return ; 

@@ -7,16 +7,13 @@
         <div class="account-settings">
             <Form ref="passwordForm" :model="passwordData" label-position="top" :rules="ruleInline" >
                 <FormItem label="Old password" prop="old" style="width: 420px">
-                    <Input type="password" v-model="passwordData.old">
-                    </Input>
+                    <Input type="password" v-model="passwordData.old" />
                 </FormItem>
                 <FormItem label="New password" prop="newPass" style="width: 420px">
-                    <Input type="password" v-model="passwordData.newPass">
-                    </Input>
+                    <Input type="password" v-model="passwordData.newPass" />
                 </FormItem>
                 <FormItem label="Confirm new password" prop="repeatNew" style="width: 420px">
-                    <Input type="password" v-model="passwordData.repeatNew">
-                    </Input>
+                    <Input type="password" v-model="passwordData.repeatNew" />
                 </FormItem>
                 <div class="account-tips">
                     Make sure it's <span class="account-red"> more than 15 characters</span> OR <span class="account-red">at least 8 characters including a number</span> <span class="account-green">and a lowercase letter.</span> <span class="account-blue">Learn more.</span>
@@ -79,7 +76,7 @@
                         const postData =this.passwordData;
                         postData.username = this.$store.state.user.username;
                         this.$axios.post('/api/users/changepassword', postData)
-                            .then(data => {
+                            .then(() => {
                                 if(localStorage.profile){
                                     localStorage.removeItem('profile');
                                 }
