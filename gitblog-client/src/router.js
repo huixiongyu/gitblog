@@ -110,7 +110,8 @@ const router =new Router({
             requiresAuth: true ,
             requiresAdmin: true
           }
-        },        {
+        },        
+        {
           path: 'data',
           name: 'data',
           component: () => import('./views/Admin/AdminData.vue'),
@@ -118,7 +119,8 @@ const router =new Router({
             requiresAuth: true ,
             requiresAdmin: true
           }
-        },        {
+        },        
+        {
           path: 'tag',
           name: 'tag',
           component: () => import('./views/Admin/AdminTag.vue'),
@@ -126,7 +128,8 @@ const router =new Router({
             requiresAuth: true ,
             requiresAdmin: true
           }
-        },        {
+        },        
+        {
           path: 'categories',
           name: 'admin-categories',
           component: () => import('./views/Admin/AdminCategories.vue'),
@@ -192,6 +195,15 @@ const router =new Router({
         requiresAdmin: true
       }
     },
+    {
+      path: '/admin-articles',
+      name: 'admin-articles',
+      component: () => import('./views/Admin/AdminArticles.vue'),
+      meta:  {
+        requiresAuth: true ,
+        requiresAdmin: true
+      }
+    },    
     {
       path: '/article/:path',
       name: 'article',

@@ -31,7 +31,7 @@
                 :current.sync="currentPage"
                 @on-change="changePage" 
                 @on-page-size-change="changeSize"
-                :page-size-opts="sizeList"></Page>
+                :page-size-opts="sizeList"></Page>            
         </div> 
     </div>
 </template>

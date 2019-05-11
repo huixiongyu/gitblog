@@ -12,7 +12,7 @@
             </div>
 
             <router-link to="/" tag="div" class="header-link" v-if="!this.$store.state.isAdmin">Archives</router-link>
-            <router-link to="/posts" tag="div" class="header-link" v-else>Article</router-link>
+            <router-link to="/admin-articles" target="_blank" class="header-link" v-else >Articles</router-link>
             <router-link to="/categories" tag="div" class="header-link" v-if="!this.$store.state.isAdmin">Categories</router-link>
             <router-link to="/writing" tag="div" class="header-link" v-else>Writing</router-link>
             <router-link to="/tags" tag="div" class="header-link">Tag</router-link>
