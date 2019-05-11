@@ -86,7 +86,7 @@ router.get('/:size/:page', async ctx => {
 });
 
 /*
-@route GET /api/article
+@route GET /api/article/secret
 @desc 私密接口，获取私密的文章
  */
 router.get('/secret', passport.authenticate('jwt', { session: false }),
@@ -540,6 +540,71 @@ router.get('/secret/:path', passport.authenticate('jwt', { session: false }),asy
     }
 });
 
-
+/*
+@route GET /api/article/admin/:type/:size/:page
+@desc 私密接口，后台获取所有文章，包括草稿，所以需要身份验证
+@detail type包括all、secret和open
+@response 文章总数、当前页面的文章
+*/
+router.get('/admin/:type/:size/:page', passport.authenticate('jwt', { session: false }),
+    async ctx => {
+        const articleType = ctx.params.type;
+        const size = ctx.params.size;
+        const page = ctx.params.page;
+        let findArticle = [];
+        if(articleType === 'all'){
+            findArticle = await Article.find({});
+        }else if(articleType === 'open'){
+            findArticle = await Article.find({secret: false});
+        }else if(articleType === 'secret'){
+            findArticle = await Article.find({secret: true});
+        }else{
+            ctx.status = 400;
+            ctx.body = { message: '路径不正确！'};
+            return ;
+        }
+        if(findArticle.length > 0){
+            const totalArticles = findArticle.length;
+            let resultList = [];
+            const num = size * (page - 1);  //前面已经加载了的数量
+            if(num < totalArticles){
+                if((num + size) < totalArticles){
+                    resultList = findArticle.slice(num, num + size);
+                }else{
+                    resultList = findArticle.slice(num);
+                }
+            }else{
+                ctx.status = 400;
+                ctx.body = {
+                    message: '没有任何数据',
+                    totalArticles: totalArticles
+                }
+                return;
+            }
+            const responseList = [];
+            for(let item of resultList){
+                const child = {
+                    title: item.title,
+                    date: item.date,
+                    comment: item.comments.length,
+                    secret: item.secret,
+                    id: item._id
+                }
+                responseList.push(child);
+            }
+            ctx.status = 200
+            ctx.body = {
+                totalArticles: totalArticles,
+                data: responseList
+            }
+        }else{
+            ctx.status = 400;
+            ctx.body = {
+                message: '没有任何数据',
+                totalArticles: 0
+            }
+            return ;
+        }        
+});
 
 module.exports = router.routes();
