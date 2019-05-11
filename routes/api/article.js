@@ -541,6 +541,30 @@ router.get('/secret/:path', passport.authenticate('jwt', { session: false }),asy
 });
 
 /*
+@route DELETE /api/article/admin/:id
+@desc 私密接口，删除指定id的文章
+*/
+router.delete('/admin/:id', passport.authenticate('jwt', { session: false }),async ctx => {
+   const id = ctx.params.id;
+   const findResult = await Article.findById(id);
+   console.log(findResult);
+   if(!findResult){
+       console.log('哈？');
+        ctx.status = 400;
+        ctx.body = { message: '删除失败！'};
+        return ; 
+   }
+   const deleteResult =await Article.deleteOne({_id: id});
+   if(deleteResult.ok === 1){
+       console.log('response');
+       ctx.status = 200;
+       ctx.body = { message: '成功删除！'};
+       return;
+   }   
+});
+
+
+/*
 @route GET /api/article/admin/:type/:size/:page
 @desc 私密接口，后台获取所有文章，包括草稿，所以需要身份验证
 @detail type包括all、secret和open

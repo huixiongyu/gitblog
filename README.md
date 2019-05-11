@@ -247,6 +247,13 @@ server是使用koa-generator生成的
   * 取消点赞 POST /api/article/unlike
     * path 文章路径
     * username 当前用户的名字
+  * 删除某篇文章 DELETE  /api/article/:id
+    * id 文章的id号
+  * 管理文章页面获取文章 GET /api/article/admin/:type/:size/:page
+    * type 获取文章的类型，分为all、open和secret
+    * size  页面大小
+    * page 获取第几页
+  * 
 
 ## 收获
 * 一个神奇的bug!在postman一直测试提交数据，数据库就是没接收到，后来含泪发现请求地址忘记了api前缀！！！
@@ -590,6 +597,20 @@ transformTime();
 ```
 let anchor = document.getElementById('repeat');
 anchor.scrollIntoView();
+```
+
+* 检测null和undefined
+
+```
+typeof null        // "object" (因为一些以前的原因而不是'null')
+typeof undefined   // "undefined"
+null === undefined // false
+null  == undefined // true
+null === null // true
+null == null // true
+!null //true
+isNaN(1 + null) // false
+isNaN(1 + undefined) // true
 ```
 
 
