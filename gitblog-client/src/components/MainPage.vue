@@ -39,7 +39,7 @@ export default {
 </script>
 <style lang="less">
 .main-content{
-    width: 730px;
+    width: 1115px;
 }
 
 </style>

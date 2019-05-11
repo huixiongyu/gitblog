@@ -1,16 +1,12 @@
 <template>
     <div class="home">
         <blog-header></blog-header>
-        <Row class="mainpage">
-            <i-col span="3" class="main-haide">.</i-col>
-            <i-col span="3">
+        <div class="mainpage">
+            <div class="container">
                 <left-side></left-side>
-            </i-col>
-            <i-col class="middle-page" span="16" offset="2">
                 <main-page></main-page>
-            </i-col>
-            <i-col span="2" class="main-haide">.</i-col>
-        </Row>
+            </div>
+        </div>
         <blog-footer></blog-footer>
     </div>
 </template>
@@ -26,35 +22,25 @@ export default {
         LeftSide,
         MainPage,
         BlogFooter
-    },
-    // beforeRouteEnter(to, from, next) {
-    //     if(from.name === 'signin'){
-    //         next(vm => {
-    //             setTimeout(function () {
-    //                 location.reload();
-    //                 vm.$router.go(0);
-    //             }, 1000);
-    //         })
-    //     }else{
-    //         next();
-    //     }
-
-    // }
+    }
 }
 </script>
 
 <style lang="less">
     .home{
         width: 100%;
-        height: 100%;
+        min-height: 743px;
     }
     .mainpage{
         width: 100%;
         height: 100%;
-        clear: both;
         margin-top: 20px;
-    }
-    .main-haide{
-        color: white;
+        display: flex;
+        justify-content: center;
+        .container{
+            width: 1500px;
+            display: inline-flex;
+            justify-content: center;
+        }
     }
 </style>

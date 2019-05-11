@@ -84,11 +84,11 @@ export default {
 }
 .pro-box{
     position: relative;
-    width:360px;
-    height:130px;
+    width: 547px;
+    height:144px;
     float: left;
     margin-top: 20px;
-    margin-right: 5px;
+    margin-right: 10px;
     border: 1px solid #DCDEE2;
     border-radius: 2px;
     padding: 20px;

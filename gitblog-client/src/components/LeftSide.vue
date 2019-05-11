@@ -70,12 +70,12 @@ export default {
 
 <style lang="less">
 .left-container{
-    width: 240px;
+    width: 325px;
 }
 .cover{
     margin-top: 10px;
-    width: 240px;
-    height: 240px;
+    width: 260px;
+    height: 260px;
     border-radius: 5px;
     overflow: hidden;
     img{

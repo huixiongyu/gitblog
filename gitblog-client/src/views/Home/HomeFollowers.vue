@@ -82,7 +82,7 @@ export default {
 
 <style lang="less">
     .follower-page{
-        width: 730px;
+        width: 1115px;
     }
     .follower-item{
         position: relative;
