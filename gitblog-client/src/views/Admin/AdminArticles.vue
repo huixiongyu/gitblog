@@ -8,10 +8,13 @@
                     <Button type="info">新增</Button>
                 </div>
                 <div class="select">
-                    <button class="btn">筛选</button>
-                    <Select v-model="model1" style="width:200px">
-                        <Option v-for="item in cityList" :value="item.value" :key="item.value">{{ item.label }}</Option>
-                    </Select>
+                    <div class="right">
+                        <button class="btn">筛选</button>
+                        <Select v-model="model1" style="width:200px">
+                            <Option v-for="item in cityList" :value="item.value" :key="item.value">{{ item.label }}</Option>
+                        </Select>
+                    </div>
+                    <Button type="error" v-if="selectToDelete">删除</Button>
                 </div>
                 <div class="table">
                     <Table border ref="selection" :columns="columns1" :data="data1"></Table>
@@ -31,6 +34,7 @@
         },
         data () {
             return {
+                selectToDelete: false,
                 columns1: [
                     {
                         type: 'selection',
@@ -147,18 +151,25 @@
                 height: 30px;
                 display: flex;
                 flex-direction: row-reverse;
+                justify-content: space-between;
                 margin-bottom: 5px;
-                .btn{
-                    height: 30px;
-                    width: 60px;
-                    border-radius: 5px;
-                    border: 1px solid #eee;
-                    margin-left: 5px;
-                    background-color: #FFDEAD;
-                    font-weight: 500;
-                    &:hover{
-                        cursor: pointer;
-                    }
+                .right{
+                    width: 250px;
+                    display: flex;
+                    flex-direction: row-reverse;
+                    justify-content: space-between;
+                    .btn{
+                        height: 30px;
+                        width: 60px;
+                        border-radius: 5px;
+                        border: 1px solid #eee;
+                        margin-left: 5px;
+                        background-color: #FFDEAD;
+                        font-weight: 500;
+                        &:hover{
+                            cursor: pointer;
+                        }
+                    }                    
                 }
             }
         }
