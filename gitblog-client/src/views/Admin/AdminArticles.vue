@@ -5,19 +5,26 @@
             <div class="panel">
                 <div class="title">
                     <div>管理文章</div> 
-                    <Button type="info">新增</Button>
+                    <Button type="info" @click="toWriteArticle">新增</Button>
                 </div>
                 <div class="select">
                     <div class="right">
-                        <button class="btn">筛选</button>
-                        <Select v-model="model1" style="width:200px">
-                            <Option v-for="item in cityList" :value="item.value" :key="item.value">{{ item.label }}</Option>
+                        <button class="btn" @click="handleFilter">筛选</button>
+                        <Select v-model="type" style="width:200px">
+                            <Option v-for="item in articleType" :value="item.value" :key="item.value">{{ item.label }}</Option>
                         </Select>
                     </div>
-                    <Button type="error" v-if="selectToDelete">删除</Button>
+                    <Button type="error" v-if="selectToDelete" @click="decideToDelete">删除</Button>
                 </div>
                 <div class="table">
-                    <Table border :loading="loading" ref="selection" :columns="columns1" :data="data1"></Table>
+                    <Table border 
+                        :loading="loading" 
+                        ref="selection" 
+                        :columns="columns1" 
+                        :data="data1"
+                        @on-selection-change="handleSelectChange"
+                        >
+                    </Table>
                 </div>
                 <div class="table-change">
                     <div class="table-select">
@@ -28,17 +35,34 @@
                         :total="total"
                         :current.sync="current"
                         show-sizer
+                        show-total
                         @on-change="getData"
                         @on-page-size-change="handleChangeSize">
                     </Page>
                 </div>
             </div>
         </div>
+
+        <Modal
+            v-model="deleteAsking"
+            title="删除文章"
+            @on-ok="confirmDelete"
+            @on-cancel="cancelDelete">
+            <p class="delete-modal">
+                <Icon type="md-information-circle" size="24" color="red" />
+                阁下确定要删除文章吗？
+            </p>
+            <p class="delete-modal">
+                <Icon type="md-information-circle" size="24" color="red" />
+                确定了不能反悔哦！
+            </p>
+        </Modal>
     </div>
 </template>
 <script>
     import BlogHeader from '../../components/BlogHeader'
     import moment from 'moment'    
+    import qs from 'qs'
     export default {
         components: {
             BlogHeader
@@ -47,10 +71,13 @@
             return {
                 selectToDelete: false,
                 loading: false,
+                deleteAsking: false,
+                deleting: false,
                 size: 10,
                 current: 1,
                 type: 'all',
                 total: 0,
+                deleteList: [],
                 columns1: [
                     {
                         type: 'selection',
@@ -113,63 +140,21 @@
                          align: 'center',
                     }
                 ],
-                data1: [
-                    // {
-                    //     title: 'John Brown',
-                    //     category: 18,
-                    //     comment: 'New York No. 1 Lake Park',
-                    //     date: '2016-10-03',
-                    //     status: 'open'
-                    // },
-                    // {
-                    //     title: 'Jim Green',
-                    //     category: 24,
-                    //     comment: 'London No. 1 Lake Park',
-                    //     date: '2016-10-01',
-                    //     status: 'open'
-                    // },
-                    // {
-                    //     title: 'Joe Black',
-                    //     category: 30,
-                    //     comment: 'Sydney No. 1 Lake Park',
-                    //     date: '2016-10-02',
-                    //     status: 'open'
-                    // },
-                    // {
-                    //     title: 'Jon Snow',
-                    //     category: 26,
-                    //     comment: 'Ottawa No. 2 Lake Park',
-                    //     date: '2016-10-04',
-                    //     status: 'open'
-                    // }
-                ],
-                cityList: [
+                data1: [],
+                articleType: [
                     {
-                        value: 'New York',
-                        label: 'New York'
+                        value: 'all',
+                        label: '全部'
                     },
                     {
-                        value: 'London',
-                        label: 'London'
+                        value: 'secret',
+                        label: '草稿'
                     },
                     {
-                        value: 'Sydney',
-                        label: 'Sydney'
-                    },
-                    {
-                        value: 'Ottawa',
-                        label: 'Ottawa'
-                    },
-                    {
-                        value: 'Paris',
-                        label: 'Paris'
-                    },
-                    {
-                        value: 'Canberra',
-                        label: 'Canberra'
+                        value: 'open',
+                        label: '已发布'
                     }
-                ],
-                model1: ''                
+                ]         
             }
         },
         methods: {
@@ -207,6 +192,55 @@
                 this.$nextTick(() => {
                     this.getData();
                 })
+            },
+            handleSelectChange(select){
+                this.deleteList = [];
+                for(let item of select){
+                    this.deleteList.push(item.id);
+                }
+                if(this.deleteList.length > 0){
+                    this.selectToDelete = true;
+                }else{
+                    this.selectToDelete = false;
+                }
+            },
+            handleFilter(){
+                this.getData();
+            },
+            decideToDelete(){
+                if(this.deleteList.length === 0){
+                    this.$Message.warning('列表为空，不能删除！');
+                    return ;
+                }
+                this.deleteAsking = true;
+            },
+            confirmDelete(){
+                if(this.deleting) return ;
+                this.deleting = true;
+                this.$axios.delete('/api/article/admin/deletemany',{data: {deleteList: this.deleteList}})
+                    .then(data => {
+                        console.log(data);
+                        this.$Message.success('删除成功！');
+                        this.deleteAsking = false;
+                        this.deleting = false;
+                        setTimeout(() => {
+                            location.reload();
+                        }, 1500);
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    })
+            },
+            cancelDelete(){
+                this.deleteAsking = false;
+            },
+            toWriteArticle(){
+                const {href} = this.$router.resolve({
+                    name: 'writing',
+                    path: '/writing',
+                    query: {}
+                });
+                window.open(href, '_blank')                
             }
         },
         created(){
@@ -231,7 +265,7 @@
             min-height: 1000px;
             .title{
                 width: 100%;
-                height: 24px;
+                height: 28px;
                 line-height: 24px;
                 font-size: 22px;
                 font-weight: 600;
@@ -282,5 +316,7 @@
             }
         }
     }
-
+    .delete-modal{
+        font-size: 24px;
+    }
 </style>

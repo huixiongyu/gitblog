@@ -73,6 +73,7 @@ server是使用koa-generator生成的
 * [iview-editor](http://editor.iviewui.com/) 后台中输入文章使用的Markdown编辑器
 * [marked](https://marked.js.org/#/USING_ADVANCED.md) 前端渲染Markdown时使用， [mavonEditor](https://www.jianshu.com/p/aca26ec75ec3) 则既可以编辑也可以解析
 * [moment.js](http://momentjs.cn/)   处理日期和时间
+* [axios](https://www.kancloud.cn/yunye/axios/234845) 第一次向后台传递数组踩坑了！！
 
 **开发工具： WebStorm、Postman、MongoDB Atlas、VS Code** 
 
@@ -247,8 +248,10 @@ server是使用koa-generator生成的
   * 取消点赞 POST /api/article/unlike
     * path 文章路径
     * username 当前用户的名字
-  * 删除某篇文章 DELETE  /api/article/:id
+  * 删除某篇文章 DELETE  /api/article/deleteone/:id
     * id 文章的id号
+  * 删除很多篇文章 DELETE /api/article/deletemany
+    * deleteList  删除的文章列表，传文章的id号
   * 管理文章页面获取文章 GET /api/article/admin/:type/:size/:page
     * type 获取文章的类型，分为all、open和secret
     * size  页面大小

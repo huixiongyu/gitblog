@@ -541,10 +541,10 @@ router.get('/secret/:path', passport.authenticate('jwt', { session: false }),asy
 });
 
 /*
-@route DELETE /api/article/admin/:id
+@route DELETE /api/article/admin/deleteone/:id
 @desc 私密接口，删除指定id的文章
 */
-router.delete('/admin/:id', passport.authenticate('jwt', { session: false }),async ctx => {
+router.delete('/admin/deleteone/:id', passport.authenticate('jwt', { session: false }),async ctx => {
    const id = ctx.params.id;
    const findResult = await Article.findById(id);
    if(!findResult){
@@ -561,6 +561,39 @@ router.delete('/admin/:id', passport.authenticate('jwt', { session: false }),asy
    }   
 });
 
+/*
+@route DELETE /api/article/admin/deletemany
+@desc 私密接口，删除指定id的文章
+*/
+router.delete('/admin/deletemany', passport.authenticate('jwt', { session: false }),async ctx => {
+    console.log(ctx.request.body.deleteList);
+    const deleteList = ctx.request.body.deleteList;
+    if(deleteList.length === 0){
+        ctx.status = 401;
+        ctx.body = { message: '删除的列表不能为空！'};
+        return ;
+    }
+    let errorMessage = '';
+    let successCount = 0;
+    for(let item of deleteList){
+        const id = item;
+        const findResult = await Article.findById(id);
+        if(!findResult){
+            errorMessage += `文章${id}不存在；`
+            continue;
+        }
+        const deleteResult =await Article.deleteOne({_id: id});
+        if(deleteResult.ok === 1){
+            successCount += 1;
+        }  
+    }
+    const message  = errorMessage ? errorMessage: '成功删除！';
+    ctx.status = 200;
+    ctx.body = { 
+        count: successCount,
+        message 
+    };
+ });
 
 /*
 @route GET /api/article/admin/:type/:size/:page
@@ -575,11 +608,11 @@ router.get('/admin/:type/:size/:page', passport.authenticate('jwt', { session: f
         const page = ctx.params.page;
         let findArticle = [];
         if(articleType === 'all'){
-            findArticle = await Article.find({});
+            findArticle = await Article.find({}).sort({ date: -1 });
         }else if(articleType === 'open'){
-            findArticle = await Article.find({secret: false});
+            findArticle = await Article.find({secret: false}).sort({ date: -1 });
         }else if(articleType === 'secret'){
-            findArticle = await Article.find({secret: true});
+            findArticle = await Article.find({secret: true}).sort({ date: -1 });
         }else{
             ctx.status = 400;
             ctx.body = { message: '路径不正确！'};

@@ -56,13 +56,6 @@
                 <i-col span="1" class="write-space">.</i-col>
             </Row>
         </div>
-<!--        <Modal-->
-<!--                v-model="modal1"-->
-<!--                title="请留步！"-->
-<!--                @on-ok="ok"-->
-<!--                @on-cancel="cancel">-->
-<!--            <p>你确认离开当前页面吗？文章还没保存，一旦离开就会清空的哦</p>-->
-<!--        </Modal>-->
         <blog-footer></blog-footer>
     </div>
 </template>
@@ -117,10 +110,6 @@
                     this.$Message.error('不能为当前文章路径X﹏X');
                     return ;
                 }
-                // let timeString = this.postDate + ' '+ this.postTime;
-                // console.log(timeString);
-                // let timeStamp =new Date(timeString);
-                // console.log(timeStamp);
                 let postData = {
                     title : this.title,
                     content : this.content,
