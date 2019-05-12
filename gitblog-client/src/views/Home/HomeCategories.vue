@@ -31,7 +31,11 @@ export default {
     },
     created() {
         this.fetchData();
-    }
+    },
+    beforeRouteEnter(to, from, next){
+        localStorage.setItem('currentTab', 'categories');
+        next();
+    }    
 }
 </script>
 <style lang="less">

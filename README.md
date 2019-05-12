@@ -115,7 +115,8 @@ server是使用koa-generator生成的
 * [Vue中数组和对象更改后视图不刷新的问题](https://blog.csdn.net/zifeiyu130/article/details/78950244) 
 * [iview table组件和page组件组合使用](https://segmentfault.com/a/1190000010392169)
 * [vue2.0中怎么做锚点定位](https://segmentfault.com/q/1010000007888351)
-* [Vue单页：当前页面刷新或跳转时提示保存](https://segmentfault.com/a/1190000016874879)
+* [Vue单页：当前页面刷新或跳转时提示保存](https://segmentfault.com/a/1190000016874879) 
+* [部分路由参数变化的时候内容不刷新问题](https://segmentfault.com/q/1010000015992883)
 
 ## 数据库字段
 * User
@@ -614,6 +615,13 @@ null == null // true
 !null //true
 isNaN(1 + null) // false
 isNaN(1 + undefined) // true
+```
+
+* 导航守卫方式在新标签页打开
+
+```
+let routeData = this.$router.resolve({name: 'routeName', query: {data: "someData"}});
+window.open(routeData.href, '_blank');
 ```
 
 

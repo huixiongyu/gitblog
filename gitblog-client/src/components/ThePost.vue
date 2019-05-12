@@ -1,71 +1,63 @@
 <template>
     <div class="post-container">
         <div class="post-header">
-            <Row>
-                <i-col span="3" class="hide-point">.</i-col>
-                <i-col class="post-middle" span="18">
-                    <div class="post-title">
-                        <Breadcrumb>
-                            <BreadcrumbItem class="title-font" to="/">
-                                <i class="iconfont" style="font-size: 16px">&#xe604;</i>
-                                huixiongyu
-                            </BreadcrumbItem>
-                            <BreadcrumbItem class="title-font" to="/">{{this.articleInfo.title}}</BreadcrumbItem>
-                        </Breadcrumb>
-                    </div>
-                    <div class="post-info">
-                        <div class="info-detail">
-                            <div class="info-name" @click="handleLike">
-                                <Icon type="ios-star" v-if="isLike" />
-                                <Icon type="ios-star-outline" v-if="!isLike" />Star
-                            </div>
-                            <div class="info-num">
-                               {{this.articleInfo.stars.length}}
-                            </div>
+            <div class="post-middle">
+                <div class="post-title">
+                    <Breadcrumb>
+                        <BreadcrumbItem class="title-font" to="/">
+                            <i class="iconfont" style="font-size: 16px">&#xe604;</i>
+                            huixiongyu
+                        </BreadcrumbItem>
+                        <BreadcrumbItem class="title-font" to="/">{{this.articleInfo.title}}</BreadcrumbItem>
+                    </Breadcrumb>
+                </div>
+                <div class="post-info">
+                    <div class="info-detail">
+                        <div class="info-name" @click="handleLike">
+                            <Icon type="ios-star" v-if="isLike" />
+                            <Icon type="ios-star-outline" v-if="!isLike" />Star
                         </div>
-                        <div class="info-detail">
-                            <div class="info-name">
-                                <Icon type="ios-pricetags" />Tags
-                            </div>
-                            <div class="info-num">
-                                {{this.articleInfo.tags.length}}
-                            </div>
-                        </div>
-                        <div class="info-detail">
-                            <div class="info-name">
-                                <Icon type="md-folder" />Categories
-                            </div>
-                            <div class="info-num">
-                                23
-                            </div>
+                        <div class="info-num">
+                            {{this.articleInfo.stars.length}}
                         </div>
                     </div>
-                </i-col>
-                <i-col span="3" class="hide-point">.</i-col>
-            </Row>
+                    <div class="info-detail">
+                        <div class="info-name">
+                            <Icon type="ios-pricetags" />Tags
+                        </div>
+                        <div class="info-num">
+                            {{this.articleInfo.tags.length}}
+                        </div>
+                    </div>
+                    <div class="info-detail">
+                        <div class="info-name">
+                            <Icon type="md-folder" />Categories
+                        </div>
+                        <div class="info-num">
+                            23
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="post-nav">
-            <Row>
-                <i-col span="3" class="hide-point">.</i-col>
-                <i-col span="18" class="nav-title">
-                    <div class="mark">
-                        <Icon type="md-code" />Mark
-                    </div>
-                    <div>
-                        <Icon type="ios-alert-outline" /> <span>Issues</span>
-                    </div>
-                    <div>
-                        <Icon type="md-git-pull-request" />Pull requests
-                    </div>
-                    <div>
-                        <Icon type="ios-speedometer" />Projects
-                    </div>
-                    <div>
-                        <Icon type="ios-thermometer-outline" />{{this.articleInfo.visited}}℃
-                    </div>
-                </i-col>
-                <i-col span="3" class="hide-point">.</i-col>
-            </Row>
+            <div class="nav-title">
+                <div class="mark">
+                    <Icon type="md-code" />Mark
+                </div>
+                <div>
+                    <Icon type="ios-alert-outline" /> <span>Issues</span>
+                </div>
+                <div>
+                    <Icon type="md-git-pull-request" />Pull requests
+                </div>
+                <div>
+                    <Icon type="ios-speedometer" />Projects
+                </div>
+                <div>
+                    <Icon type="ios-thermometer-outline" />{{this.articleInfo.visited}}℃
+                </div>
+            </div>
         </div>
         <div class="post-content">
             <div class="content-detail">
@@ -82,6 +74,16 @@
                 </div>
             </div>
         </div>
+        <div class="navigation">
+            <div class="page">
+                <Tooltip placement="top" :content="preTitle" :disabled="!showPre">
+                    <Button shape="circle" :to="preLink" :disabled="!showPre">上一篇</Button>
+                </Tooltip>
+                <Tooltip placement="top" :content="nextTitle" :disabled="!showNext">
+                    <Button shape="circle" :to="nextLink" :disabled="!showNext">下一篇</Button>
+                </Tooltip>
+            </div>
+        </div>
         <div class="post-comment">
             <div class="comment-area" id="repeat">
                 <div class="comment-title">发表评论</div>
@@ -90,7 +92,7 @@
                 <Input v-model="comment"
                     :autosize="autoSize"
                     type="textarea"
-                    style="width:1100px"
+                    style="width:1230px"
                     placeholder="说点什么吧..." />
                 <Button type="success" @click="addComment">发表评论</Button>
             </div>
@@ -125,7 +127,6 @@
                                 删除
                             </Button>
                         </div>
-
                     </div>     
                 </div>
             </div>
@@ -166,7 +167,13 @@
                 autoSize: { minRows: 3, maxRows: 20 },
                 commentList: [],
                 repeatTo: '',
-                asking: false
+                asking: false,
+                preLink: '',
+                nextLink: '',
+                preTitle: '',
+                nextTitle: '',
+                showPre: false,
+                showNext: false
             }
         },
         computed: {
@@ -197,6 +204,7 @@
                         this.$axios.get(`/api/article/comment?path=${this.articleInfo.path}`)
                             .then(data => {
                                 const listComment = data.data;
+                                this.commentList = [];
                                 for(let item of listComment){
                                     this.commentList.push(item);
                                 }
@@ -206,10 +214,22 @@
                     .catch(error => {
                         console.log(error);
                     })
+                this.$axios.get(`/api/article/currentlist/${this.articleInfo.path}`)
+                    .then(data => {
+                        const obj = data.data.brothers;
+                        this.preLink = '/article/' + obj.pre.path;
+                        this.preTitle = obj.pre.title;
+                        this.nextLink ='/article/' + obj.nxt.path;
+                        this.nextTitle = obj.nxt.title;
+                        this.showPre = obj.pre.path ? true : false;
+                        this.showNext = obj.nxt.path ? true : false;
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    })
             },
             handleRepeat(name){
                 this.repeatTo = name;
-                console.log(name);
                 let anchor = document.getElementById('repeat');
                 anchor.scrollIntoView();
             },
@@ -299,14 +319,19 @@
                 }
             }
         },
-        created() {
-            // console.log(this.$route.params.path);
+        mounted() {
             this.articleInfo.path = this.$route.params.path;
             this.getContent();
         },
         filters: {
             timeFormat: function (value) {
                 return   moment(value).format("dddd, MMMM Do YYYY, h:mm:ss a");
+            }
+        },
+        watch: {
+            '$route'(to, from){
+                this.articleInfo.path = to.params.path;
+                this.getContent();
             }
         }
     }
@@ -319,14 +344,16 @@
     }
     .post-header{
         width: 100%;
+        height: 70px;
         padding-top: 20px;
         background-color: #F5F5F5;
+        display: flex;
+        justify-content: center;
     }
     .post-middle{
         display: flex;
         justify-content: space-between;
-        align-content: center;
-        max-width: 986px;
+        width: 1230px;
         height: 42px;
     }
     .title-font{
@@ -358,19 +385,19 @@
             background-color: #A5BDF1;
         }
     }
-    .hide-point{
-        color: white;
-    }
     .post-nav{
         width: 100%;
+        height: 45px;
         background-color: #F5F5F5;
         border-bottom: 1px solid #DCDCDC;
+        display: flex;
+        justify-content: center;
     }
     .nav-title{
         display: flex;
         justify-content: flex-start;
         align-content: center;
-        max-width: 986px;
+        width: 1230px;
         height: 44px;
         div{
             display: flex;
@@ -397,7 +424,7 @@
         width: 100%;
         clear: both;
         .content-detail{
-            width: 1100px;
+            width: 1230px;
             min-height: 300px;
             border: 1px solid #D3D3D3;
             border-radius: 4px;
@@ -426,12 +453,23 @@
             padding: 25px;
         }
     }
+    .navigation{
+        width: 100%;
+        margin-bottom: 10px;
+        display: flex;
+        justify-content: center;
+        .page{
+            width: 1230px;
+            display: flex;
+            justify-content: space-between;
+        }
+    }
     .post-comment{
         position: relative;
         width: 100%;
         min-height: 200px; 
         .comment-area{
-            width: 1100px;
+            width: 1230px;
             height: 100%;
             margin: 0 auto 0 auto;
             // position: absolute;
@@ -460,7 +498,7 @@
         width: 100%;
         min-height: 300px;
         .list-area{
-            width: 1100px;
+            width: 1230px;
             height: 100%;
             margin: 0 auto 0 auto;  
             .comment-item{

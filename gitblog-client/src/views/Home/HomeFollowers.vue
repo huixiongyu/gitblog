@@ -76,6 +76,10 @@ export default {
     },
     created() {
         this.fetchFollowers();
+    },
+    beforeRouteEnter(to, from, next){
+        localStorage.setItem('currentTab', 'followers');
+        next();
     }
 }
 </script>

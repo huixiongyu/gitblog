@@ -39,6 +39,69 @@ router.get('/', async ctx=> {
 });
 
 /*
+@route GET /api/article/currentlist/:path
+@desc 公开接口，获取当前文章的上一篇和下一篇文章
+@sponse 返回文章标题和文章路径
+*/
+router.get('/currentlist/:path', async ctx => {
+    const currentArticle = ctx.params.path;
+    const findArticle = await Article.find({path: currentArticle});
+    if(findArticle.length === 0){
+        ctx.status = 401;
+        ctx.body = { message: '文章不存在！'};
+        return ;
+    }else{
+        const findResult = await Article.find({secret: false}).sort({date: -1});
+        let len = findResult.length;
+        let articleIndex = 0;
+        if(len > 0){
+            for(let index in findResult){
+                if(findResult[index].path === currentArticle ){
+                    articleIndex = index;
+                    break;
+                }
+            }
+            const preIndex = parseInt(articleIndex) - 1;
+            const nextIndex = parseInt(articleIndex) + 1;
+            const pre ={
+                title: '',
+                path: ''
+            };
+            const nxt = {
+                title: '',
+                path: ''
+            };
+            const brothers = {
+                pre,
+                nxt
+            }
+            if(len == 1){
+                ctx.body = {brothers};
+                ctx.status = 200;
+                return ;               
+            }
+            if(articleIndex == 0 && articleIndex != (len-1)){
+                nxt.title = findResult[nextIndex].title;
+                nxt.path = findResult[nextIndex].path;                 
+            }
+            if(articleIndex == (len -1) && articleIndex != 0){
+                pre.title = findResult[preIndex].title;
+                pre.path = findResult[preIndex].path; 
+                console.log(pre);               
+            }
+            if((articleIndex != 0) && (articleIndex != (len-1))){
+                pre.title = findResult[preIndex].title;
+                pre.path = findResult[preIndex].path;
+                nxt.title = findResult[nextIndex].title;
+                nxt.path = findResult[nextIndex].path;                
+            }
+            ctx.body = {brothers};
+            ctx.status = 200;
+        }
+    }
+});
+
+/*
 @route GET /api/article/:size/:page
 @desc 分页获取文章
  */
@@ -187,6 +250,7 @@ router.post('/', passport.authenticate('jwt', { session: false }),
         ctx.body = { message: '文章发布成功！' }
     }
 );
+
 
 /*
 @route POST /api/article/secret
@@ -524,6 +588,7 @@ router.get('/:path', async ctx => {
         ctx.body = { message: '路径不正确！'};
     }
 });
+
 
 /*
 @route GET /api/article/

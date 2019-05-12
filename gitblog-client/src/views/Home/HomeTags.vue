@@ -26,7 +26,11 @@ export default {
     },
     created() {
         this.fetchTags();
-    }
+    },
+    beforeRouteEnter(to, from, next){
+        localStorage.setItem('currentTab', 'tags');
+        next();
+    }        
 }
 </script>
 <style lang="less">

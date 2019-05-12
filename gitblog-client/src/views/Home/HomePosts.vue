@@ -161,8 +161,12 @@ export default {
         this.fectchArticle();
     },
     filters: {
-    timeFormat: function (value) {
-      return   moment(value).fromNow();
+        timeFormat: function (value) {
+        return   moment(value).fromNow();
+    },
+    beforeRouteEnter(to, from, next){
+        localStorage.setItem('currentTab', 'posts');
+        next();
     }
 }
 }

@@ -70,6 +70,10 @@ export default {
                 }
             ]
         }
+    },
+    beforeRouteEnter(to, from, next){
+        localStorage.setItem('currentTab', 'overview');
+        next();
     }
 }
 </script>

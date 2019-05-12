@@ -26,7 +26,6 @@ export default {
     methods: {
         selectItem(name){
             localStorage.setItem('currentTab', name);
-            // console.log(name);
         }
     },
     created(){
