@@ -1,7 +1,7 @@
 <template>
     <div class="overview">
         <div class="pin">
-            Pinned
+            Popular repositories 
         </div>
         <div class="pro-box" v-for="item in projects" :key="item.title">
             <div class="box-title">

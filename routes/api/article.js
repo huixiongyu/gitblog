@@ -610,7 +610,8 @@ router.get('/admin/:type/:size/:page', passport.authenticate('jwt', { session: f
                     date: item.date,
                     comment: item.comments.length,
                     secret: item.secret,
-                    id: item._id
+                    id: item._id,
+                    classify: item.classify
                 }
                 responseList.push(child);
             }

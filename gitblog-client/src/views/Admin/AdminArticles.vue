@@ -17,17 +17,28 @@
                     <Button type="error" v-if="selectToDelete">删除</Button>
                 </div>
                 <div class="table">
-                    <Table border ref="selection" :columns="columns1" :data="data1"></Table>
+                    <Table border :loading="loading" ref="selection" :columns="columns1" :data="data1"></Table>
                 </div>
-                
-                <Button @click="handleSelectAll(true)">选择全部</Button>
-                <Button @click="handleSelectAll(false)">取消选择</Button>
+                <div class="table-change">
+                    <div class="table-select">
+                        <Button type="primary" @click="handleSelectAll(true)">选择全部</Button>
+                        <Button class="cancel" type="info" @click="handleSelectAll(false)">取消选择</Button>
+                    </div>
+                    <Page
+                        :total="total"
+                        :current.sync="current"
+                        show-sizer
+                        @on-change="getData"
+                        @on-page-size-change="handleChangeSize">
+                    </Page>
+                </div>
             </div>
         </div>
     </div>
 </template>
 <script>
     import BlogHeader from '../../components/BlogHeader'
+    import moment from 'moment'    
     export default {
         components: {
             BlogHeader
@@ -35,6 +46,11 @@
         data () {
             return {
                 selectToDelete: false,
+                loading: false,
+                size: 10,
+                current: 1,
+                type: 'all',
+                total: 0,
                 columns1: [
                     {
                         type: 'selection',
@@ -42,47 +58,90 @@
                         align: 'center'
                     },
                     {
+                        type: 'index',
+                        width: 60,
+                        align: 'center',
+                        indexMethod: (row) => {
+                            return (row._index + 1) + (this.size * this.current) - this.size;
+                        }
+                    },
+                    {
                         title: '标题',
-                        key: 'title'
+                        key: 'title',
+                        align: 'center',
+                        render: (h, { row }) => {
+                            return h('a' , {
+                                attrs: {
+                                    href: '/writing/'+row.id
+                                }
+                            }, row.title);
+                        }
                     },
                     {
                         title: '分类',
-                        key: 'category'
+                        key: 'category',
+                        align: 'center',
                     },
                     {
                         title: '评论',
-                        key: 'comment'
+                        key: 'comment',
+                        align: 'center',
+                    },
+                    {
+                        title: '状态',
+                        key: 'status',
+                        align: 'center',
+                        render: (h, { row }) => {
+                            if (row.status === 'open') {
+                                return h('Tag', {
+                                    props: {
+                                        color: 'green'
+                                    }
+                                }, '已发布');
+                            } else if (row.status === 'secret') {
+                                return h('Tag', {
+                                    props: {
+                                        color: 'red'
+                                    }
+                                }, '草稿');
+                            }
+                        }
                     },
                     {
                         title: '发布日期',
-                         key: 'date'
+                         key: 'date',
+                         align: 'center',
                     }
                 ],
                 data1: [
-                    {
-                        title: 'John Brown',
-                        category: 18,
-                        comment: 'New York No. 1 Lake Park',
-                        date: '2016-10-03'
-                    },
-                    {
-                        title: 'Jim Green',
-                        category: 24,
-                        comment: 'London No. 1 Lake Park',
-                        date: '2016-10-01'
-                    },
-                    {
-                        title: 'Joe Black',
-                        category: 30,
-                        comment: 'Sydney No. 1 Lake Park',
-                        date: '2016-10-02'
-                    },
-                    {
-                        title: 'Jon Snow',
-                        category: 26,
-                        comment: 'Ottawa No. 2 Lake Park',
-                        date: '2016-10-04'
-                    }
+                    // {
+                    //     title: 'John Brown',
+                    //     category: 18,
+                    //     comment: 'New York No. 1 Lake Park',
+                    //     date: '2016-10-03',
+                    //     status: 'open'
+                    // },
+                    // {
+                    //     title: 'Jim Green',
+                    //     category: 24,
+                    //     comment: 'London No. 1 Lake Park',
+                    //     date: '2016-10-01',
+                    //     status: 'open'
+                    // },
+                    // {
+                    //     title: 'Joe Black',
+                    //     category: 30,
+                    //     comment: 'Sydney No. 1 Lake Park',
+                    //     date: '2016-10-02',
+                    //     status: 'open'
+                    // },
+                    // {
+                    //     title: 'Jon Snow',
+                    //     category: 26,
+                    //     comment: 'Ottawa No. 2 Lake Park',
+                    //     date: '2016-10-04',
+                    //     status: 'open'
+                    // }
                 ],
                 cityList: [
                     {
@@ -116,7 +175,42 @@
         methods: {
             handleSelectAll (status) {
                 this.$refs.selection.selectAll(status);
+            },
+            getData(){
+                if(this.loading) return ;
+                this.loading = true;
+                this.$axios.get(`/api/article/admin/${this.type}/${this.size}/${this.current}`)
+                    .then(data => {
+                        this.total = data.data.totalArticles;
+                        const dataList = data.data.data;
+                        this.data1 = [];
+                        for(let item of dataList){
+                            const child = {
+                                title: item.title,
+                                category: item.classify,
+                                comment: item.comment,
+                                status: item.secret ? 'secret': 'open',
+                                date: moment(item.date).format('YYYY年MM月DD日'),
+                                id: item.id
+                            }
+                            this.data1.push(child);
+                        }
+                        this.loading = false;
+                    })
+                    .catch(error => {
+                        console.log(error);
+                        
+                    })
+            },
+            handleChangeSize(val){
+                this.size = val;
+                this.$nextTick(() => {
+                    this.getData();
+                })
             }
+        },
+        created(){
+            this.getData();
         }
     }
 </script>
@@ -172,6 +266,21 @@
                     }                    
                 }
             }
+            .table{
+                margin-bottom: 10px;
+            }
+            .table-change{
+                width: 100%;
+                height: 45px;
+                display: flex;
+                justify-content: space-between;
+                .table-select{
+                    .cancel{
+                        margin-left: 5px;
+                    }
+                }
+            }
         }
     }
+
 </style>

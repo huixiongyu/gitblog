@@ -174,12 +174,6 @@
                         console.log(error);
                     });
             }
-            // ok(){
-            //     this.$Message.success('(。・_・)/~~~');
-            // },
-            // cancel(){
-            //     this.$Message.success('开始干活！');
-            // }
         },
         created(){
             this.fetchData();
@@ -217,11 +211,7 @@
     .write-article{
         clear: both;
         width: 100%;
-        /*background-color: #F6F6F3;*/
     }
-    /*.write-content{*/
-    /*    width: 860px;*/
-    /*}*/
     .write-space{
         width: 65px;
         color: white;

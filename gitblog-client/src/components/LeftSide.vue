@@ -9,7 +9,8 @@
             <p class="left-username">huixiongyu</p>
         </div>
 
-         <Divider></Divider>
+        <div class="divider">
+        </div>
 
          <div class="star-pro">
              <Icon type="md-star" class="star-icon" size="22" />
@@ -71,6 +72,12 @@ export default {
 <style lang="less">
 .left-container{
     width: 325px;
+    .divider{
+        width: 260px;
+        height: 0;
+        border-top: 1px solid #eee;
+        margin: 15px 0;
+    }
 }
 .cover{
     margin-top: 10px;
