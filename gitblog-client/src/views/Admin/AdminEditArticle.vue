@@ -4,7 +4,7 @@
         <div class="write-article">
             <div class="box-container">
                 <div class="write-content">
-                    <h2 class="writing-title">撰写新文章</h2>
+                    <h2 class="writing-title">修改文章</h2>
                     <Input v-model="title" placeholder="标题" style="width: 840px" />
                     <div class="article-link">
                         <span>Article Adress: https://www.localhost:8080/archives/{{path}}</span>
@@ -164,7 +164,7 @@
                     classify: this.classify,
                     tags : this.tags
                 };
-                this.$axios.post('/api/article', postData)
+                this.$axios.post('/api/article/edit/:path', postData)
                     .then(() => {
                         this.$Message.success('文章发布成功(o゜▽゜)o☆[BINGO!]');
                         this.$router.push('/');

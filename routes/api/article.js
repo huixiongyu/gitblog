@@ -100,6 +100,70 @@ router.get('/currentlist/:path', async ctx => {
         }
     }
 });
+/* 
+@route POST /api/article/edit/:path
+@desc 编辑文章
+*/
+router.post('/edit/:path', passport.authenticate('jwt', { session: false }),
+    async ctx => {
+        const { errors, isValid } = validatePostInput(ctx.request.body);
+        // 判断是否验证通过
+        if (!isValid) {
+            ctx.status = 400;
+            ctx.body = errors;
+            return;
+        }
+        const path = ctx.request.body.path;
+        const findArticle = await Article.find({path: path});
+        if(findArticle.length === 0){
+            ctx.status = 400;
+            ctx.body = { path: '该文章不存在！'};
+            return ;
+        }
+        //现在设置可以保存的文章
+        findArticle[0].title = ctx.request.body.title;
+        findArticle[0].content = ctx.request.body.content;
+        findArticle[0].path = path;
+        findArticle[0].classify = ctx.request.body.classify;
+        // 处理标签
+        let tags = ctx.request.body.tags;
+        tags.replace(/\s+/g,"");
+        if(tags !== ''){
+            let tagList = tags.split(','); 
+            console.log(`我存储的tagList是${tagList}`);
+            for(let item of tagList){
+                const findTag= await Tag.find({ name: item });
+                if(findTag.length > 0){
+                    console.log(item);
+                }else{
+                    const newTag = new Tag({
+                        name: item
+                    });
+                    // 存储到数据库
+                    await newTag
+                        .save()
+                        .catch(err => {
+                            console.log(err)
+                        });
+                }
+            }
+            findArticle[0].tags = [];
+            if(tagList.length > 0){
+                tagList.forEach(item => {
+                    findArticle[0].tags.unshift({name: item});
+                });
+            }
+        }
+        const starsUpdate = await Article.findOneAndUpdate(
+            { path: path },
+            { $set: findArticle[0] },
+            { $sort: 1,new: true }
+        ); 
+        console.log(starsUpdate);
+        // 返回json数据
+        ctx.body = { message: '文章发布成功！' }
+    }
+);
 
 /*
 @route GET /api/article/:size/:page
@@ -708,7 +772,7 @@ router.get('/admin/:type/:size/:page', passport.authenticate('jwt', { session: f
                     date: item.date,
                     comment: item.comments.length,
                     secret: item.secret,
-                    id: item._id,
+                    path: item.path,
                     classify: item.classify
                 }
                 responseList.push(child);

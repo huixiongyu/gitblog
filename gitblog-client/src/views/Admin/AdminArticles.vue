@@ -99,7 +99,7 @@
                         render: (h, { row }) => {
                             return h('a' , {
                                 attrs: {
-                                    href: '/writing/'+row.id
+                                    href: '/article/'+row.path
                                 }
                             }, row.title);
                         }
@@ -176,7 +176,7 @@
                                 comment: item.comment,
                                 status: item.secret ? 'secret': 'open',
                                 date: moment(item.date).format('YYYY年MM月DD日'),
-                                id: item.id
+                                path: item.path
                             }
                             this.data1.push(child);
                         }
