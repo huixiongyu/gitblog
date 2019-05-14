@@ -14,7 +14,6 @@ const router =new Router({
       path: '/',
       name: 'home',
       component: Home,
-      // redirect: '/home/overview',
       children: [
         {
           path: '',
@@ -195,6 +194,15 @@ const router =new Router({
         requiresAdmin: true
       }
     },
+    {
+      path: '/edit/:path',
+      name: 'edit-article',
+      component: () => import('./views/Admin/AdminEditArticle.vue'),
+      meta:  {
+        requiresAuth: true ,
+        requiresAdmin: true
+      }
+    },    
     {
       path: '/admin-articles',
       name: 'admin-articles',
