@@ -62,7 +62,6 @@
 <script>
     import BlogHeader from '../../components/BlogHeader'
     import moment from 'moment'    
-    import qs from 'qs'
     export default {
         components: {
             BlogHeader
@@ -96,10 +95,37 @@
                         title: '标题',
                         key: 'title',
                         align: 'center',
+                        // render: (h, { row }) => {
+                        //     return h('div', [
+                        //         h('a', {
+                        //             style: {
+                        //                 fontSize: '16px'
+                        //             },
+                        //             on: {
+                        //                 click: (row) => {
+                        //                     this.$router.push(`/article/${row.path}`);
+                        //                 }
+                        //             }
+                        //         }, row.title),
+                        //         h('Icon',{
+                        //             props: {
+                        //                 size: '16',
+                        //                 type: 'md-create'
+                        //             },
+                        //             on: {
+                        //                 click: (row) => {
+                        //                     this.$router.push(`/edit/${row.path}`);
+                        //                     // let routeData = this.$router.resolve({name: 'edit-article', params: {path: row.path}});
+                        //                     // window.open(routeData.href, '_blank');
+                        //                 }
+                        //             }
+                        //         })
+                        //     ])
+                        // }
                         render: (h, { row }) => {
                             return h('a' , {
                                 attrs: {
-                                    href: '/article/'+row.path
+                                    href: '/edit/'+row.path
                                 }
                             }, row.title);
                         }
