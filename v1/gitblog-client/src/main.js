@@ -7,7 +7,6 @@ import 'iview/dist/styles/iview.css'
 import './assets/iconfont/iconfont.css'
 import iEditor from 'iview-editor'
 import 'iview-editor/dist/iview-editor.css'
-// import vuescroll from 'vuescroll/dist/vuescroll-native';
 import axios from 'axios'
 
 

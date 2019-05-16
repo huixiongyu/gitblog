@@ -3,18 +3,10 @@ Github like blog, hexo theme from https://github.com/sabrinaluo
 
 本项目从2019年3月18日开始写
 
-**v1是原始版本，目前正在使用Nuxt.js重构，会支持移动端，代码格式化，数据模型和接口都会改变，会增加更多的功能，优化代码或孵化开源组件**
-
-**v2.md是新版本的接口文档，最后合并到README.md**
-
-*目前请务必运行v1版本，nuxt-gitblog是开发版本*
-
-体验地址：[http://www.gitblog.hackslog.com](http://www.gitblog.hackslog.com)
-
 ## 运行
 
 ```
-cd gitblog/v1/
+cd gitblog/
 npm install
 npm run client-install
 npm run dev
