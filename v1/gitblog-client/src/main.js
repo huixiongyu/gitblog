@@ -15,7 +15,7 @@ Vue.use(iEditor);
 // Vue.use(vuescroll);
 Vue.config.productionTip = false;
 
-
+axios.defaults.baseURL = process.env.VUE_APP_BASE_URL;
 axios.interceptors.request.use(
     config => {
       if (localStorage.blogToken) { //判断token是否存在

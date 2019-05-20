@@ -7,10 +7,9 @@ const bodyparser = require('koa-bodyparser');
 const logger = require('koa-logger');
 const mongoose = require('mongoose');
 const passport = require('koa-passport');
-
 const app = new Koa();
 const router = new Router();
-
+var cors = require('koa2-cors');
 
 // mongoDB连接地址
 const db = require('./config/keys').mongoURI;
@@ -22,7 +21,7 @@ const classify = require('./routes/api/classify');
 const article = require('./routes/api/article');
 // error handler
 onerror(app);
-
+app.use(cors());
 // middlewares
 app.use(bodyparser({
   enableTypes:['json', 'form', 'text']

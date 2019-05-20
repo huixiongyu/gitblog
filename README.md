@@ -632,6 +632,61 @@ let routeData = this.$router.resolve({name: 'routeName', query: {data: "someData
 window.open(routeData.href, '_blank');
 ```
 
+* 动态路由切换到另一个参数的时候，页面的生命周期不会重新出发，明显例子就是文章详情页面的上一页和下一页的功能。为了让数据得以重新加载可以watch  $route的变化
+
+```
+ watch: {
+   '$route' (to, from) {
+     // 对路由变化作出响应...
+   }
+ }
+```
+
+* 动态路由的编程式导航时，path和params是冲突的， 也就是说使用了path，后面的params会被忽略，但是path可以和query和平相处
+* 打包优化
+  * 按需加载
+  * 路由懒加载
+  * 异步组件
+  * 图片合并
+  * 使用`webpack-bundle-analyzer` 打包分析
+  * externals配置CDN使用的模块, [bootcn](https://www.bootcdn.cn/)
+  * `compression-webpack-plugin` gzip文件
+  * 压缩代码: UglifyJsPlugin
+  * 禁用sourceMap
+
+```
+npm install webpack-bundle-analyzer –save-dev
+
+//vue.config.js
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
+configureWebpack: config => {
+    if (process.env.NODE_ENV === 'production') {
+      return {
+        plugins: [
+          new BundleAnalyzerPlugin({
+              analyzerMode: "server",
+              analyzerHost: "127.0.0.1",
+              analyzerPort: 8888,
+              reportFilename: "report.html",
+              defaultSizes: "parsed",
+              openAnalyzer: true,
+              generateStatsFile: false,
+              statsFilename: "stats.json",
+              statsOptions: null,
+              logLevel: "info"              
+          })
+        ]
+      }
+    }
+
+//配置运行命令
+"analyz": "cross-env NODE_ENV=production npm_config_report=true npm run build"
+
+npm run analyz
+```
+
+
+
 
 
 ## 问题目录
