@@ -125,6 +125,8 @@ server是使用koa-generator生成的
 * [vue2.0中怎么做锚点定位](https://segmentfault.com/q/1010000007888351)
 * [Vue单页：当前页面刷新或跳转时提示保存](https://segmentfault.com/a/1190000016874879) 
 * [部分路由参数变化的时候内容不刷新问题](https://segmentfault.com/q/1010000015992883)
+* [vue-cli3.0使用CDN分开发、生成和预发布环境](https://www.jianshu.com/p/9d6c1efebcd9)
+* [vue-cli下项目优化](https://juejin.im/post/5b97b84ee51d450e6c7492f6)
 
 ## 数据库字段
 * User
@@ -683,6 +685,75 @@ configureWebpack: config => {
 "analyz": "cross-env NODE_ENV=production npm_config_report=true npm run build"
 
 npm run analyz
+```
+
+* 部署的时候使用了6000端口，配置了安全组，数据库能够连接，前端页面也在浏览器显示了，但是数据始终获取不到。后来cmd和服务器内部检测6000端口能够连接，app.js的监听端口也是6000，前端的端口请求也是6000，我已经配置了跨域啊，为什么不能拿到数据呢！！原因是...浏览器把6000端口封了，晕死...忙了大半天啊！！！ 除6000端口以外，还有很多在Chrome不能用的
+
+```
+  1,    // tcpmux
+  7,    // echo
+  9,    // discard
+  11,   // systat
+  13,   // daytime
+  15,   // netstat
+  17,   // qotd
+  19,   // chargen
+  20,   // ftp data
+  21,   // ftp access
+  22,   // ssh
+  23,   // telnet
+  25,   // smtp
+  37,   // time
+  42,   // name
+  43,   // nicname
+  53,   // domain
+  77,   // priv-rjs
+  79,   // finger
+  87,   // ttylink
+  95,   // supdup
+  101,  // hostriame
+  102,  // iso-tsap
+  103,  // gppitnp
+  104,  // acr-nema
+  109,  // pop2
+  110,  // pop3
+  111,  // sunrpc
+  113,  // auth
+  115,  // sftp
+  117,  // uucp-path
+  119,  // nntp
+  123,  // NTP
+  135,  // loc-srv /epmap
+  139,  // netbios
+  143,  // imap2
+  179,  // BGP
+  389,  // ldap
+  465,  // smtp+ssl
+  512,  // print / exec
+  513,  // login
+  514,  // shell
+  515,  // printer
+  526,  // tempo
+  530,  // courier
+  531,  // chat
+  532,  // netnews
+  540,  // uucp
+  556,  // remotefs
+  563,  // nntp+ssl
+  587,  // stmp?
+  601,  // ??
+  636,  // ldap+ssl
+  993,  // ldap+ssl
+  995,  // pop3+ssl
+  2049, // nfs
+  3659, // apple-sasl / PasswordServer
+  4045, // lockd
+  6000, // X11
+  6665, // Alternate IRC [Apple addition]
+  6666, // Alternate IRC [Apple addition]
+  6667, // Standard IRC [Apple addition]
+  6668, // Alternate IRC [Apple addition]
+  6669, // Alternate IRC [Apple addition]
 ```
 
 

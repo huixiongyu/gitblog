@@ -1,8 +1,6 @@
 var webpack = require('webpack');
 
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
-
-
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 module.exports = {
     devServer: {
@@ -36,15 +34,8 @@ module.exports = {
               statsFilename: "stats.json",
               statsOptions: null,
               logLevel: "info"              
-            }              
-            )
-          ],
-          externals:{
-            'vue': 'Vue',
-            'vue-router': 'VueRouter',
-            'axios': 'axios',
-            'moment': 'moment'            
-          }
+            })
+          ]
         }
       }
     }    
