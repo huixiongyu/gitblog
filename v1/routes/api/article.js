@@ -8,7 +8,6 @@ const User = require('../../models/User');
 const validatePostInput = require('../../validation/article');
 
 
-
 //检测是否存在特殊字符
 function checkIsHasSpecialStr(str){
     let myReg = /[~!@#$%^&*()/\|,.<>?"'();:+=\[\]{}]/;
@@ -26,6 +25,7 @@ router.get('/test', async ctx => {
 @desc 公开接口，获取所有分类
  */
 router.get('/', async ctx=> {
+    console.log('work');
     const findResult = await Article.find({secret: false}).sort({ date: -1 });
     // console.log(findResult);
     if(findResult.length === 0){

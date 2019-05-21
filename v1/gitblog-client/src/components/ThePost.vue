@@ -329,7 +329,7 @@
             }
         },
         watch: {
-            '$route'(to, from){
+            '$route'(to){
                 this.articleInfo.path = to.params.path;
                 this.getContent();
             }
