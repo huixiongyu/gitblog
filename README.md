@@ -1,5 +1,5 @@
 # gitblog
-Github like blog, hexo theme from https://github.com/sabrinaluo
+Github like blog, hexo theme from https://sabrinaluo.github.io/tech/
 
 本项目从2019年3月18日开始写
 
@@ -9,7 +9,8 @@ Github like blog, hexo theme from https://github.com/sabrinaluo
 
 *目前请务必运行v1版本，nuxt-gitblog是开发版本*
 
-体验地址：[http://www.gitblog.hackslog.com](http://www.gitblog.hackslog.com)
+
+体验地址：[http://gitblog.hackslog.com](http://gitblog.hackslog.com)
 
 ## 运行
 
@@ -762,6 +763,69 @@ npm run analyz
   6667, // Standard IRC [Apple addition]
   6668, // Alternate IRC [Apple addition]
   6669, // Alternate IRC [Apple addition]
+```
+* 打包进行压缩，开发环境安装`compression-webpack-plugin`
+```
+const CompressionPlugin = require("compression-webpack-plugin")
+module.exports = {
+configureWebpack:config=>{
+        if(progress.env.NODE_ENV === 'production'){
+            return{
+                plugins: [
+                
+                    new CompressionPlugin({
+                        test:/\.js$|\.html$|.\css/, //匹配文件名
+                        threshold: 10240,//对超过10k的数据压缩
+                        deleteOriginalAssets: false //不删除源文件
+                    })
+                ]
+            }
+        }
+
+    },
+}
+```
+
+* nginx gzip的配置： [vue-cli3开启gzip](https://www.jianshu.com/p/1738f9f092ee) 
+
+```
+# 开启gzip
+gzip on;
+
+# 启用gzip压缩的最小文件，小于设置值的文件将不会压缩
+gzip_min_length 10k;
+
+# gzip 压缩级别，1-10，数字越大压缩的越好，也越占用CPU时间，后面会有详细说明
+gzip_comp_level 2;
+
+# 进行压缩的文件类型。javascript有多种形式。其中的值可以在 mime.types 文件中找到。
+gzip_types text/plain application/javascript application/x-javascript text/css application/xml text/javascript application/x-httpd-php image/jpeg image/gif image/png;
+
+# 是否在http header中添加Vary: Accept-Encoding，建议开启
+gzip_vary on;
+
+# 禁用IE 6 gzip
+gzip_disable "MSIE [1-6]\.";
+
+```
+
+* nginx开启缓存
+
+```
+location ~* ^.+\.(ico|gif|jpg|jpeg|png)$ { 
+    access_log off; 
+    expires 30d;
+}
+
+location ~* ^.+\.(css|js|txt|xml|swf|wav)$ {
+    access_log off;
+    expires 24h;
+}
+
+location ~* ^.+\.(html|htm)$ {
+     expires 1h;
+}
+
 ```
 
 

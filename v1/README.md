@@ -32,6 +32,24 @@ password: 12345678
 
 如果没有挂VPN，头像可能无法正常显示，因为用了gravatar
 
+**首页**
+![mark](http://qiniu.hackslog.cn/blog/20190523/IsWmXwYrKRej.png?imageslim)
+
+**文章管理**
+![mark](http://qiniu.hackslog.cn/blog/20190523/7rL9XYlRnkvD.png?imageslim)
+
+**用户列表**
+![mark](http://qiniu.hackslog.cn/blog/20190523/Tb1we6YhdUeu.png?imageslim)
+
+**文章发布**
+![mark](http://qiniu.hackslog.cn/blog/20190523/EzYu4eLB3NCW.png?imageslim)
+
+**文章详情**
+![mark](http://qiniu.hackslog.cn/blog/20190523/Yy6e41FICFSA.png?imageslim)
+
+**个人信息管理**
+![mark](http://qiniu.hackslog.cn/blog/20190523/9la1uaMQTmay.png?imageslim)
+
 
 
 ## 文件和使用

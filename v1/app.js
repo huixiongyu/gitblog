@@ -10,6 +10,11 @@ const passport = require('koa-passport');
 const app = new Koa();
 const router = new Router();
 var cors = require('koa2-cors');
+const compress = require('koa-compress');
+
+//代码压缩
+const gzipOptions = { threshold: 2048 };
+app.use(compress(gzipOptions));
 
 // mongoDB连接地址
 const db = require('./config/keys').mongoURI;
