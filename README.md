@@ -39,7 +39,15 @@ password: 12345678
 如果自己部署必须运行运行init文件夹下的admin.js和profile.js用来初始化博主，否则首页无法正常显示
 
 如果没有挂VPN，头像可能无法正常显示，因为用了gravatar
-
+关于keys.js:config下面是连接数据库的账号和密码
+```
+module.exports = {
+    mongoURI:  process.env.NODE_ENV === 'production' ? 
+        'mongodb://127.0.0.1:27017/gitblog' : 
+        'mongodb+srv://<name>:<password>@cluster0-sd5cp.gcp.mongodb.net/test?retryWrites=true' ,
+    secretOrKey: 'hxskey'
+}
+```
 
 
 ## 文件和使用
