@@ -50,6 +50,25 @@ module.exports = {
 }
 ```
 
+**首页**
+![mark](http://qiniu.hackslog.cn/blog/20190523/IsWmXwYrKRej.png?imageslim)
+
+**文章管理**
+![mark](http://qiniu.hackslog.cn/blog/20190523/7rL9XYlRnkvD.png?imageslim)
+
+**用户列表**
+![mark](http://qiniu.hackslog.cn/blog/20190523/Tb1we6YhdUeu.png?imageslim)
+
+**文章发布**
+![mark](http://qiniu.hackslog.cn/blog/20190523/EzYu4eLB3NCW.png?imageslim)
+
+**文章详情**
+![mark](http://qiniu.hackslog.cn/blog/20190523/Yy6e41FICFSA.png?imageslim)
+
+**个人信息管理**
+![mark](http://qiniu.hackslog.cn/blog/20190523/9la1uaMQTmay.png?imageslim)
+
+
 
 ## 文件和使用
 * bin server根目录，www.js是入口文件
