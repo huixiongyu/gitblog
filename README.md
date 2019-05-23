@@ -685,7 +685,7 @@ window.open(routeData.href, '_blank');
   * 禁用sourceMap
 
 ```
-npm install webpack-bundle-analyzer –save-dev
+npm install webpack-bundle-analyzer --save-dev
 
 //vue.config.js
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
@@ -709,7 +709,7 @@ configureWebpack: config => {
       }
     }
 
-//配置运行命令
+//配置运行命令,如果没有cross-env需要自己安装
 "analyz": "cross-env NODE_ENV=production npm_config_report=true npm run build"
 
 npm run analyz
@@ -844,6 +844,17 @@ location ~* ^.+\.(css|js|txt|xml|swf|wav)$ {
 location ~* ^.+\.(html|htm)$ {
      expires 1h;
 }
+
+```
+* koa2开启压缩 `npm install koa-compress --save` 
+
+```
+const koa = require('koa');
+const compress = require('koa-compress');
+const app = koa();
+
+const options = { threshold: 2048 };
+app.use(compress(options));
 
 ```
 
