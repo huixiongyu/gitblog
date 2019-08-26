@@ -18,6 +18,9 @@ Github like blog, hexo theme from https://sabrinaluo.github.io/tech/
 * Nuxt.js + lin-koa-cms + MongoDB完成2.0版本
 * TypeScript重构Nuxt.js
 * 使用Nest.js替换Koa, TypeScript写后端
+* 使用前端测试框架Jest
+* 使用自动化部署工具Jekins
+* 使用七牛云备份自己的代码和数据
 
 
 
